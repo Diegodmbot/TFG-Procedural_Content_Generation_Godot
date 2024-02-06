@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bk74ct5woa17k"]
+
+[ext_resource type="TileSet" uid="uid://bypspmxhk88fu" path="res://resources/64-bitsTileSet.tres" id="1_dvpmr"]
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_e6wrf"]
+[ext_resource type="PackedScene" uid="uid://3dyvttmpwpb5" path="res://scenes/random_walker_component.tscn" id="1_j0hod"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_e6wrf")
+
+[node name="RandomWalkerComponent" parent="." instance=ExtResource("1_j0hod")]
+borders = Rect2(64, 64, 1024, 512)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_dvpmr")
+format = 2

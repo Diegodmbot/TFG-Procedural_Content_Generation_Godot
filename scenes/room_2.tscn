@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://pc3c1a8h2ugk"]
+
+[ext_resource type="Script" path="res://scenes/room_2.gd" id="1_s1cog"]
+[ext_resource type="TileSet" uid="uid://doy775txj6olx" path="res://resources/BasicTileSet.tres" id="1_s5hfr"]
+[ext_resource type="PackedScene" uid="uid://c2iptd4x1otfs" path="res://scenes/voronoi_diagram_component.tscn" id="2_trdyc"]
+
+[node name="Room2" type="Node2D"]
+script = ExtResource("1_s1cog")
+
+[node name="TileMapEmpty" type="TileMap" parent="."]
+tile_set = ExtResource("1_s5hfr")
+format = 2
+layer_0/name = "floor"
+layer_1/name = "walls"
+layer_1/navigation_enabled = false
+layer_1/tile_data = PackedInt32Array()
+
+[node name="VoronoiDiagramComponent" parent="." instance=ExtResource("2_trdyc")]
+points_limit = 24
+borders = Rect2(0, 0, 100, 100)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(0.5, 0.5)

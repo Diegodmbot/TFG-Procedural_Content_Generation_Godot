@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2iptd4x1otfs"]
+
+[ext_resource type="Script" path="res://scenes/VoronoiDiagramComponent.gd" id="1_kp4kh"]
+
+[node name="VoronoiDiagramComponent" type="Node"]
+script = ExtResource("1_kp4kh")
