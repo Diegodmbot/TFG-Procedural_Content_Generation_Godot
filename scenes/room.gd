@@ -1,25 +1,30 @@
 extends Node2D
+class_name Room
 
-@onready var random_walker_component = $RandomWalkerComponent
-@onready var tile_map_empty = $TileMapEmpty
-@onready var player = $Player
-@onready var camera_2d = $Camera2D
-
-var map: Array[Vector2]
-
-
-func _ready():
-	randomize()
-	tile_map_empty.clear()
-	player.position = Vector2(8,8)
-	generate_room_drunkard()
+var id: int
+var coords: Vector2
+var citizens: Array
+var adjacent_rooms: Array[int]
+var walls = []
 
 
-func generate_room_drunkard():
-	map = random_walker_component.drunkard_walk()
-	tile_map_empty.set_cells_terrain_connect(0, map, 0, 0, true)
-	var walls = random_walker_component.get_walls()
-	tile_map_empty.set_cells_terrain_connect(1, walls, 0, 1, true)
-	var doors = random_walker_component.get_doors()
-	tile_map_empty.set_cell(1,doors, 0, Vector2i(0,0))
+func _init(id: int, coords: Vector2, citizens: Array):
+	self.id = id
+	self.coords = coords
+	self.citizens = citizens
 
+
+func set_walls():
+	for point in citizens:
+		for i in 8:
+			var rotation = (i+1)*PI/4
+			var wall = point + Vector2.RIGHT.rotated(rotation).round()
+			if not citizens.has(wall):
+				walls.append({"id": self.id, "coords" : wall})
+
+
+func get_walls():
+	var walls_coords = []
+	for wall in walls:
+		walls_coords.append(wall["coords"])
+	return walls_coords

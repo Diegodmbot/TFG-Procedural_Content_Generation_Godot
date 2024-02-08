@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhd0gvor64v7u"]
+
+[ext_resource type="Script" path="res://scenes/map.gd" id="1_f80va"]
+[ext_resource type="PackedScene" uid="uid://c2iptd4x1otfs" path="res://scenes/voronoi_diagram_component.tscn" id="2_2lup3"]
+[ext_resource type="TileSet" uid="uid://doy775txj6olx" path="res://resources/BasicTileSet.tres" id="3_8pvyh"]
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_f80va")
+
+[node name="VoronoiDiagramComponent" parent="." instance=ExtResource("2_2lup3")]
+borders = Rect2(0, 0, 100, 100)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_8pvyh")
+format = 2
+layer_0/name = "Ground"
+layer_1/name = "Mark"
+layer_1/tile_data = PackedInt32Array()
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-640, -256)
+anchor_mode = 0
+zoom = Vector2(0.7, 0.7)

@@ -1,27 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bk74ct5woa17k"]
+[gd_scene load_steps=2 format=3 uid="uid://cun3ysv1127yc"]
 
 [ext_resource type="Script" path="res://scenes/room.gd" id="1_2xd1g"]
-[ext_resource type="PackedScene" uid="uid://3dyvttmpwpb5" path="res://scenes/random_walker_component.tscn" id="2_886gb"]
-[ext_resource type="TileSet" uid="uid://doy775txj6olx" path="res://resources/BasicTileSet.tres" id="3_pr6h4"]
-[ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="4_6p0g1"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_2xd1g")
-
-[node name="RandomWalkerComponent" parent="." instance=ExtResource("2_886gb")]
-borders = Rect2(0, 0, 500, 500)
-tiles_limit = 300
-
-[node name="TileMapEmpty" type="TileMap" parent="."]
-tile_set = ExtResource("3_pr6h4")
-format = 2
-layer_0/name = "floor"
-layer_1/name = "walls"
-layer_1/navigation_enabled = false
-layer_1/tile_data = PackedInt32Array()
-
-[node name="Player" parent="." instance=ExtResource("4_6p0g1")]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-80, -64)
-anchor_mode = 0

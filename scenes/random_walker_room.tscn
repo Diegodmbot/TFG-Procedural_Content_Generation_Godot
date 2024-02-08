@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk74ct5woa17k"]
+
+[ext_resource type="Script" path="res://scenes/random_walker_room.gd" id="1_k21sh"]
+[ext_resource type="PackedScene" uid="uid://3dyvttmpwpb5" path="res://scenes/random_walker_component.tscn" id="2_6p7cn"]
+[ext_resource type="TileSet" uid="uid://doy775txj6olx" path="res://resources/BasicTileSet.tres" id="3_8dygl"]
+[ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="4_mdraq"]
+
+[node name="RandomWalkerRoom" type="Node2D"]
+script = ExtResource("1_k21sh")
+
+[node name="RandomWalkerComponent" parent="." instance=ExtResource("2_6p7cn")]
+borders = Rect2(0, 0, 500, 500)
+tiles_limit = 300
+
+[node name="TileMapEmpty" type="TileMap" parent="."]
+tile_set = ExtResource("3_8dygl")
+format = 2
+layer_0/name = "floor"
+layer_1/name = "walls"
+layer_1/navigation_enabled = false
+layer_1/tile_data = PackedInt32Array()
+
+[node name="Player" parent="." instance=ExtResource("4_mdraq")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-80, -64)
+anchor_mode = 0

@@ -1,8 +1,8 @@
 extends Node2D
 
 
-var random_walk_scene = preload("res://scenes/room.tscn")
-var voronoi_diagram_scene = preload("res://scenes/room_2.tscn")
+var random_walk_scene = preload("res://scenes/random_walker_room.tscn")
+var voronoi_diagram_scene = preload("res://scenes/voronoi_room.tscn")
 
 func _on_button_pressed():
 	clear()
