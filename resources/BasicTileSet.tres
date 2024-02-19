@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://doy775txj6olx"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://doy775txj6olx"]
 
 [ext_resource type="Texture2D" uid="uid://dtjly41cvvg4p" path="res://assets/SimpleTiles.png" id="1_kblpw"]
 [ext_resource type="Texture2D" uid="uid://srwtpf1iduxs" path="res://assets/unnamed.png" id="2_15brt"]
 [ext_resource type="Texture2D" uid="uid://cquddmav7hgs1" path="res://assets/border.png" id="3_elf55"]
+[ext_resource type="Texture2D" uid="uid://c5ikxchpg6dqj" path="res://assets/Sprite-0001.png" id="4_mokec"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gh201"]
 texture = ExtResource("1_kblpw")
@@ -109,6 +110,12 @@ texture = ExtResource("3_elf55")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qroai"]
+texture = ExtResource("4_mokec")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
 [resource]
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 2
@@ -121,3 +128,4 @@ terrain_set_0/terrain_2/color = Color(0.960784, 0.937255, 0.941176, 1)
 sources/0 = SubResource("TileSetAtlasSource_gh201")
 sources/1 = SubResource("TileSetAtlasSource_oo134")
 sources/2 = SubResource("TileSetAtlasSource_pysth")
+sources/6 = SubResource("TileSetAtlasSource_qroai")

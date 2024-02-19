@@ -8,6 +8,7 @@
 script = ExtResource("1_f80va")
 
 [node name="VoronoiDiagramComponent" parent="." instance=ExtResource("2_2lup3")]
+points_limit = 10
 borders = Rect2(0, 0, 100, 100)
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -17,7 +18,4 @@ layer_0/name = "Ground"
 layer_1/name = "Mark"
 layer_1/tile_data = PackedInt32Array()
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-640, -256)
-anchor_mode = 0
-zoom = Vector2(0.7, 0.7)
+[node name="Rooms" type="Node2D" parent="."]
