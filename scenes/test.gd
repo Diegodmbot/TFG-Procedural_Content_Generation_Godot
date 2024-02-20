@@ -2,6 +2,8 @@ extends Node2D
 
 
 func _ready():
-	var arr: Array[Array]
-	arr.append([Vector2.ZERO,Vector2.ONE])
-	print(arr[0][1])
+	var a = Vector2(0,0)
+	var b = Vector2(1,0)
+	var c = Vector2(1,1)
+	print(a.distance_to(b))
+	print(a.distance_to(c))

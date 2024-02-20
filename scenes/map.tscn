@@ -8,14 +8,16 @@
 script = ExtResource("1_f80va")
 
 [node name="VoronoiDiagramComponent" parent="." instance=ExtResource("2_2lup3")]
-points_limit = 10
+points_limit = 20
 borders = Rect2(0, 0, 100, 100)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_8pvyh")
 format = 2
 layer_0/name = "Ground"
-layer_1/name = "Mark"
+layer_1/name = "Walls"
 layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Doors"
+layer_2/tile_data = PackedInt32Array()
 
 [node name="Rooms" type="Node2D" parent="."]
