@@ -29,12 +29,12 @@ func generate_walls():
 		room.set_area_borders()
 
 
-# Para reducir la complejidad del algoritmo se puede quitar la linea "for other_room in rooms.get_children():"
-# del segundo para que no se compruebe la vecindad de las habitaciones dos veces. Con un solo bucle se comprobaría
-# que habitaciones siguientes son vecinas de la actual
 func find_adjacent_rooms():
-	for room in rooms.get_children():
-		for other_room in rooms.get_children():
+	var instanced_rooms = rooms.get_children()
+	for i in instanced_rooms.size():
+		var room = instanced_rooms[i]
+		for j in range(i + 1, instanced_rooms.size()):
+			var other_room = instanced_rooms[j]
 			if room != other_room:
 				for wall in room.area_borders:
 					if is_adjacent_point(wall, other_room):
@@ -50,14 +50,10 @@ func is_adjacent_point(point: Vector2, room: Room):
 	return false
 
 
-func create_path():
-	# eliminar algunos de los vecino de cada habitación
-	pass
-
-
 func set_doors():
 	for room in rooms.get_children() as Array[Room]:
 		while room.doors.size() < room.neighbors.size():
+		#for k in 3:
 			var new_door = room.area_borders.pick_random()
 			if map_borders.grow(-1).has_point(new_door):
 				for i in 4:
@@ -65,8 +61,8 @@ func set_doors():
 					var door_entry = new_door + Vector2(1,0).rotated(direction).round()
 					var door_exit = new_door + Vector2(2,0).rotated(direction + PI).round()
 					if is_ground(door_entry) and is_ground(door_exit) and not room.doors.has({"room_id": room.id, "coords": new_door}):
-						#room.add_avaible_door_position(room.id, new_door)
 						room.doors.append({"room_id": room.id, "coords": new_door, "entry": door_entry, "exit": door_exit})
+						#room.add_door(room.id, new_door)
 
 
 func is_ground(point: Vector2):
@@ -79,15 +75,6 @@ func is_ground(point: Vector2):
 					return true
 
 
-func is_next_to_ground(room: Room, wall: Vector2):
-	for i in 4:
-		var direction = (i+1)*PI/2
-		var neighbor = wall + Vector2.RIGHT.rotated(direction).round()
-		if room.citizens.has(neighbor) and not room.area_borders.has(neighbor):
-			return true
-	return false
-
-
 func draw_map():
 	for room in rooms.get_children():
 		var tile_coords = Vector2(room.id,3)
@@ -95,12 +82,7 @@ func draw_map():
 			tile_map.set_cell(0, citizen, 1, tile_coords)
 		for wall in room.area_borders:
 			tile_map.set_cell(1, wall, 6, Vector2(0,0))
-		#for wall in room.get_posible_doors_position():
-			#for door in wall["walls"]:
-				#tile_map.set_cell(2, door, 2, Vector2(0,0))
 		for wall in room.doors:
 			tile_map.set_cell(2, wall["coords"], 2, Vector2(0,0))
 			tile_map.set_cell(2, wall["entry"], 2, Vector2(0,0))
 			tile_map.set_cell(2, wall["exit"], 2, Vector2(0,0))
-		#for wall in room.area_borders:
-			#tile_map.set_cell(2, wall, 2, Vector2(0,0))

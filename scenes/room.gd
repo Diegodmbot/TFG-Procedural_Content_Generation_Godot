@@ -33,10 +33,13 @@ func set_area_borders():
 				area_borders.append(point)
 
 
-#func get_posible_doors_position():
-	#return avaible_door_positions
-#
-#
+func add_door(room_id: int, coords: Vector2):
+	for door in doors:
+		if door["room_id"] == room_id:
+			return
+	var new_entry = {"room_id": room_id, "coords": coords}
+	doors.append(new_entry)
+
 #func add_avaible_door_position(room_id: int, wall: Vector2):
 	#var room_found = false
 	#for room in avaible_door_positions:
