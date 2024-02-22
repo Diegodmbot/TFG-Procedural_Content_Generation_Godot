@@ -28,7 +28,6 @@ func set_area_borders():
 	for point in citizens:
 		for i in 4:
 			var rotation_radians = (i+1)*PI/2
-			#var rotation_radians = (i+1)*PI/4
 			var wall = point + Vector2.RIGHT.rotated(rotation_radians).round()
 			if not citizens.has(wall) and not area_borders.has(point):
 				area_borders.append(point)
