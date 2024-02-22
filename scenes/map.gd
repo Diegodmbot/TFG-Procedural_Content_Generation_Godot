@@ -56,17 +56,34 @@ func create_path():
 
 
 func set_doors():
-	for room in rooms.get_children():
-		for wall in room.area_borders as Array[Vector2]:
-			if map_borders.grow(-1).has_point(wall) and is_next_to_ground(room, wall):
-				room.add_avaible_door_position(room.id, wall)
+	for room in rooms.get_children() as Array[Room]:
+		while room.doors.size() < room.neighbors.size():
+			var new_door = room.area_borders.pick_random()
+			if map_borders.grow(-1).has_point(new_door):
+				for i in 4:
+					var direction = (i+1)*PI/2
+					var door_entry = new_door + Vector2(1,0).rotated(direction).round()
+					var door_exit = new_door + Vector2(2,0).rotated(direction + PI).round()
+					if is_ground(door_entry) and is_ground(door_exit) and not room.doors.has({"room_id": room.id, "coords": new_door}):
+						#room.add_avaible_door_position(room.id, new_door)
+						room.doors.append({"room_id": room.id, "coords": new_door, "entry": door_entry, "exit": door_exit})
+
+
+func is_ground(point: Vector2):
+	for room in rooms.get_children() as Array[Room]:
+		for cityzen in room.citizens:
+			if cityzen == point:
+				if room.area_borders.has(point):
+					return false
+				else:
+					return true
 
 
 func is_next_to_ground(room: Room, wall: Vector2):
 	for i in 4:
 		var direction = (i+1)*PI/2
 		var neighbor = wall + Vector2.RIGHT.rotated(direction).round()
-		if room.citizens.has(neighbor) and not room.area_borders.has(neighbor) :
+		if room.citizens.has(neighbor) and not room.area_borders.has(neighbor):
 			return true
 	return false
 
@@ -78,8 +95,12 @@ func draw_map():
 			tile_map.set_cell(0, citizen, 1, tile_coords)
 		for wall in room.area_borders:
 			tile_map.set_cell(1, wall, 6, Vector2(0,0))
-		for wall in room.get_posible_doors_position():
-			for door in wall["walls"]:
-				tile_map.set_cell(2, door, 2, Vector2(0,0))
+		#for wall in room.get_posible_doors_position():
+			#for door in wall["walls"]:
+				#tile_map.set_cell(2, door, 2, Vector2(0,0))
+		for wall in room.doors:
+			tile_map.set_cell(2, wall["coords"], 2, Vector2(0,0))
+			tile_map.set_cell(2, wall["entry"], 2, Vector2(0,0))
+			tile_map.set_cell(2, wall["exit"], 2, Vector2(0,0))
 		#for wall in room.area_borders:
 			#tile_map.set_cell(2, wall, 2, Vector2(0,0))

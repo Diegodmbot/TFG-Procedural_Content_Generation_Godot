@@ -8,7 +8,7 @@ var coords: Vector2
 var citizens: Array
 var area_borders = []
 var neighbors = []
-var avaible_door_positions: Array[Dictionary] # {"room_id": int, "walls": Array[Vector2]}
+#var avaible_door_positions: Array[Dictionary] # {"room_id": int, "walls": Array[Vector2]}
 var doors: Array[Dictionary] # {"room_id": int, "coords": Vector2}
 
 
@@ -33,19 +33,19 @@ func set_area_borders():
 				area_borders.append(point)
 
 
-func get_posible_doors_position():
-	return avaible_door_positions
-
-
-func add_avaible_door_position(room_id: int, wall: Vector2):
-	var room_found = false
-	for room in avaible_door_positions:
-		if room["room_id"] == room_id:
-			room_found = true
-			room["walls"].append(wall)
-	if room_found == false:
-		var new_room = {"room_id": room_id, "walls": Array([wall])}
-		avaible_door_positions.append(new_room)
+#func get_posible_doors_position():
+	#return avaible_door_positions
+#
+#
+#func add_avaible_door_position(room_id: int, wall: Vector2):
+	#var room_found = false
+	#for room in avaible_door_positions:
+		#if room["room_id"] == room_id:
+			#room_found = true
+			#room["walls"].append(wall)
+	#if room_found == false:
+		#var new_room = {"room_id": room_id, "walls": Array([wall])}
+		#avaible_door_positions.append(new_room)
 
 
 func set_door(room_id: int, coords: Vector2):
