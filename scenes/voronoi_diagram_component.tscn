@@ -4,3 +4,4 @@
 
 [node name="VoronoiDiagramComponent" type="Node"]
 script = ExtResource("1_kp4kh")
+borders = Rect2(0, 0, 100, 100)

@@ -40,16 +40,6 @@ func add_door(room_id: int, coords: Vector2):
 	var new_entry = {"room_id": room_id, "coords": coords}
 	doors.append(new_entry)
 
-#func add_avaible_door_position(room_id: int, wall: Vector2):
-	#var room_found = false
-	#for room in avaible_door_positions:
-		#if room["room_id"] == room_id:
-			#room_found = true
-			#room["walls"].append(wall)
-	#if room_found == false:
-		#var new_room = {"room_id": room_id, "walls": Array([wall])}
-		#avaible_door_positions.append(new_room)
-
 
 func set_door(room_id: int, coords: Vector2):
 	doors.append({"room_id": room_id, "coords": coords})

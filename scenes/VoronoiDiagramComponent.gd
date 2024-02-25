@@ -1,5 +1,7 @@
 extends Node
 
+const DISTANCE_TO_POINT = 10
+
 @export var points_limit = 4
 @export var borders = Rect2(Vector2.ZERO, Vector2(30,30))
 var points: Array = []
@@ -24,12 +26,12 @@ func voronoi_diagram():
 func can_be_point(point: Vector2):
 	if points.has(point):
 		return false
-	if point.x < 5 or point.x > borders.end.x - 5:
+	if point.x < DISTANCE_TO_POINT or point.x > borders.end.x - DISTANCE_TO_POINT:
 		return false
-	if point.y < 5 or point.y > borders.end.y - 5:
+	if point.y < DISTANCE_TO_POINT or point.y > borders.end.y - DISTANCE_TO_POINT:
 		return false
 	for current_point in points:
-		if point.distance_to(current_point["coords"]) < 5:
+		if point.distance_to(current_point["coords"]) < DISTANCE_TO_POINT:
 			return false
 	return true
 

@@ -39,6 +39,7 @@ func find_adjacent_rooms():
 				for wall in room.area_borders:
 					if is_adjacent_point(wall, other_room):
 						room.add_neighbor(other_room.id)
+						other_room.add_neighbor(room.id)
 						break
 
 
@@ -51,18 +52,24 @@ func is_adjacent_point(point: Vector2, room: Room):
 
 
 func set_doors():
-	for room in rooms.get_children() as Array[Room]:
+	var instanced_rooms = rooms.get_children()
+	for room in instanced_rooms as Array[Room]:
+		var unexplored_borders = room.area_borders.duplicate()
 		while room.doors.size() < room.neighbors.size():
-		#for k in 3:
-			var new_door = room.area_borders.pick_random()
+			var new_door = unexplored_borders.pick_random()
+			unexplored_borders.erase(new_door)
+			if unexplored_borders.size() < 1:
+				break
 			if map_borders.grow(-1).has_point(new_door):
 				for i in 4:
 					var direction = (i+1)*PI/2
 					var door_entry = new_door + Vector2(1,0).rotated(direction).round()
 					var door_exit = new_door + Vector2(2,0).rotated(direction + PI).round()
 					if is_ground(door_entry) and is_ground(door_exit) and not room.doors.has({"room_id": room.id, "coords": new_door}):
-						room.doors.append({"room_id": room.id, "coords": new_door, "entry": door_entry, "exit": door_exit})
-						#room.add_door(room.id, new_door)
+						var exit_room = get_room_by_coord(door_exit)
+						room.add_door(exit_room.id, new_door)
+						exit_room.add_door(room.id, new_door + ((door_exit - new_door)/2))
+						break
 
 
 func is_ground(point: Vector2):
@@ -75,6 +82,13 @@ func is_ground(point: Vector2):
 					return true
 
 
+
+func  get_room_by_coord(coord: Vector2):
+	for room in rooms.get_children() as Array[Room]:
+		if room.citizens.has(coord):
+			return room
+
+
 func draw_map():
 	for room in rooms.get_children():
 		var tile_coords = Vector2(room.id,3)
@@ -84,5 +98,3 @@ func draw_map():
 			tile_map.set_cell(1, wall, 6, Vector2(0,0))
 		for wall in room.doors:
 			tile_map.set_cell(2, wall["coords"], 2, Vector2(0,0))
-			tile_map.set_cell(2, wall["entry"], 2, Vector2(0,0))
-			tile_map.set_cell(2, wall["exit"], 2, Vector2(0,0))
