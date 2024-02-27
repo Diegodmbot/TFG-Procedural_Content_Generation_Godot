@@ -2,17 +2,19 @@ extends Node2D
 class_name Room
 
 @onready var label = %Label
+@onready var random_walker_component = $RandomWalkerComponent
+@onready var multi_random_walker_component = $MultiRandomWalkerComponent
 
 var id: int
 var coords: Vector2
 var citizens: Array
 var area_borders = []
 var neighbors = []
-#var avaible_door_positions: Array[Dictionary] # {"room_id": int, "walls": Array[Vector2]}
 var doors: Array[Dictionary] # {"room_id": int, "coords": Vector2}
+var tile_coords = []
 
 
-func set_room(id: int, coords: Vector2, citizens: Array):
+func init_room(id: int, coords: Vector2, citizens: Array):
 	self.id = id
 	self.coords = coords
 	self.citizens = citizens
@@ -41,5 +43,23 @@ func add_door(room_id: int, coords: Vector2):
 	doors.append(new_entry)
 
 
-func set_door(room_id: int, coords: Vector2):
-	doors.append({"room_id": room_id, "coords": coords})
+func generate_tiles_map():
+	var avaible_tiles = subtract_array(citizens, area_borders)
+	#for door in doors:
+		#var ground_tiles = random_walker_component.drunkard_walk(door["coords"], avaible_tiles)
+		#tile_coords.append_array(ground_tiles)
+	#var door_positions = doors.filter(func(door): return door["coords"])
+	var door_positions = []
+	for door in doors:
+		door_positions.append(door["coords"])
+	var ground_tiles = multi_random_walker_component.drunkard_walk(door_positions, avaible_tiles)
+	tile_coords.append_array(ground_tiles)
+
+
+func subtract_array(from: Array, subarray: Array):
+	var result = []
+	for value in from:
+		if not subarray.has(value):
+			result.append(value)
+	return result
+

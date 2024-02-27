@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://f6y4josj5ch4"]
+
+[ext_resource type="Script" path="res://scenes/multi_random_walker_component.gd" id="1_en8uy"]
+
+[node name="MultiRandomWalkerComponent" type="Node"]
+script = ExtResource("1_en8uy")
