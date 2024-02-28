@@ -2,9 +2,10 @@ extends Node2D
 
 
 func _ready():
-	var a = [1,2,3,4]
-	var b = [2,4]
-	print(subtract_array(a, b))
+	print(Time.get_ticks_msec())
+	await get_tree().create_timer(1).timeout
+	print(Time.get_ticks_msec())
+
 
 func subtract_array(from: Array, sub_array: Array):
 	var result = []

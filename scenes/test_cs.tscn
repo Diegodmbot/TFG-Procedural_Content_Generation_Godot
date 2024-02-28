@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://88etdc36cfcc"]
+
+[ext_resource type="Script" path="res://scenes/testCS.cs" id="1_8flm3"]
+
+[node name="testCS" type="Node"]
+script = ExtResource("1_8flm3")
+
+[node name="subnode" type="Node2D" parent="."]
+
+[node name="testLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "test
+"

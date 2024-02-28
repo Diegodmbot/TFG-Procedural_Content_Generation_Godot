@@ -15,7 +15,7 @@ func _ready():
 	find_adjacent_rooms()
 	set_doors()
 	for room in rooms.get_children() as Array[Room]:
-		room.generate_tiles_map()
+		room.generate_tiles_map_multi_2()
 	draw_map()
 	print(Time.get_ticks_msec() - start_time)
 

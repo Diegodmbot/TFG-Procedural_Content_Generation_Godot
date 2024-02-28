@@ -4,6 +4,7 @@ class_name Room
 @onready var label = %Label
 @onready var random_walker_component = $RandomWalkerComponent
 @onready var multi_random_walker_component = $MultiRandomWalkerComponent
+@onready var multi_random_walker_component_CS = $MultiRandomWalkerComponentCS
 
 var id: int
 var coords: Vector2
@@ -45,14 +46,28 @@ func add_door(room_id: int, coords: Vector2):
 
 func generate_tiles_map():
 	var avaible_tiles = subtract_array(citizens, area_borders)
-	#for door in doors:
-		#var ground_tiles = random_walker_component.drunkard_walk(door["coords"], avaible_tiles)
-		#tile_coords.append_array(ground_tiles)
+	for door in doors:
+		var ground_tiles = random_walker_component.drunkard_walk(door["coords"], avaible_tiles)
+		tile_coords.append_array(ground_tiles)
+
+
+func generate_tiles_map_multi():
+	var avaible_tiles = subtract_array(citizens, area_borders)
 	#var door_positions = doors.filter(func(door): return door["coords"])
 	var door_positions = []
 	for door in doors:
 		door_positions.append(door["coords"])
 	var ground_tiles = multi_random_walker_component.drunkard_walk(door_positions, avaible_tiles)
+	tile_coords.append_array(ground_tiles)
+
+
+func generate_tiles_map_multi_CS():
+	var avaible_tiles = subtract_array(citizens, area_borders)
+	#var door_positions = doors.filter(func(door): return door["coords"])
+	var door_positions = []
+	for door in doors:
+		door_positions.append(door["coords"])
+	var ground_tiles = multi_random_walker_component_CS.drunkard_walk(door_positions, avaible_tiles)
 	tile_coords.append_array(ground_tiles)
 
 

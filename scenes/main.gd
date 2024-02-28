@@ -1,9 +1,9 @@
 extends Node2D
 
 
-var random_walk_scene = preload("res://scenes/random_walker_room.tscn")
-var voronoi_diagram_scene = preload("res://scenes/voronoi_room.tscn")
 var map_scene = preload("res://scenes/map.tscn")
+var map2_scene = preload("res://scenes/map2.tscn")
+var voronoi_diagram_scene = preload("res://scenes/voronoi_room.tscn")
 
 func clear():
 	for node in $Rooms.get_children():
@@ -12,14 +12,8 @@ func clear():
 
 func _on_button_pressed():
 	clear()
-	var random_walk_instance = random_walk_scene.instantiate()
-	$Rooms.add_child(random_walk_instance)
-
-
-func _on_button_2_pressed():
-	clear()
-	var voronoi_instance = voronoi_diagram_scene.instantiate()
-	$Rooms.add_child(voronoi_instance)
+	var map2_instance = map2_scene.instantiate()
+	$Rooms.add_child(map2_instance)
 
 
 func _on_button_3_pressed():
