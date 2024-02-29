@@ -5,7 +5,7 @@ const DISTANCE_TO_POINT = 10
 @export var points_limit = 4
 @export var borders = Rect2(Vector2.ZERO, Vector2(30,30))
 var points: Array = []
-var map: Array[Vector2] = []
+
 
 func _ready():
 	while points.size() < points_limit:

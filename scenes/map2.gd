@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var voronoi_diagram_component = $VoronoiDiagramComponent
+@onready var voronoi_diagram_component_cs = $VoronoiDiagramComponentCS
 @onready var tile_map = $TileMap
 @onready var rooms = $Rooms
 
@@ -9,7 +10,7 @@ var map_borders: Rect2
 
 func _ready():
 	var start_time = Time.get_ticks_msec()
-	map_borders = voronoi_diagram_component.borders
+	map_borders = voronoi_diagram_component_cs.borders
 	generate_rooms()
 	generate_borders()
 	find_adjacent_rooms()
@@ -21,7 +22,7 @@ func _ready():
 
 
 func generate_rooms():
-	var map = voronoi_diagram_component.voronoi_diagram()
+	var map = voronoi_diagram_component_cs.VoronoiDiagram()
 	for room in map:
 		var room_instance = room_scene.instantiate()
 		rooms.add_child(room_instance)
