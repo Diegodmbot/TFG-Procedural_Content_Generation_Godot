@@ -18,7 +18,3 @@ func generate_voronoi_diagram():
 		tile_map_empty.set_cell(1, point["coords"], 2, Vector2(0,0))
 		for citizen in point["citizens"]:
 			tile_map_empty.set_cell(0, citizen, 1, tile_coords)
-
-
-func _on_button_pressed():
-	get_tree().reload_current_scene()

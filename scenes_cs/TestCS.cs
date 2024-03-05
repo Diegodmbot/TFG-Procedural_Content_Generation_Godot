@@ -1,17 +1,18 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Collections.Generic;
 
 public partial class TestCS : Node
 {
   public override void _Ready()
   { 
-    GD.Print("Voronoi");
-    VoronoiDiagram voronoi = GetNode<VoronoiDiagram>("VoronoiDiagram");
-    Array<Dictionary> points = voronoi.BuildVoronoiDiagram();
-    foreach (Dictionary point in points)
+    GD.Print("Hello from C#!");
+    VoronoiDiagram voronoiDiagram = new VoronoiDiagram();
+    var map = voronoiDiagram.BuildVoronoiDiagram(new Vector2(100, 100));
+    foreach (Dictionary point in map)
     {
-      GD.Print("Point: ", point["id"], " at ", point["coords"]);
+      GD.Print("Point: ", point["id"], " at ", ((Godot.Collections.Array)point["citizens"])[0]);
     }
   }
 }

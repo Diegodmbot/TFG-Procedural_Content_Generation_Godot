@@ -8,7 +8,6 @@ var room_scene = preload("res://scenes/room.tscn")
 var map_borders: Rect2
 
 func _ready():
-	var start_time = Time.get_ticks_msec()
 	map_borders = voronoi_diagram_component.borders
 	generate_rooms()
 	generate_borders()
@@ -17,7 +16,6 @@ func _ready():
 	for room in rooms.get_children() as Array[Room]:
 		room.generate_tiles_map()
 	draw_map()
-	print(Time.get_ticks_msec() - start_time)
 
 
 func generate_rooms():

@@ -1,32 +1,31 @@
 using Godot;
 using Godot.Collections;
 using System;
-using System.Collections.Generic;
 
 
 public partial class VoronoiDiagram : Node
 {
-	[Export] private Rect2 Borders { get; set; } = new Rect2(Vector2.Zero, new Vector2(100, 100));
-	[Export] private int POINTS_LIMIT { get; set; } = 20;
+	[Export] private int PointsLimit { get; set; } = 20;
+	[Export] private int PistanceToPoint { get; set; } = 10;
 	
-	const int DISTANCE_TO_POINT = 10;
+	Vector2 borders = new(100, 100);
 	Array<Dictionary> points = [];
 
-	public Array<Dictionary> BuildVoronoiDiagram() {
-		Vector2I rectEnd = (Vector2I)Borders.End;
-		int counter = 0;
-		while (counter < POINTS_LIMIT) {
-			Vector2 random_point = new(GD.Randi() % rectEnd.X, GD.Randi() % rectEnd.Y);
+	public Array<Dictionary> BuildVoronoiDiagram(Vector2 newBorders) {
+		borders = newBorders;
+		int id = 0;
+		while (id < PointsLimit) {
+			Vector2 random_point = new(GD.Randi() % borders.X, GD.Randi() % borders.Y);
 			if (CanBePoint(random_point)) {
 				points.Add(new Dictionary {
-					{ "id", counter++ },
-					{ "coords", random_point },
-					{ "citizens", new Array<Vector2>() }
+					{ "id", id++ },
+					// El primer elemento de los vecinos es el punto mismo
+					{ "citizens", new Array<Vector2> { random_point }},
 				});
 			}
 		}
-		for (int i = 0; i < rectEnd.X; i++) {
-			for (int j = 0; j < rectEnd.Y; j++) {
+		for (int i = 0; i < borders.X; i++) {
+			for (int j = 0; j < borders.Y; j++) {
 				Vector2 citizen = new(i, j);
 				int point_id = GetNearestPointTo(citizen);
 				((Array<Vector2>)points[point_id]["citizens"]).Add(citizen);
@@ -38,16 +37,13 @@ public partial class VoronoiDiagram : Node
 	public bool CanBePoint(Vector2 point) {
 		// check if the point is not too close to the other points
 		foreach (Dictionary current_point in points) {
-			if (((Vector2)current_point["coords"]).Equals(point)) {
-				return false;
-			}
-			if (point.DistanceTo((Vector2)current_point["coords"]) < DISTANCE_TO_POINT) {
+			if (point.DistanceTo(((Array<Vector2>)current_point["citizens"])[0]) < PistanceToPoint) {
 				return false;
 			}
 		}
 		// check if the point is inside the borders
-		if (point.X < DISTANCE_TO_POINT || point.X > Borders.End.X - DISTANCE_TO_POINT ||
-			point.Y < DISTANCE_TO_POINT || point.Y > Borders.End.Y - DISTANCE_TO_POINT)
+		if (point.X < PistanceToPoint || point.X > borders.X - PistanceToPoint ||
+			point.Y < PistanceToPoint || point.Y > borders.Y - PistanceToPoint)
 		{
 			return false;
 		}
@@ -57,12 +53,13 @@ public partial class VoronoiDiagram : Node
 	public int GetNearestPointTo(Vector2 pointB) {
 		int lowest_id = 0;
 		// distance to the closest point
-		float lowest_delta = Borders.Area;
-		for (int i = 0; i < points.Count; i++) {
-			float delta = ((Vector2)points[i]["coords"]).DistanceTo(pointB);
+		float lowest_delta = borders.X * borders.Y;
+		foreach (Dictionary point in points)
+		{
+			float delta = ((Array<Vector2>)point["citizens"])[0].DistanceTo(pointB);
 			if (delta < lowest_delta) {
 				lowest_delta = delta;
-				lowest_id = i;
+				lowest_id = (int)point["id"];
 			}
 		}
 		return lowest_id;

@@ -16,8 +16,6 @@ layer_1/navigation_enabled = false
 layer_1/tile_data = PackedInt32Array()
 
 [node name="VoronoiDiagramComponent" parent="." instance=ExtResource("3_ayqk5")]
-points_limit = 24
-borders = Rect2(0, 0, 100, 100)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
