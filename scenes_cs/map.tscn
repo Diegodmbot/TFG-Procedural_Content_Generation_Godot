@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://do0mlkhyc563f"]
+
+[ext_resource type="PackedScene" uid="uid://d3tmn2ptpg2le" path="res://scenes_cs/VoronoiDiagram.tscn" id="1_w2ebh"]
+
+[node name="Map" type="Node2D"]
+
+[node name="VoronoiDiagram" parent="." instance=ExtResource("1_w2ebh")]

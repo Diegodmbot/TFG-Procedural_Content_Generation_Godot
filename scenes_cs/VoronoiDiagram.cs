@@ -6,34 +6,27 @@ using System.Collections.Generic;
 
 public partial class VoronoiDiagram : Node
 {
+	[Export] private Rect2 Borders { get; set; } = new Rect2(Vector2.Zero, new Vector2(100, 100));
+	[Export] private int POINTS_LIMIT { get; set; } = 20;
+	
 	const int DISTANCE_TO_POINT = 10;
-	[Export] 
-	const int POINTS_LIMIT = 20;
-	Rect2 Borders { get; } = new(Vector2.Zero, new Vector2(100, 100));
 	Array<Dictionary> points = [];
 
-	public struct Region {
-		public int id;
-		public Vector2 coords;
-		public Array<Vector2> citizens;
-	}
-
-	public override void _Ready() {
-		for (int i = 0; i < POINTS_LIMIT; i++) {
-			Vector2 random_point = new(GD.Randi() % (int)Borders.End.X, GD.Randi() % (int)Borders.End.Y);
+	public Array<Dictionary> BuildVoronoiDiagram() {
+		Vector2I rectEnd = (Vector2I)Borders.End;
+		int counter = 0;
+		while (counter < POINTS_LIMIT) {
+			Vector2 random_point = new(GD.Randi() % rectEnd.X, GD.Randi() % rectEnd.Y);
 			if (CanBePoint(random_point)) {
 				points.Add(new Dictionary {
-					{ "id", i },
+					{ "id", counter++ },
 					{ "coords", random_point },
 					{ "citizens", new Array<Vector2>() }
 				});
 			}
 		}
-	}
-
-	public Array<Dictionary> BuildVoronoiDiagram() {
-		for (int i = 0; i < (int)Borders.Size.X; i++) {
-			for (int j = 0; j < (int)Borders.Size.Y; j++) {
+		for (int i = 0; i < rectEnd.X; i++) {
+			for (int j = 0; j < rectEnd.Y; j++) {
 				Vector2 citizen = new(i, j);
 				int point_id = GetNearestPointTo(citizen);
 				((Array<Vector2>)points[point_id]["citizens"]).Add(citizen);

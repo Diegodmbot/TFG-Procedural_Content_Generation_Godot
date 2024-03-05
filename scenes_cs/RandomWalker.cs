@@ -11,23 +11,33 @@ public partial class RandomWalker : Node
 	
 	public Array<Vector2> DrunkardWalk(Array<Vector2> initial_positions, Array<Vector2> tiles)
 	{
-		int tiles_limit = 4;
+		int tiles_limit = tiles.Count / 2;
+		Vector2 target_position;
+
 		while (tiles_limit > step_history.Count)
 		{
 			for (int i = 0; i < initial_positions.Count; i++)
 			{
-				var target_position = initial_positions[i] + DIRECTIONS[(int)GD.Randi() % DIRECTIONS.Count];
+				var randomNumber = GD.RandRange(0, 3);
+				target_position = initial_positions[i] + DIRECTIONS[randomNumber];
 				while (!tiles.Contains(target_position))
 				{
-					target_position = initial_positions[i] + DIRECTIONS[(int)GD.Randi() % DIRECTIONS.Count];
+					randomNumber = GD.RandRange(0, 3);
+					target_position = initial_positions[i] + DIRECTIONS[randomNumber];
 				}
 				initial_positions[i] = target_position;
 				if (!step_history.Contains(initial_positions[i]))
 				{
-					step_history.Append(initial_positions[i]);
+					step_history.Add(initial_positions[i]);
         }
 			}
 		}
 		return step_history;
 	}
+
+    internal object DrunkardWalk(Variant variant1, Variant variant2)
+    {
+        throw new NotImplementedException();
+    }
+
 }
