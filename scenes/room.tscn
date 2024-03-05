@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cun3ysv1127yc"]
+[gd_scene load_steps=4 format=3 uid="uid://cun3ysv1127yc"]
 
 [ext_resource type="Script" path="res://scenes/room.gd" id="1_2xd1g"]
 [ext_resource type="PackedScene" uid="uid://3dyvttmpwpb5" path="res://scenes/random_walker_component.tscn" id="2_gu5ph"]
 [ext_resource type="PackedScene" uid="uid://f6y4josj5ch4" path="res://scenes/multi_random_walker_component.tscn" id="3_o0qxi"]
-[ext_resource type="PackedScene" uid="uid://daeg3r470ph24" path="res://scenes/multi_random_walker_component_CS.tscn" id="4_ocyya"]
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_2xd1g")
@@ -18,5 +17,3 @@ text = "0"
 [node name="RandomWalkerComponent" parent="." instance=ExtResource("2_gu5ph")]
 
 [node name="MultiRandomWalkerComponent" parent="." instance=ExtResource("3_o0qxi")]
-
-[node name="MultiRandomWalkerComponentCS" parent="." instance=ExtResource("4_ocyya")]

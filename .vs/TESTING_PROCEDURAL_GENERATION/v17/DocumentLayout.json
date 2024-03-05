@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Diegodm\\Projects\\Testing_Procedural_Generation\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{921C034E-A0D9-4A21-B8AE-E702CA0BED6C}|Testing_Procedural_Generation.csproj|c:\\users\\diegodm\\projects\\testing_procedural_generation\\scenes\\multi_random_walker_component_cs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{921C034E-A0D9-4A21-B8AE-E702CA0BED6C}|Testing_Procedural_Generation.csproj|solutionrelative:scenes\\multi_random_walker_component_cs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "multi_random_walker_component_CS.cs",
+              "DocumentMoniker": "C:\\Users\\Diegodm\\Projects\\Testing_Procedural_Generation\\scenes\\multi_random_walker_component_CS.cs",
+              "RelativeDocumentMoniker": "scenes\\multi_random_walker_component_CS.cs",
+              "ToolTip": "C:\\Users\\Diegodm\\Projects\\Testing_Procedural_Generation\\scenes\\multi_random_walker_component_CS.cs",
+              "RelativeToolTip": "scenes\\multi_random_walker_component_CS.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-29T20:06:13.368Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

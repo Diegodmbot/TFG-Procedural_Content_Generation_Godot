@@ -22,12 +22,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_constants/separation = 70
 
-[node name="Button" type="Button" parent="UI/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-text = "Map CS"
-
 [node name="Button3" type="Button" parent="UI/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -38,6 +32,5 @@ text = "Map GDScript"
 
 [node name="DragCamera" parent="." instance=ExtResource("2_3o0wd")]
 
-[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Button3" to="." method="_on_button_2_pressed"]
