@@ -4,36 +4,48 @@ using System;
 
 public partial class map : Node2D
 {
-	int[,,] structure {get; set;}
+	[Export] private Vector2 Borders { get; set; } = new Vector2(100, 100);
+
+	int[,,] Structure { get; set; }
 	VoronoiDiagram voronoiDiagram;
 	TileMap tileMap;
-	[Export] private Vector2 borders { get; set; } = new Vector2(100, 100);
 
-	
+
 	public override void _Ready()
 	{
-		structure = new int[(int)borders.X, (int)borders.Y, 3];
+		Structure = new int[(int)Borders.X, (int)Borders.Y, 3];
 		voronoiDiagram = GetNode<VoronoiDiagram>("VoronoiDiagram");
 		tileMap = GetNode<TileMap>("TileMap");
 		GenerateRooms();
+		GenerateBorders();
 		drawMap();
 	}
 
-	private void GenerateRooms(){
-		var map = voronoiDiagram.BuildVoronoiDiagram(borders);
-		foreach (Dictionary point in map)
+
+	private void GenerateRooms()
+	{
+		var map = voronoiDiagram.BuildVoronoiDiagram(Borders);
+		for (int i = 0; i < Borders.X; i++)
 		{
-			foreach (Vector2 citizen in (Array<Vector2>)point["citizens"])
+			for (int j = 0; j < Borders.Y; j++)
 			{
-				structure[(int)citizen.X, (int)citizen.Y, 0] = (int)point["id"];
+				Structure[i, j, 0] = map[i, j];
 			}
 		}
 	}
 
-	private void drawMap(){
-		for (int i = 0; i < borders.X; i++) {
-			for (int j = 0; j < borders.Y; j++) {
-				var tile_coords = new Vector2I(structure[i,j,0],3);
+	private void GenerateBorders()
+	{
+		throw new NotImplementedException();
+	}
+
+	private void drawMap()
+	{
+		for (int i = 0; i < Borders.X; i++)
+		{
+			for (int j = 0; j < Borders.Y; j++)
+			{
+				var tile_coords = new Vector2I(Structure[i, j, 0], 3);
 				tileMap.SetCell(0, new Vector2I(i, j), 1, tile_coords);
 			}
 		}

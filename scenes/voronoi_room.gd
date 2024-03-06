@@ -15,6 +15,5 @@ func generate_voronoi_diagram():
 	for point in map:
 		var tile_coords = Vector2(point["id"],3)
 		tile_map_empty.set_cell(0, point["coords"], 1, tile_coords)
-		tile_map_empty.set_cell(1, point["coords"], 2, Vector2(0,0))
 		for citizen in point["citizens"]:
 			tile_map_empty.set_cell(0, citizen, 1, tile_coords)
