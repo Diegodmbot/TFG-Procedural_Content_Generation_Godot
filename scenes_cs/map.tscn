@@ -15,3 +15,6 @@ script = ExtResource("1_0j4u0")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("4_fefjc")
 format = 2
+layer_0/name = "Ground"
+layer_1/name = "Doors"
+layer_1/tile_data = PackedInt32Array()

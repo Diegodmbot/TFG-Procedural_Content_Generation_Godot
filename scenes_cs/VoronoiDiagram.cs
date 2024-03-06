@@ -33,6 +33,7 @@ public partial class VoronoiDiagram : Node
 			{
 				Vector2 citizen = new(i, j);
 				int point_id = GetNearestPointTo(citizen);
+				// Se le suma uno para que no haya valores en 0, porque 0 es el valor de los bordes
 				map[i, j] = point_id + 1;
 			}
 		}
