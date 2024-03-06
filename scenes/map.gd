@@ -11,10 +11,10 @@ func _ready():
 	map_borders = voronoi_diagram_component.borders
 	generate_rooms()
 	generate_borders()
-	find_adjacent_rooms()
-	set_doors()
-	for room in rooms.get_children() as Array[Room]:
-		room.generate_tiles_map()
+	#find_adjacent_rooms()
+	#set_doors()
+	#for room in rooms.get_children() as Array[Room]:
+		#room.generate_tiles_map()
 	draw_map()
 
 
@@ -94,11 +94,11 @@ func  get_room_by_coord(coord: Vector2):
 func draw_map():
 	for room in rooms.get_children() as Array[Room]:
 		var tile_coords = Vector2(room.id,3)
-		#for citizen in room.citizens:
-			#tile_map.set_cell(0, citizen, 1, tile_coords)
-		for ground in room.tile_coords:
-			tile_map.set_cell(0,ground, 1, tile_coords)
+		for citizen in room.citizens:
+			tile_map.set_cell(0, citizen, 1, tile_coords)
+		#for ground in room.tile_coords:
+			#tile_map.set_cell(0,ground, 1, tile_coords)
 		for wall in room.area_borders:
 			tile_map.set_cell(1, wall, 6, Vector2(0,0))
-		for wall in room.doors:
-			tile_map.set_cell(2, wall["coords"], 2, Vector2(0,0))
+		#for wall in room.doors:
+			#tile_map.set_cell(2, wall["coords"], 2, Vector2(0,0))
