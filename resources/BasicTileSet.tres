@@ -106,9 +106,6 @@ texture = ExtResource("3_elf55")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_55iu0"]
 texture = ExtResource("4_c1uxe")
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
@@ -169,6 +166,9 @@ texture = ExtResource("4_c1uxe")
 20:0/0 = 0
 20:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 20:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qroai"]
 texture = ExtResource("4_mokec")

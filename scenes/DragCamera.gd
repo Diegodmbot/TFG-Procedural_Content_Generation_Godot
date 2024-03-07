@@ -23,5 +23,5 @@ func _input(event):
 		else:
 			is_dragging = false
 	elif event is InputEventMouseMotion and is_dragging:
-		position = starting_position - zoom * (event.position - mouse_starting_position)
+		position = starting_position - (zoom + Vector2(5,5)) * (event.position - mouse_starting_position)
 

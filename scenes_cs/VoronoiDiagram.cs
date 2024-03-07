@@ -11,12 +11,12 @@ public partial class VoronoiDiagram : Node
 
 	Vector2 borders = new(100, 100);
 	readonly List<Vector2> points = [];
-	int[,] map;
+	byte[,] map;
 
-	public int[,] BuildVoronoiDiagram(Vector2 newBorders)
+	public byte[,] BuildVoronoiDiagram(Vector2 newBorders)
 	{
 		borders = newBorders;
-		map = new int[(int)borders.X, (int)borders.Y];
+		map = new byte[(int)borders.X, (int)borders.Y];
 		// Seleccionar puntos aleatorios en el mapa
 		while (points.Count < PointsLimit)
 		{
@@ -32,13 +32,12 @@ public partial class VoronoiDiagram : Node
 			for (int j = 0; j < borders.Y; j++)
 			{
 				Vector2 citizen = new(i, j);
-				int point_id = GetNearestPointTo(citizen);
+				byte point_id = GetNearestPointTo(citizen);
 				// Se le suma uno para que no haya valores en 0, porque 0 es el valor de los bordes
-				map[i, j] = point_id + 1;
+				map[i, j] = (byte)(point_id + 1);
 			}
 		}
 		return map;
-		//return new Array<Dictionary>(points);
 	}
 
 	public bool CanBePoint(Vector2 point)
@@ -60,9 +59,9 @@ public partial class VoronoiDiagram : Node
 		return true;
 	}
 
-	public int GetNearestPointTo(Vector2 pointB)
+	public byte GetNearestPointTo(Vector2 pointB)
 	{
-		int lowest_id = 0;
+		byte lowest_id = 0;
 		// distance to the closest point
 		float lowest_delta = borders.X * borders.Y;
 		foreach (Vector2 point in points)
@@ -71,7 +70,7 @@ public partial class VoronoiDiagram : Node
 			if (delta < lowest_delta)
 			{
 				lowest_delta = delta;
-				lowest_id = points.IndexOf(point);
+				lowest_id = (byte)points.IndexOf(point);
 			}
 		}
 		return lowest_id;
