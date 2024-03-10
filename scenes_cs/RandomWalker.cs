@@ -6,38 +6,34 @@ using System.Linq;
 
 public partial class RandomWalker : Node
 {
-  Array<Vector2> DIRECTIONS = [Vector2.Right, Vector2.Up, Vector2.Left, Vector2.Down];
-	Array<Vector2> step_history = [];
-	
-	public Array<Vector2> DrunkardWalk(Array<Vector2> initial_positions, Array<Vector2> tiles)
-	{
-		int tiles_limit = tiles.Count / 2;
-		Vector2 target_position;
+	readonly Vector2[] Directions = [Vector2.Up, Vector2.Down, Vector2.Left, Vector2.Right];
+	readonly List<Vector2> StepHistory = [];
 
-		while (tiles_limit > step_history.Count)
+	public Vector2[] DrunkardWalk(Vector2[] initial_positions, Vector2[] tiles)
+	{
+		int tiles_limit = tiles.Length / 2;
+		Vector2 target_position;
+		Random random = new();
+
+		while (tiles_limit > StepHistory.Count)
 		{
-			for (int i = 0; i < initial_positions.Count; i++)
+			for (int i = 0; i < initial_positions.Length; i++)
 			{
-				var randomNumber = GD.RandRange(0, 3);
-				target_position = initial_positions[i] + DIRECTIONS[randomNumber];
+				var randomNumber = random.Next(0, 4);
+				target_position = initial_positions[i] + Directions[randomNumber];
 				while (!tiles.Contains(target_position))
 				{
-					randomNumber = GD.RandRange(0, 3);
-					target_position = initial_positions[i] + DIRECTIONS[randomNumber];
+					randomNumber = random.Next(0, 4);
+					target_position = initial_positions[i] + Directions[randomNumber];
 				}
 				initial_positions[i] = target_position;
-				if (!step_history.Contains(initial_positions[i]))
+				if (!StepHistory.Contains(initial_positions[i]))
 				{
-					step_history.Add(initial_positions[i]);
-        }
+					StepHistory.Add(initial_positions[i]);
+				}
 			}
 		}
-		return step_history;
+		Vector2[] result = [.. StepHistory];
+		return result;
 	}
-
-    internal object DrunkardWalk(Variant variant1, Variant variant2)
-    {
-        throw new NotImplementedException();
-    }
-
 }

@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhd0gvor64v7u"]
+[gd_scene load_steps=5 format=3 uid="uid://bhd0gvor64v7u"]
 
 [ext_resource type="Script" path="res://scenes/map.gd" id="1_f80va"]
 [ext_resource type="PackedScene" uid="uid://c2iptd4x1otfs" path="res://scenes/voronoi_diagram_component.tscn" id="2_2lup3"]
+[ext_resource type="PackedScene" uid="uid://daeg3r470ph24" path="res://scenes_cs/RandomWalker.tscn" id="2_cj4ah"]
 [ext_resource type="TileSet" uid="uid://doy775txj6olx" path="res://resources/BasicTileSet.tres" id="3_8pvyh"]
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_f80va")
+
+[node name="RandomWalker" parent="." instance=ExtResource("2_cj4ah")]
 
 [node name="VoronoiDiagramComponent" parent="." instance=ExtResource("2_2lup3")]
 

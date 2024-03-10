@@ -3,34 +3,30 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
-// struct Room
-// {
-// 	// Guarda en el indice i el id de la habitación adyacente a la habitación i
-// 	public List<byte> Neighboors { get; set; }
-// 	public List<byte> Doors { get; set; }
-
-// 	public Room()
-// 	{
-// 		Neighboors = [];
-// 		Doors = [];
-// 	}
-// }
-
 public partial class map : Node2D
 {
 	[Export] private Vector2 Borders { get; set; } = new Vector2(100, 100);
 	readonly Vector2[] Directions = [Vector2.Up, Vector2.Down, Vector2.Left, Vector2.Right];
+
 	private enum MapType
 	{
-		AREA,
-		WALLS,
-		DOORS,
-		GROUND
+		AREA = 0,
+		WALLS = 1,
+		DOORS = 2,
+		GROUND = 3
+	}
+
+	private enum NeighboorType
+	{
+		NEIGHBOORS = 1,
+		COUNTED = 2,
+		DOORS = 3
 	}
 
 	List<byte[,]> Structure { get; set; } = [];
 	byte[,] Neighborhood;
 	VoronoiDiagram voronoiDiagram;
+	RandomWalker randomWalker;
 	TileMap tileMap;
 
 
@@ -38,11 +34,14 @@ public partial class map : Node2D
 	{
 		voronoiDiagram = GetNode<VoronoiDiagram>("VoronoiDiagram");
 		tileMap = GetNode<TileMap>("TileMap");
+		randomWalker = GetNode<RandomWalker>("RandomWalker");
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
 		Neighborhood = new byte[voronoiDiagram.PointsLimit + 1, voronoiDiagram.PointsLimit + 1];
 		GenerateRooms();
 		GenerateBorders();
+		SetNeighborsConnections();
 		SetDoors();
+		RunWalkers();
 		DrawMap();
 	}
 
@@ -73,10 +72,24 @@ public partial class map : Node2D
 						{
 							// El muro guarda el id de la habitación adyacente
 							Structure[(int)MapType.WALLS][i, j] = neighbor;
-							Neighborhood[Structure[(int)MapType.AREA][i, j], neighbor] = 1;
+							Neighborhood[Structure[(int)MapType.AREA][i, j], neighbor] = (byte)NeighboorType.NEIGHBOORS;
 							break;
 						}
 					}
+				}
+			}
+		}
+	}
+
+	private void SetNeighborsConnections()
+	{
+		for (int i = 0; i < Neighborhood.GetLength(0); i++)
+		{
+			for (int j = 0; j < Neighborhood.GetLength(1); j++)
+			{
+				if (Neighborhood[i, j] == 1)
+				{
+					Neighborhood[i, j] = (byte)NeighboorType.COUNTED;
 				}
 			}
 		}
@@ -92,19 +105,6 @@ public partial class map : Node2D
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
 		int counter = 0;
 		bool allDoorsSet = false;
-		int neighborhoodCount = 0;
-		for (int i = 0; i < Neighborhood.GetLength(0); i++)
-		{
-			for (int j = 0; j < Neighborhood.GetLength(1); j++)
-			{
-				if (Neighborhood[i, j] == 1)
-				{
-					Neighborhood[i, j] = 2;
-					Neighborhood[j, i] = 2;
-					neighborhoodCount++;
-				}
-			}
-		}
 		Random random = new();
 		while (allDoorsSet == false)
 		{
@@ -133,20 +133,36 @@ public partial class map : Node2D
 								// Se guarda el muro opuesto de la habitación vecina
 								Structure[(int)MapType.DOORS][doorX - (int)direction.X, doorY - (int)direction.Y] = doorId;
 								Structure[(int)MapType.DOORS][oppositeRoomX, oppositeRoomY] = doorId;
-								Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY], Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]] = 3;
-								Neighborhood[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY], Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]] = 3;
+								Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY], Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]] = (byte)NeighboorType.DOORS;
+								Neighborhood[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY], Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]] = (byte)NeighboorType.DOORS;
 								counter++;
 								break;
 							}
 						}
 					}
 				}
-				if (counter == neighborhoodCount)
+				for (int i = 0; i < Neighborhood.GetLength(0); i++)
 				{
-					allDoorsSet = true;
+					for (int j = 0; j < Neighborhood.GetLength(1); j++)
+					{
+						if (Neighborhood[i, j] == (byte)NeighboorType.COUNTED)
+						{
+							allDoorsSet = false;
+							break;
+						}
+						else
+						{
+							allDoorsSet = true;
+						}
+					}
 				}
 			}
 		}
+	}
+
+	private void RunWalkers()
+	{
+		throw new NotImplementedException();
 	}
 
 	private void DrawMap()
