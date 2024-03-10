@@ -14,10 +14,10 @@ var doors: Array[Dictionary] # {"room_id": int, "coords": Vector2}
 var tile_coords = []
 
 
-func init_room(id: int, coords: Vector2, citizens: Array):
-	self.id = id
-	self.coords = coords
-	self.citizens = citizens
+func init_room(_id: int, _coords: Vector2, _citizens: Array):
+	self.id = _id
+	self.coords = _coords
+	self.citizens = _citizens
 	label.text = str(id)
 	label.position = coords * 16
 
@@ -35,11 +35,11 @@ func set_area_borders():
 				area_borders.append(point)
 
 
-func add_door(room_id: int, coords: Vector2):
+func add_door(room_id: int, _coords: Vector2):
 	for door in doors:
 		if door["room_id"] == room_id:
 			return
-	var new_entry = {"room_id": room_id, "coords": coords}
+	var new_entry = {"room_id": room_id, "coords": _coords}
 	doors.append(new_entry)
 
 

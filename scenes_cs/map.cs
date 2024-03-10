@@ -3,17 +3,18 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
-struct Room
-{
-	public List<byte> Neighboors { get; set; }
-	public List<byte> Doors { get; set; }
+// struct Room
+// {
+// 	// Guarda en el indice i el id de la habitación adyacente a la habitación i
+// 	public List<byte> Neighboors { get; set; }
+// 	public List<byte> Doors { get; set; }
 
-	public Room()
-	{
-		Neighboors = [];
-		Doors = [];
-	}
-}
+// 	public Room()
+// 	{
+// 		Neighboors = [];
+// 		Doors = [];
+// 	}
+// }
 
 public partial class map : Node2D
 {
@@ -28,7 +29,7 @@ public partial class map : Node2D
 	}
 
 	List<byte[,]> Structure { get; set; } = [];
-	Room[] Neighborhood;
+	byte[,] Neighborhood;
 	VoronoiDiagram voronoiDiagram;
 	TileMap tileMap;
 
@@ -38,11 +39,7 @@ public partial class map : Node2D
 		voronoiDiagram = GetNode<VoronoiDiagram>("VoronoiDiagram");
 		tileMap = GetNode<TileMap>("TileMap");
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
-		Neighborhood = new Room[voronoiDiagram.PointsLimit];
-		for (int i = 0; i < voronoiDiagram.PointsLimit; i++)
-		{
-			Neighborhood[i] = new Room();
-		}
+		Neighborhood = new byte[voronoiDiagram.PointsLimit + 1, voronoiDiagram.PointsLimit + 1];
 		GenerateRooms();
 		GenerateBorders();
 		SetDoors();
@@ -74,14 +71,9 @@ public partial class map : Node2D
 						byte neighbor = Structure[(int)MapType.AREA][i + (int)direction.X, j + (int)direction.Y];
 						if (Structure[(int)MapType.AREA][i, j] != neighbor && neighbor != 0)
 						{
-							// El muro guarda el valor de la habitación adyacente
+							// El muro guarda el id de la habitación adyacente
 							Structure[(int)MapType.WALLS][i, j] = neighbor;
-							if (!Neighborhood[neighbor].Neighboors.Contains(Structure[(int)MapType.AREA][i, j]))
-							{
-								// GD.Print("Room: " + Structure[(int)MapType.AREA][i, j] + " Neighboor: " + neighbor);
-								Neighborhood[neighbor].Neighboors.Add(Structure[(int)MapType.AREA][i, j]);
-							}
-							GD.Print("Room: " + Structure[(int)MapType.AREA][i, j] + " Neighboor: " + neighbor);
+							Neighborhood[Structure[(int)MapType.AREA][i, j], neighbor] = 1;
 							break;
 						}
 					}
@@ -100,6 +92,19 @@ public partial class map : Node2D
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
 		int counter = 0;
 		bool allDoorsSet = false;
+		int neighborhoodCount = 0;
+		for (int i = 0; i < Neighborhood.GetLength(0); i++)
+		{
+			for (int j = 0; j < Neighborhood.GetLength(1); j++)
+			{
+				if (Neighborhood[i, j] == 1)
+				{
+					Neighborhood[i, j] = 2;
+					Neighborhood[j, i] = 2;
+					neighborhoodCount++;
+				}
+			}
+		}
 		Random random = new();
 		while (allDoorsSet == false)
 		{
@@ -120,32 +125,25 @@ public partial class map : Node2D
 						// La casilla de la habitación opuesta no pueder ser un muro
 						if (oppositeRoomX > 0 && oppositeRoomX < Borders.X && oppositeRoomY > 0 && oppositeRoomY < Borders.Y && Structure[(int)MapType.WALLS][oppositeRoomX, oppositeRoomY] == 0)
 						{
-							if (!Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]].Doors.Contains(Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]))
+							if (Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY], Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]] == 2)
 							{
-								Structure[(int)MapType.DOORS][doorX, doorY] = (byte)counter;
-								Structure[(int)MapType.DOORS][adjacentRoomX, adjacentRoomY] = (byte)counter;
+								byte doorId = (byte)counter;
+								Structure[(int)MapType.DOORS][doorX, doorY] = doorId;
+								Structure[(int)MapType.DOORS][adjacentRoomX, adjacentRoomY] = doorId;
 								// Se guarda el muro opuesto de la habitación vecina
-								Structure[(int)MapType.DOORS][doorX - (int)direction.X, doorY - (int)direction.Y] = (byte)counter;
-								Structure[(int)MapType.DOORS][oppositeRoomX, oppositeRoomY] = (byte)counter;
-								Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]].Doors.Add(Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]);
+								Structure[(int)MapType.DOORS][doorX - (int)direction.X, doorY - (int)direction.Y] = doorId;
+								Structure[(int)MapType.DOORS][oppositeRoomX, oppositeRoomY] = doorId;
+								Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY], Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]] = 3;
+								Neighborhood[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY], Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]] = 3;
 								counter++;
 								break;
 							}
 						}
 					}
 				}
-				// Comprobar si se han colocado todas las puertas
-				foreach (Room room in Neighborhood)
+				if (counter == neighborhoodCount)
 				{
-					if (room.Doors.Count < room.Neighboors.Count)
-					{
-						allDoorsSet = false;
-						break;
-					}
-					else
-					{
-						allDoorsSet = true;
-					}
+					allDoorsSet = true;
 				}
 			}
 		}
