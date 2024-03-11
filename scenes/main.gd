@@ -3,7 +3,7 @@ extends Node2D
 
 var map_scene = preload("res://scenes/map.tscn")
 var voronoi_diagram_scene = preload("res://scenes/voronoi_room.tscn")
-var map_CS_scene = preload("res://scenes_cs/map.tscn")
+var map_CS_scene = preload("res://scenes_cs/Map.tscn")
 
 func clear():
 	for node in $Rooms.get_children():

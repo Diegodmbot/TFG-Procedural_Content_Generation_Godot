@@ -9,11 +9,11 @@ public partial class VoronoiDiagram : Node
 	[Export] public int PointsLimit { get; set; } = 20;
 	[Export] private int PistanceToPoint { get; set; } = 10;
 
-	Vector2 borders = new(100, 100);
+	System.Numerics.Vector2 borders = new(100, 100);
 	readonly List<Vector2> points = [];
 	byte[,] map;
 
-	public byte[,] BuildVoronoiDiagram(Vector2 newBorders)
+	public byte[,] BuildVoronoiDiagram(System.Numerics.Vector2 newBorders)
 	{
 		borders = newBorders;
 		map = new byte[(int)borders.X, (int)borders.Y];

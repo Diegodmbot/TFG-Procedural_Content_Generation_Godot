@@ -1,19 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://do0mlkhyc563f"]
 
-[ext_resource type="Script" path="res://scenes_cs/map.cs" id="1_0j4u0"]
-[ext_resource type="PackedScene" uid="uid://d3tmn2ptpg2le" path="res://scenes_cs/VoronoiDiagram.tscn" id="1_w2ebh"]
-[ext_resource type="PackedScene" uid="uid://daeg3r470ph24" path="res://scenes_cs/RandomWalker.tscn" id="3_uaklk"]
-[ext_resource type="TileSet" uid="uid://doy775txj6olx" path="res://resources/BasicTileSet.tres" id="4_fefjc"]
+[ext_resource type="Script" path="res://scenes_cs/Map.cs" id="1_yiyy2"]
+[ext_resource type="PackedScene" uid="uid://d3tmn2ptpg2le" path="res://scenes_cs/VoronoiDiagram.tscn" id="2_joi4t"]
+[ext_resource type="PackedScene" uid="uid://daeg3r470ph24" path="res://scenes_cs/RandomWalker.tscn" id="3_qeedy"]
+[ext_resource type="TileSet" uid="uid://doy775txj6olx" path="res://resources/BasicTileSet.tres" id="4_17rne"]
 
 [node name="Map" type="Node2D"]
-script = ExtResource("1_0j4u0")
+script = ExtResource("1_yiyy2")
 
-[node name="VoronoiDiagram" parent="." instance=ExtResource("1_w2ebh")]
+[node name="VoronoiDiagram" parent="." instance=ExtResource("2_joi4t")]
 
-[node name="RandomWalker" parent="." instance=ExtResource("3_uaklk")]
+[node name="RandomWalker" parent="." instance=ExtResource("3_qeedy")]
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("4_fefjc")
+tile_set = ExtResource("4_17rne")
 format = 2
 layer_0/name = "Ground"
 layer_1/name = "Doors"
