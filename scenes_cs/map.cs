@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 public partial class Map : Node2D
@@ -25,10 +26,13 @@ public partial class Map : Node2D
 	}
 
 	List<byte[,]> Structure { get; set; } = [];
+	// Guarda las habitaciones conectadas los índices de los array representa el id de las habitaciones
+	// Si el número en la posición [i,j] es diferente a 0 significa que las habitaciones i y j están conectadas
 	byte[,] Neighborhood;
 	VoronoiDiagram voronoiDiagram;
 	RandomWalker randomWalker;
 	TileMap tileMap;
+	// Guarda la posición de las puertas de cada habitación
 	List<System.Numerics.Vector2>[] doorsEntrances;
 
 
@@ -39,11 +43,10 @@ public partial class Map : Node2D
 		randomWalker = GetNode<RandomWalker>("RandomWalker");
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
 		Neighborhood = new byte[voronoiDiagram.PointsLimit + 1, voronoiDiagram.PointsLimit + 1];
-		doorsEntrances = new List<System.Numerics.Vector2>[voronoiDiagram.PointsLimit + 1];
-		for (int i = 0; i < doorsEntrances.Length; i++)
-		{
-			doorsEntrances[i] = [];
-		}
+		doorsEntrances = Enumerable.Range(0, voronoiDiagram.PointsLimit + 1)
+														.Select(_ => new List<System.Numerics.Vector2>())
+														.ToArray();
+		// Generar mapa
 		GenerateRooms();
 		GenerateBorders();
 		SetNeighborsConnections();
@@ -90,9 +93,9 @@ public partial class Map : Node2D
 
 	private void SetNeighborsConnections()
 	{
-		for (int i = 0; i < Neighborhood.GetLength(0); i++)
+		for (int i = 1; i < Neighborhood.GetLength(0); i++)
 		{
-			for (int j = 0; j < Neighborhood.GetLength(1); j++)
+			for (int j = 1; j < i; j++)
 			{
 				if (Neighborhood[i, j] == 1)
 				{
@@ -124,7 +127,7 @@ public partial class Map : Node2D
 				{
 					int adjacentRoomX = doorX + (int)direction.X;
 					int adjacentRoomY = doorY + (int)direction.Y;
-					// La casilla adyacente no puede ser un muro y ser de la misma habitación que la puerta
+					// La casilla adyacente no puede ser un muro y tiene que ser de la misma habitación que la puerta
 					if (Structure[(int)MapType.WALLS][adjacentRoomX, adjacentRoomY] == 0)
 					{
 						int oppositeRoomX = doorX - (int)direction.X * 2;
@@ -174,24 +177,28 @@ public partial class Map : Node2D
 	{
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
 		int counter;
+		byte tileId;
 		Random random = new();
 		System.Numerics.Vector2 targetPosition;
+		List<System.Numerics.Vector2> automatas;
 		for (int i = 0; i < doorsEntrances.Length; i++)
 		{
+			automatas = new(doorsEntrances[i]);
 			counter = 0;
 			while (counter < 200)
 			{
-				for (int j = 0; j < doorsEntrances[i].Count; j++)
+				for (int j = 0; j < automatas.Count; j++)
 				{
-					Structure[(int)MapType.GROUND][(int)doorsEntrances[i][j].X, (int)doorsEntrances[i][j].Y] = Structure[(int)MapType.AREA][(int)doorsEntrances[i][j].X, (int)doorsEntrances[i][j].Y];
 					int randomNumber = random.Next(0, 4);
-					targetPosition = doorsEntrances[i][j] + Directions[randomNumber];
+					targetPosition = automatas[j] + Directions[randomNumber];
 					while (Structure[(int)MapType.WALLS][(int)targetPosition.X, (int)targetPosition.Y] != 0)
 					{
 						randomNumber = random.Next(0, 4);
-						targetPosition = doorsEntrances[i][j] + Directions[randomNumber];
+						targetPosition = automatas[j] + Directions[randomNumber];
 					}
-					doorsEntrances[i][j] = targetPosition;
+					tileId = Structure[(int)MapType.DOORS][(int)doorsEntrances[i][j].X, (int)doorsEntrances[i][j].Y];
+					automatas[j] = targetPosition;
+					Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] = tileId;
 				}
 				counter++;
 			}
@@ -209,10 +216,14 @@ public partial class Map : Node2D
 				{
 					tileMap.SetCell(1, new Vector2I(i, j), 2, new Vector2I(0, 0));
 				}
+				if (Structure[(int)MapType.GROUND][i, j] != 0)
+				{
+					var tile_coords = new Vector2I(Structure[(int)MapType.AREA][i, j], 0);
+					tileMap.SetCell(0, new Vector2I(i, j), 4, tile_coords);
+				}
 				else
 				{
-					var tile_coords = new Vector2I(Structure[(int)MapType.GROUND][i, j], 0);
-					tileMap.SetCell(0, new Vector2I(i, j), 4, tile_coords);
+					tileMap.SetCell(0, new Vector2I(i, j), 4, new Vector2I(0, 0));
 				}
 			}
 		}

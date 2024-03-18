@@ -52,7 +52,6 @@ func generate_tiles_map():
 
 func generate_tiles_map_multi():
 	var avaible_tiles = subtract_array(citizens, area_borders)
-	#var door_positions = doors.filter(func(door): return door["coords"])
 	var door_positions = []
 	for door in doors:
 		door_positions.append(door["coords"])
