@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices;
 
 public partial class Map : Node2D
 {
@@ -140,8 +141,8 @@ public partial class Map : Node2D
 								Structure[(int)MapType.DOORS][doorX, doorY] = counter;
 								// Se guarda el muro opuesto de la habitación vecina
 								Structure[(int)MapType.DOORS][doorX - (int)direction.X, doorY - (int)direction.Y] = counter;
-								Structure[(int)MapType.DOORS][adjacentRoomX, adjacentRoomY] = Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY];
-								Structure[(int)MapType.DOORS][oppositeRoomX, oppositeRoomY] = Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY];
+								Structure[(int)MapType.DOORS][adjacentRoomX, adjacentRoomY] = counter;
+								Structure[(int)MapType.DOORS][oppositeRoomX, oppositeRoomY] = counter;
 								// Guardar la vencidad
 								Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY], Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]] = (byte)NeighboorType.DOORS;
 								Neighborhood[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY], Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]] = (byte)NeighboorType.DOORS;
@@ -176,19 +177,23 @@ public partial class Map : Node2D
 	private void RunRandomWalker()
 	{
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
-		int counter;
 		byte tileId;
 		Random random = new();
+		int counter;
 		System.Numerics.Vector2 targetPosition;
 		List<System.Numerics.Vector2> automatas;
 		for (int i = 0; i < doorsEntrances.Length; i++)
 		{
 			automatas = new(doorsEntrances[i]);
 			counter = 0;
-			while (counter < 200)
+			while (0 < automatas.Count)
 			{
 				for (int j = 0; j < automatas.Count; j++)
 				{
+					// Marcar la casilla
+					tileId = Structure[(int)MapType.DOORS][(int)doorsEntrances[i][j].X, (int)doorsEntrances[i][j].Y];
+					Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] = tileId;
+					// Cambiar la dirección
 					int randomNumber = random.Next(0, 4);
 					targetPosition = automatas[j] + Directions[randomNumber];
 					while (Structure[(int)MapType.WALLS][(int)targetPosition.X, (int)targetPosition.Y] != 0)
@@ -196,11 +201,15 @@ public partial class Map : Node2D
 						randomNumber = random.Next(0, 4);
 						targetPosition = automatas[j] + Directions[randomNumber];
 					}
-					tileId = Structure[(int)MapType.DOORS][(int)doorsEntrances[i][j].X, (int)doorsEntrances[i][j].Y];
+					// Si el numero de la casilla no es ni 0 ni el id del automata 
+					if (Structure[(int)MapType.GROUND][(int)targetPosition.X, (int)targetPosition.Y] != 0 && Structure[(int)MapType.GROUND][(int)targetPosition.X, (int)targetPosition.Y] != tileId && counter > 50)
+					{
+						automatas.RemoveAt(j);
+						continue;
+					}
 					automatas[j] = targetPosition;
-					Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] = tileId;
+					counter++;
 				}
-				counter++;
 			}
 		}
 	}
