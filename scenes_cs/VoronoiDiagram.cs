@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public partial class VoronoiDiagram : Node
 {
 	[Export] public int PointsLimit { get; set; } = 20;
-	[Export] private int PistanceToPoint { get; set; } = 10;
+	[Export] private int DistanceToPoint { get; set; } = 10;
 
 	System.Numerics.Vector2 borders = new(100, 100);
 	readonly List<Vector2> points = [];
@@ -45,14 +45,14 @@ public partial class VoronoiDiagram : Node
 		// check if the point is not too close to the other points
 		foreach (Vector2 current_point in points)
 		{
-			if (point.DistanceTo(current_point) < PistanceToPoint)
+			if (point.DistanceTo(current_point) < DistanceToPoint)
 			{
 				return false;
 			}
 		}
 		// check if the point is inside the borders
-		if (point.X < PistanceToPoint || point.X > borders.X - PistanceToPoint ||
-			point.Y < PistanceToPoint || point.Y > borders.Y - PistanceToPoint)
+		if (point.X < DistanceToPoint || point.X > borders.X - DistanceToPoint ||
+			point.Y < DistanceToPoint || point.Y > borders.Y - DistanceToPoint)
 		{
 			return false;
 		}

@@ -8,8 +8,7 @@ using System.Runtime.InteropServices;
 
 public partial class Map : Node2D
 {
-	private System.Numerics.Vector2 Borders = new(100, 100);
-	readonly System.Numerics.Vector2[] Directions = [new(0, 1), new(0, -1), new(1, 0), new(-1, 0)];
+	[Export] Godot.Vector2 ExportedBorders = new(100, 100);
 
 	private enum MapType
 	{
@@ -26,27 +25,35 @@ public partial class Map : Node2D
 		DOORS = 3
 	}
 
+
+	readonly System.Numerics.Vector2[] Directions = [new(0, 1), new(0, -1), new(1, 0), new(-1, 0)];
+
+	private System.Numerics.Vector2 Borders;
 	List<byte[,]> Structure { get; set; } = [];
 	// Guarda las habitaciones conectadas los índices de los array representa el id de las habitaciones
 	// Si el número en la posición [i,j] es diferente a 0 significa que las habitaciones i y j están conectadas
 	byte[,] Neighborhood;
-	VoronoiDiagram voronoiDiagram;
-	RandomWalker randomWalker;
-	TileMap tileMap;
+	VoronoiDiagram VoronoiDiagram;
+	TileMap TileMap;
 	// Guarda la posición de las puertas de cada habitación
-	List<System.Numerics.Vector2>[] doorsEntrances;
+	List<System.Numerics.Vector2>[] DoorsPositions;
+	(int area, int ground)[] surfaces;
 
 
 	public override void _Ready()
 	{
-		voronoiDiagram = GetNode<VoronoiDiagram>("VoronoiDiagram");
-		tileMap = GetNode<TileMap>("TileMap");
-		randomWalker = GetNode<RandomWalker>("RandomWalker");
+		// Guardar nodos hijos
+		VoronoiDiagram = GetNode<VoronoiDiagram>("VoronoiDiagram");
+		TileMap = GetNode<TileMap>("TileMap");
+		// Número de puntos en el mapa
+		int pointsCount = VoronoiDiagram.PointsLimit + 1;
+		Borders = new(ExportedBorders.X, ExportedBorders.Y);
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
-		Neighborhood = new byte[voronoiDiagram.PointsLimit + 1, voronoiDiagram.PointsLimit + 1];
-		doorsEntrances = Enumerable.Range(0, voronoiDiagram.PointsLimit + 1)
+		Neighborhood = new byte[pointsCount, pointsCount];
+		DoorsPositions = Enumerable.Range(0, pointsCount)
 														.Select(_ => new List<System.Numerics.Vector2>())
 														.ToArray();
+		surfaces = new (int, int)[pointsCount];
 		// Generar mapa
 		GenerateRooms();
 		GenerateBorders();
@@ -54,12 +61,17 @@ public partial class Map : Node2D
 		SetDoors();
 		RunRandomWalker();
 		DrawMap();
+		int id = 0;
+		foreach (var room in surfaces)
+		{
+			GD.Print($"Room: {id++}, Area: {room.area}, Ground: {room.ground}, Diff: {(float)room.ground / room.area};");
+		}
 	}
 
 
 	private void GenerateRooms()
 	{
-		var map = voronoiDiagram.BuildVoronoiDiagram(Borders);
+		var map = VoronoiDiagram.BuildVoronoiDiagram(Borders);
 		Structure[(int)MapType.AREA] = map;
 	}
 
@@ -70,6 +82,7 @@ public partial class Map : Node2D
 		{
 			for (int j = 0; j < Borders.Y; j++)
 			{
+				// Si es un límete del mapa
 				if (i == 0 || i == Borders.X - 1 || j == 0 || j == Borders.Y - 1)
 				{
 					Structure[(int)MapType.WALLS][i, j] = 1;
@@ -79,13 +92,17 @@ public partial class Map : Node2D
 					foreach (var direction in Directions)
 					{
 						byte neighbor = Structure[(int)MapType.AREA][i + (int)direction.X, j + (int)direction.Y];
-						if (Structure[(int)MapType.AREA][i, j] != neighbor && neighbor != 0)
+						if (neighbor != Structure[(int)MapType.AREA][i, j] && neighbor != 0)
 						{
 							// El muro guarda el id de la habitación adyacente
 							Structure[(int)MapType.WALLS][i, j] = neighbor;
 							Neighborhood[Structure[(int)MapType.AREA][i, j], neighbor] = (byte)NeighboorType.NEIGHBOORS;
 							break;
 						}
+					}
+					if (Structure[(int)MapType.WALLS][i, j] == 0)
+					{
+						surfaces[Structure[(int)MapType.AREA][i, j]].area += 1;
 					}
 				}
 			}
@@ -114,7 +131,7 @@ public partial class Map : Node2D
 	private void SetDoors()
 	{
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
-		byte counter = (byte)(voronoiDiagram.PointsLimit + 1);
+		byte counter = (byte)(VoronoiDiagram.PointsLimit + 1);
 		bool allDoorsSet = false;
 		Random random = new();
 		while (allDoorsSet == false)
@@ -147,8 +164,8 @@ public partial class Map : Node2D
 								Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY], Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]] = (byte)NeighboorType.DOORS;
 								Neighborhood[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY], Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]] = (byte)NeighboorType.DOORS;
 								// Guardar la posicion de las entradas
-								doorsEntrances[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]].Add(new System.Numerics.Vector2(adjacentRoomX, adjacentRoomY));
-								doorsEntrances[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]].Add(new System.Numerics.Vector2(oppositeRoomX, oppositeRoomY));
+								DoorsPositions[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]].Add(new System.Numerics.Vector2(adjacentRoomX, adjacentRoomY));
+								DoorsPositions[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]].Add(new System.Numerics.Vector2(oppositeRoomX, oppositeRoomY));
 								counter++;
 								break;
 							}
@@ -177,38 +194,51 @@ public partial class Map : Node2D
 	private void RunRandomWalker()
 	{
 		Structure.Add(new byte[(int)Borders.X, (int)Borders.Y]);
-		byte tileId;
 		Random random = new();
-		int counter;
 		System.Numerics.Vector2 targetPosition;
-		List<System.Numerics.Vector2> automatas;
-		for (int i = 0; i < doorsEntrances.Length; i++)
+		System.Numerics.Vector2 automata;
+		List<System.Numerics.Vector2> doors;
+		for (int i = 1; i < DoorsPositions.Length; i++)
 		{
-			automatas = new(doorsEntrances[i]);
-			counter = 0;
-			while (0 < automatas.Count)
+			bool roomCreated = false;
+			automata = new(DoorsPositions[i][0].X, DoorsPositions[i][0].Y);
+			doors = new(DoorsPositions[i]);
+			while (!roomCreated)
 			{
-				for (int j = 0; j < automatas.Count; j++)
+				if (doors.Contains(automata))
 				{
-					// Marcar la casilla
-					tileId = Structure[(int)MapType.DOORS][(int)doorsEntrances[i][j].X, (int)doorsEntrances[i][j].Y];
-					Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] = tileId;
-					// Cambiar la dirección
-					int randomNumber = random.Next(0, 4);
-					targetPosition = automatas[j] + Directions[randomNumber];
-					while (Structure[(int)MapType.WALLS][(int)targetPosition.X, (int)targetPosition.Y] != 0)
+					doors.Remove(automata);
+				}
+				if (Structure[(int)MapType.GROUND][(int)automata.X, (int)automata.Y] == 0)
+				{
+					surfaces[i].ground += 1;
+				}
+				Structure[(int)MapType.GROUND][(int)automata.X, (int)automata.Y] = 1;
+				int randomNumber = random.Next(0, 4);
+				targetPosition = automata + Directions[randomNumber];
+				while (Structure[(int)MapType.WALLS][(int)targetPosition.X, (int)targetPosition.Y] != 0)
+				{
+					randomNumber = random.Next(0, 4);
+					targetPosition = automata + Directions[randomNumber];
+				}
+				automata = targetPosition;
+				if (doors.Count == 0 && (double)surfaces[i].ground / surfaces[i].area > 0.30)
+				{
+					roomCreated = true;
+				}
+			}
+			if ((float)surfaces[i].ground / surfaces[i].area > 0.70)
+			{
+				int counter = (int)(surfaces[i].ground - (surfaces[i].area * 0.70));
+				for (int j = 0; j < counter; j++)
+				{
+					// eliminar puntos aleatorios de ground
+					System.Numerics.Vector2 possiblePoint = new(random.Next((int)Borders.X), random.Next((int)Borders.Y));
+					if (Structure[(int)MapType.AREA][(int)possiblePoint.X, (int)possiblePoint.Y] == i && Structure[(int)MapType.GROUND][(int)possiblePoint.X, (int)possiblePoint.Y] == 1)
 					{
-						randomNumber = random.Next(0, 4);
-						targetPosition = automatas[j] + Directions[randomNumber];
+						Structure[(int)MapType.GROUND][(int)possiblePoint.X, (int)possiblePoint.Y] = 0;
+						surfaces[i].ground -= 1;
 					}
-					// Si el numero de la casilla no es ni 0 ni el id del automata 
-					if (Structure[(int)MapType.GROUND][(int)targetPosition.X, (int)targetPosition.Y] != 0 && Structure[(int)MapType.GROUND][(int)targetPosition.X, (int)targetPosition.Y] != tileId && counter > 50)
-					{
-						automatas.RemoveAt(j);
-						continue;
-					}
-					automatas[j] = targetPosition;
-					counter++;
 				}
 			}
 		}
@@ -223,16 +253,16 @@ public partial class Map : Node2D
 				// Pintar las puertas
 				if (Structure[(int)MapType.DOORS][i, j] != 0)
 				{
-					tileMap.SetCell(1, new Vector2I(i, j), 2, new Vector2I(0, 0));
+					TileMap.SetCell(1, new Vector2I(i, j), 2, new Vector2I(0, 0));
 				}
 				if (Structure[(int)MapType.GROUND][i, j] != 0)
 				{
 					var tile_coords = new Vector2I(Structure[(int)MapType.AREA][i, j], 0);
-					tileMap.SetCell(0, new Vector2I(i, j), 4, tile_coords);
+					TileMap.SetCell(0, new Vector2I(i, j), 4, tile_coords);
 				}
 				else
 				{
-					tileMap.SetCell(0, new Vector2I(i, j), 4, new Vector2I(0, 0));
+					TileMap.SetCell(0, new Vector2I(i, j), 4, new Vector2I(0, 0));
 				}
 			}
 		}

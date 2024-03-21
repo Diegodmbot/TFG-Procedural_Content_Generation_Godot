@@ -7,10 +7,8 @@ public partial class TestCS : Node
 {
   public override void _Ready()
   {
-    List<int> a = [1, 2, 3];
-    GD.Print(a[1]);
-    a.RemoveAt(1);
-    GD.Print(a[1]);
-
+    (int area, int ground)[] surfaces;
+    surfaces = new (int, int)[10];
+    GD.Print(surfaces[1]);
   }
 }
