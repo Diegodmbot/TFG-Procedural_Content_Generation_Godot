@@ -29,7 +29,7 @@ public partial class Map : Node2D
 
 	readonly System.Numerics.Vector2[] Directions = [new(0, 1), new(0, -1), new(1, 0), new(-1, 0)];
 	const double MaxGroundPerRoom = 0.8;
-	const double MinGroundPerRoom = 0.3;
+	const double MinimumGroundPerRoom = 0.3;
 
 	private System.Numerics.Vector2 borders;
 	List<byte[,]> Structure { get; set; } = [];
@@ -201,7 +201,7 @@ public partial class Map : Node2D
 			while (!roomCreated)
 			{
 				// Comprobar con un BFS que todas las casillas están conectadas
-				roomCreated = PathConnected(automatas[0], i) && (double)Surfaces[i].ground / Surfaces[i].area > MinGroundPerRoom;
+				roomCreated = PathConnected(automatas[0], i) && (double)Surfaces[i].ground / Surfaces[i].area > MinimumGroundPerRoom;
 				// mover cada automata
 				for (int j = 0; j < DoorsPositions[i].Count; j++)
 				{
