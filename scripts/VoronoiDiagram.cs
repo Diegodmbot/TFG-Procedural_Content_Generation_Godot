@@ -10,7 +10,7 @@ public partial class VoronoiDiagram : Node
 	[Export] private int DistanceToPoint { get; set; } = 10;
 
 	System.Numerics.Vector2 borders = new(100, 100);
-	readonly List<Vector2> points = [];
+	readonly List<System.Numerics.Vector2> points = [];
 	byte[,] map;
 
 	public byte[,] BuildVoronoiDiagram(System.Numerics.Vector2 newBorders)
@@ -20,18 +20,19 @@ public partial class VoronoiDiagram : Node
 		// Seleccionar puntos aleatorios en el mapa
 		while (points.Count < PointsLimit)
 		{
-			Vector2 random_point = new(GD.Randi() % borders.X, GD.Randi() % borders.Y);
+			System.Numerics.Vector2 random_point = new(GD.Randi() % borders.X, GD.Randi() % borders.Y);
 			if (CanBePoint(random_point))
 			{
 				points.Add(random_point);
 			}
 		}
 		// Asignar un valor a cada casilla del mapa segun el punto mas cercano
+		System.Numerics.Vector2 citizen;
 		for (int i = 0; i < borders.X; i++)
 		{
 			for (int j = 0; j < borders.Y; j++)
 			{
-				Vector2 citizen = new(i, j);
+				citizen = new(i, j);
 				byte point_id = GetNearestPointTo(citizen);
 				// Se le suma uno para que no haya valores en 0, porque 0 es el valor de la casilla vacia
 				map[i, j] = (byte)(point_id + 1);
@@ -40,12 +41,13 @@ public partial class VoronoiDiagram : Node
 		return map;
 	}
 
-	public bool CanBePoint(Vector2 point)
+	public bool CanBePoint(System.Numerics.Vector2 point)
 	{
 		// check if the point is not too close to the other points
-		foreach (Vector2 current_point in points)
+		foreach (System.Numerics.Vector2 current_point in points)
 		{
-			if (point.DistanceTo(current_point) < DistanceToPoint)
+			double distanceToPoint = Math.Sqrt(Math.Pow(point.X - current_point.X, 2) + Math.Pow(point.Y - current_point.Y, 2));
+			if (distanceToPoint < DistanceToPoint)
 			{
 				return false;
 			}
@@ -59,14 +61,14 @@ public partial class VoronoiDiagram : Node
 		return true;
 	}
 
-	public byte GetNearestPointTo(Vector2 pointB)
+	public byte GetNearestPointTo(System.Numerics.Vector2 coords)
 	{
 		byte lowest_id = 0;
 		// distance to the closest point
-		float lowest_delta = borders.X * borders.Y;
-		foreach (Vector2 point in points)
+		double lowest_delta = borders.X * borders.Y;
+		foreach (System.Numerics.Vector2 point in points)
 		{
-			float delta = point.DistanceTo(pointB);
+			double delta = Math.Sqrt(Math.Pow(point.X - coords.X, 2) + Math.Pow(point.Y - coords.Y, 2)); ;
 			if (delta < lowest_delta)
 			{
 				lowest_delta = delta;

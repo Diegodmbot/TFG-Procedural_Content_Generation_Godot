@@ -1,24 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhd0gvor64v7u"]
+[gd_scene load_steps=6 format=3 uid="uid://do0mlkhyc563f"]
 
-[ext_resource type="Script" path="res://scenes/map.gd" id="1_f80va"]
-[ext_resource type="PackedScene" uid="uid://c2iptd4x1otfs" path="res://scenes/voronoi_diagram_component.tscn" id="2_2lup3"]
-[ext_resource type="PackedScene" uid="uid://daeg3r470ph24" path="res://scenes_cs/RandomWalker.tscn" id="2_cj4ah"]
-[ext_resource type="TileSet" uid="uid://doy775txj6olx" path="res://resources/BasicTileSet.tres" id="3_8pvyh"]
+[ext_resource type="Script" path="res://scripts/Map.cs" id="1_jk63t"]
+[ext_resource type="PackedScene" uid="uid://d3tmn2ptpg2le" path="res://scenes/VoronoiDiagram.tscn" id="2_88tdm"]
+[ext_resource type="TileSet" uid="uid://dbegpo7ohjenw" path="res://resources/ItchTileSet.tres" id="3_xcku6"]
+[ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="4_8iumh"]
+[ext_resource type="PackedScene" uid="uid://ceg1k1jansa7d" path="res://scenes/player_camera.tscn" id="5_t7b4n"]
 
 [node name="Map" type="Node2D"]
-script = ExtResource("1_f80va")
+script = ExtResource("1_jk63t")
 
-[node name="RandomWalker" parent="." instance=ExtResource("2_cj4ah")]
+[node name="VoronoiDiagram" parent="." instance=ExtResource("2_88tdm")]
+PointsLimit = 10
 
-[node name="VoronoiDiagramComponent" parent="." instance=ExtResource("2_2lup3")]
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("3_8pvyh")
+[node name="ItchTileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_xcku6")
+rendering_quadrant_size = 32
 format = 2
 layer_0/name = "Ground"
 layer_1/name = "Walls"
 layer_1/tile_data = PackedInt32Array()
-layer_2/name = "Doors"
-layer_2/tile_data = PackedInt32Array()
 
-[node name="Rooms" type="Node2D" parent="."]
+[node name="Player" parent="." instance=ExtResource("4_8iumh")]
+
+[node name="PlayerCamera" parent="." instance=ExtResource("5_t7b4n")]
+zoom = Vector2(5, 5)
+zoomAmplifier = 0.2

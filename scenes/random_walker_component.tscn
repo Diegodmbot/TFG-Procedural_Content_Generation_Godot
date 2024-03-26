@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://3dyvttmpwpb5"]
-
-[ext_resource type="Script" path="res://scenes/RandomWalkerComponent.gd" id="1_pibvd"]
-
-[node name="RandomWalkerComponent" type="Node"]
-script = ExtResource("1_pibvd")

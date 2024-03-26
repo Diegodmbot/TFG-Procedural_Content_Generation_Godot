@@ -1,8 +1,10 @@
 extends Camera2D
 
+@export var zoomAmplifier: float = 1
 var target_position = Vector2.ZERO
 
 func _ready():
+	self.zoom *= zoomAmplifier
 	make_current()
 
 func _process(delta):
