@@ -28,7 +28,6 @@ public partial class Map : Node2D
 	[Export] Godot.Vector2 ExportedBorders = new(100, 100);
 
 	readonly System.Numerics.Vector2[] Directions = [new(0, 1), new(0, -1), new(1, 0), new(-1, 0)];
-	const double MaxGroundPerRoom = 0.8;
 	const double MinimumGroundPerRoom = 0.3;
 
 	private System.Numerics.Vector2 borders;
@@ -47,7 +46,8 @@ public partial class Map : Node2D
 	{
 		// Guardar nodos hijos
 		VoronoiDiagram = GetNode<VoronoiDiagram>("VoronoiDiagram");
-		TileMap = GetNode<TileMap>("TileMap");
+		TileMap = GetNode<TileMap>("ItchTileMap");
+		TileMap.Clear();
 		// Número de puntos en el mapa
 		int pointsCount = VoronoiDiagram.PointsLimit + 1;
 		borders = new(ExportedBorders.X, ExportedBorders.Y);
@@ -201,7 +201,18 @@ public partial class Map : Node2D
 			while (!roomCreated)
 			{
 				// Comprobar con un BFS que todas las casillas están conectadas
-				roomCreated = PathConnected(automatas[0], i) && (double)Surfaces[i].ground / Surfaces[i].area > MinimumGroundPerRoom;
+				try
+				{
+
+					roomCreated = PathConnected(automatas[0], i) && (double)Surfaces[i].ground / Surfaces[i].area > MinimumGroundPerRoom;
+				}
+				catch (Exception e)
+				{
+					GD.Print("i: ", i);
+					GD.Print("automatas ", automatas);
+					GD.Print("automatas ", automatas.Count);
+					GD.Print(e);
+				}
 				// mover cada automata
 				for (int j = 0; j < DoorsPositions[i].Count; j++)
 				{
@@ -261,24 +272,18 @@ public partial class Map : Node2D
 
 	private void DrawMap()
 	{
+		List<System.Numerics.Vector2> groundTiles = [];
 		for (int i = 0; i < borders.X; i++)
 		{
 			for (int j = 0; j < borders.Y; j++)
 			{
-				if (Structure[(int)MapType.DOORS][i, j] != 0)
-				{
-					TileMap.SetCell(1, new Vector2I(i, j), 2, new Vector2I(0, 0));
-				}
 				if (Structure[(int)MapType.GROUND][i, j] != 0)
 				{
-					var tile_coords = new Vector2I(Structure[(int)MapType.AREA][i, j], 0);
-					TileMap.SetCell(0, new Vector2I(i, j), 4, tile_coords);
-				}
-				else
-				{
-					TileMap.SetCell(0, new Vector2I(i, j), 4, new Vector2I(0, 0));
+					groundTiles.Add(new System.Numerics.Vector2(i, j));
 				}
 			}
 		}
+		Array<Vector2I> groundTilesArray = new(groundTiles.Select(v => new Vector2I((int)v.X, (int)v.Y)).ToArray());
+		TileMap.SetCellsTerrainConnect(0, groundTilesArray, 0, 0);
 	}
 }

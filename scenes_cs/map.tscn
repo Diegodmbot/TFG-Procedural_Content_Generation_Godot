@@ -3,18 +3,19 @@
 [ext_resource type="Script" path="res://scenes_cs/Map.cs" id="1_yiyy2"]
 [ext_resource type="PackedScene" uid="uid://d3tmn2ptpg2le" path="res://scenes_cs/VoronoiDiagram.tscn" id="2_joi4t"]
 [ext_resource type="PackedScene" uid="uid://daeg3r470ph24" path="res://scenes_cs/RandomWalker.tscn" id="3_qeedy"]
-[ext_resource type="TileSet" uid="uid://doy775txj6olx" path="res://resources/BasicTileSet.tres" id="4_17rne"]
+[ext_resource type="TileSet" uid="uid://dbegpo7ohjenw" path="res://resources/ItchTileSet.tres" id="5_b46b8"]
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_yiyy2")
 
 [node name="VoronoiDiagram" parent="." instance=ExtResource("2_joi4t")]
+PointsLimit = 10
 
 [node name="RandomWalker" parent="." instance=ExtResource("3_qeedy")]
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("4_17rne")
+[node name="ItchTileMap" type="TileMap" parent="."]
+tile_set = ExtResource("5_b46b8")
 format = 2
 layer_0/name = "Ground"
-layer_1/name = "Doors"
+layer_1/name = "Walls"
 layer_1/tile_data = PackedInt32Array()
