@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4hxfnkeir4e7"
-path="res://.godot/imported/AnimationSheet_Character.png-d3cbcbc2c20421fcc2b8127c3d88e754.ctex"
+uid="uid://bkm6gd0l228gb"
+path="res://.godot/imported/floor_5(1).png-9f2284f1f191b96656cbea71a7e7c733.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/AnimationSheet_Character.png"
-dest_files=["res://.godot/imported/AnimationSheet_Character.png-d3cbcbc2c20421fcc2b8127c3d88e754.ctex"]
+source_file="res://assets/Dungeon/floor_5(1).png"
+dest_files=["res://.godot/imported/floor_5(1).png-9f2284f1f191b96656cbea71a7e7c733.ctex"]
 
 [params]
 

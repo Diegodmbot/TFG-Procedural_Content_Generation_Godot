@@ -3,8 +3,6 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices;
 
 public partial class Map : Node2D
 {
@@ -31,7 +29,7 @@ public partial class Map : Node2D
 	const double MinimumGroundPerRoom = 0.3;
 
 	VoronoiDiagram VoronoiDiagram;
-	TileMap TileMap;
+	TileMap DungeonTileMap;
 	CharacterBody2D Player;
 	private System.Numerics.Vector2 _borders;
 	List<byte[,]> Structure { get; set; } = [];
@@ -47,9 +45,9 @@ public partial class Map : Node2D
 	{
 		// Guardar nodos hijos
 		VoronoiDiagram = GetNode<VoronoiDiagram>("VoronoiDiagram");
-		TileMap = GetNode<TileMap>("ItchTileMap");
+		DungeonTileMap = GetNode<TileMap>("DungeonTileMap");
+		DungeonTileMap.Clear();
 		Player = GetNode<CharacterBody2D>("Player");
-		TileMap.Clear();
 		// Número de puntos en el mapa
 		int pointsCount = VoronoiDiagram.PointsLimit + 1;
 		_borders = new(ExportedBorders.X, ExportedBorders.Y);
@@ -71,7 +69,7 @@ public partial class Map : Node2D
 			System.Numerics.Vector2 playerPosition = new(random.Next(1, (int)_borders.X), random.Next(1, (int)_borders.Y));
 			if (Structure[(int)MapType.GROUND][(int)playerPosition.X, (int)playerPosition.Y] != 0)
 			{
-				Player.Position = new Godot.Vector2(playerPosition.X, playerPosition.Y) * TileMap.TileSet.TileSize;
+				Player.Position = new Godot.Vector2(playerPosition.X, playerPosition.Y) * DungeonTileMap.TileSet.TileSize;
 				break;
 			}
 		}
@@ -284,17 +282,26 @@ public partial class Map : Node2D
 	private void DrawMap()
 	{
 		List<System.Numerics.Vector2> groundTiles = [];
+		List<System.Numerics.Vector2> wallTiles = [];
 		for (int i = 0; i < _borders.X; i++)
 		{
 			for (int j = 0; j < _borders.Y; j++)
 			{
-				if (Structure[(int)MapType.GROUND][i, j] != 0)
+				if (Structure[(int)MapType.GROUND][i, j] == 0)
+				{
+					DungeonTileMap.SetCell(0, new Vector2I(i, j), 2, Vector2I.Zero);
+				}
+				else
 				{
 					groundTiles.Add(new System.Numerics.Vector2(i, j));
+				}
+				if (Structure[(int)MapType.DOORS][i, j] != 0)
+				{
+					DungeonTileMap.SetCell(0, new Vector2I(i, j), 7, Vector2I.Zero);
 				}
 			}
 		}
 		Array<Vector2I> groundTilesArray = new(groundTiles.Select(v => new Vector2I((int)v.X, (int)v.Y)).ToArray());
-		TileMap.SetCellsTerrainConnect(0, groundTilesArray, 0, 0);
+		DungeonTileMap.SetCellsTerrainConnect(0, groundTilesArray, 0, 0);
 	}
 }

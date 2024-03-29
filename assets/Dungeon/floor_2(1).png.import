@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqgbx1ba21xjd"
-path="res://.godot/imported/GroundEdit.png-b508671486ed7cdf8f6b081b28424885.ctex"
+uid="uid://biuwb06hq5o1w"
+path="res://.godot/imported/floor_2(1).png-6d883c9fd826ccab495c8cdf234ebd09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/GroundEdit.png"
-dest_files=["res://.godot/imported/GroundEdit.png-b508671486ed7cdf8f6b081b28424885.ctex"]
+source_file="res://assets/Dungeon/floor_2(1).png"
+dest_files=["res://.godot/imported/floor_2(1).png-6d883c9fd826ccab495c8cdf234ebd09.ctex"]
 
 [params]
 

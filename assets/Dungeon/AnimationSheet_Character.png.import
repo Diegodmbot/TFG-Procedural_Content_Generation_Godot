@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw5rj8kfj8a42"
-path="res://.godot/imported/TX Tileset Wall.png-87eb89a8ca458cc3cc22e11c6f57a3cb.ctex"
+uid="uid://4rb5cjtom3k7"
+path="res://.godot/imported/AnimationSheet_Character.png-9b10ea64cb3a74cbb985b9605569c0a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/TX Tileset Wall.png"
-dest_files=["res://.godot/imported/TX Tileset Wall.png-87eb89a8ca458cc3cc22e11c6f57a3cb.ctex"]
+source_file="res://assets/Dungeon/AnimationSheet_Character.png"
+dest_files=["res://.godot/imported/AnimationSheet_Character.png-9b10ea64cb3a74cbb985b9605569c0a4.ctex"]
 
 [params]
 

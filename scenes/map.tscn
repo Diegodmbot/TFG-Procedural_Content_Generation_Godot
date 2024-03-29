@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/Map.cs" id="1_jk63t"]
 [ext_resource type="PackedScene" uid="uid://d3tmn2ptpg2le" path="res://scenes/VoronoiDiagram.tscn" id="2_88tdm"]
-[ext_resource type="TileSet" uid="uid://dbegpo7ohjenw" path="res://resources/ItchTileSet.tres" id="3_xcku6"]
+[ext_resource type="TileSet" uid="uid://0xui0dwind23" path="res://resources/DungeonTileSet.tres" id="3_2xa7d"]
 [ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="4_8iumh"]
 [ext_resource type="PackedScene" uid="uid://ceg1k1jansa7d" path="res://scenes/player_camera.tscn" id="5_t7b4n"]
 
@@ -12,16 +12,11 @@ script = ExtResource("1_jk63t")
 [node name="VoronoiDiagram" parent="." instance=ExtResource("2_88tdm")]
 PointsLimit = 10
 
-[node name="ItchTileMap" type="TileMap" parent="."]
-tile_set = ExtResource("3_xcku6")
-rendering_quadrant_size = 32
+[node name="DungeonTileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_2xa7d")
 format = 2
-layer_0/name = "Ground"
-layer_1/name = "Walls"
-layer_1/tile_data = PackedInt32Array()
 
 [node name="Player" parent="." instance=ExtResource("4_8iumh")]
 
 [node name="PlayerCamera" parent="." instance=ExtResource("5_t7b4n")]
 zoom = Vector2(5, 5)
-zoomAmplifier = 0.2
