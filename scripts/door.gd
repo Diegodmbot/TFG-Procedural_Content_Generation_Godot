@@ -1,24 +1,23 @@
 extends Node2D
 
-var isOpen: bool = false
-var id: int
+signal player_entering
 
-func _ready():
-	pass
+@export var id: int = 0
+var is_open: bool = true
 
 func _process(delta):
 	update_sprite()
 
 func update_sprite():
-	if isOpen:
+	if is_open:
 		%Closed.visible = false
-		%Opened.visible = true
 	else:
 		%Closed.visible = true
-		%Opened.visible = false
 
+func player_going_out(door_id: int):
+	if door_id == id:
+		return
 
 func _on_area_2d_body_entered(body):
-	if not get_tree().get_nodes_in_group("player").has(body):
-		return
-	isOpen = true
+	if get_tree().get_nodes_in_group("player").has(body) and is_open:
+		emit_signal("player_entering", id)

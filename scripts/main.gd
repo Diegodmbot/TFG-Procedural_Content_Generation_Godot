@@ -1,6 +1,6 @@
 extends Node2D
 
-var map_CS_scene = preload("res://scenes/Map.tscn")
+var map_CS_scene = preload("res://scenes/MapStructure.tscn")
 
 func clear():
 	for node in $Map.get_children():

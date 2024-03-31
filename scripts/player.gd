@@ -10,6 +10,11 @@ func _physics_process(delta):
 	var movement_vector = get_movement_vector()
 	velocity_component.accelerate_in_direction(movement_vector)
 	velocity_component.move(self)
+	if velocity.x > 0:
+		$Animations/Sprite2D.flip_h = false
+	else:
+		$Animations/Sprite2D.flip_h = true
+
 	move_and_slide()
 	if movement_vector != Vector2.ZERO:
 		state_machine.travel("Walk")

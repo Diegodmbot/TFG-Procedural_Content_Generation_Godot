@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class Map : Node2D
+public partial class MapStructure : Node2D
 {
+	public readonly PackedScene DoorScene = ResourceLoader.Load<PackedScene>("res://scenes/door.tscn");
+
 
 	private enum MapType
 	{
@@ -63,16 +65,7 @@ public partial class Map : Node2D
 		SetDoors();
 		RunRandomWalker();
 		DrawMap();
-		Random random = new();
-		while (true)
-		{
-			System.Numerics.Vector2 playerPosition = new(random.Next(1, (int)_borders.X), random.Next(1, (int)_borders.Y));
-			if (Structure[(int)MapType.GROUND][(int)playerPosition.X, (int)playerPosition.Y] != 0)
-			{
-				Player.Position = new Godot.Vector2(playerPosition.X, playerPosition.Y) * DungeonTileMap.TileSet.TileSize;
-				break;
-			}
-		}
+		SetPlayer();
 	}
 
 
@@ -162,18 +155,14 @@ public partial class Map : Node2D
 						{
 							if (Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY], Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]] == 2)
 							{
-								Structure[(int)MapType.DOORS][doorX, doorY] = doorId;
-								// Se guarda el muro opuesto de la habitación vecina
-								Structure[(int)MapType.DOORS][doorX - (int)direction.X, doorY - (int)direction.Y] = doorId;
-								Structure[(int)MapType.DOORS][adjacentRoomX, adjacentRoomY] = doorId;
-								Structure[(int)MapType.DOORS][oppositeRoomX, oppositeRoomY] = doorId;
+								Structure[(int)MapType.DOORS][doorX, doorY] = doorId++;
+								Structure[(int)MapType.DOORS][doorX - (int)direction.X, doorY - (int)direction.Y] = doorId++;
 								// Guardar la vencidad
 								Neighborhood[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY], Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]] = (byte)NeighborType.DOORS;
 								Neighborhood[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY], Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]] = (byte)NeighborType.DOORS;
-								// Guardar la posicion de las entradas
-								DoorsPositions[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]].Add(new System.Numerics.Vector2(adjacentRoomX, adjacentRoomY));
-								DoorsPositions[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]].Add(new System.Numerics.Vector2(oppositeRoomX, oppositeRoomY));
-								doorId++;
+								// Guardar la posicion de las puertas
+								DoorsPositions[Structure[(int)MapType.AREA][adjacentRoomX, adjacentRoomY]].Add(new System.Numerics.Vector2(doorX, doorY));
+								DoorsPositions[Structure[(int)MapType.AREA][oppositeRoomX, oppositeRoomY]].Add(new System.Numerics.Vector2(doorX - (int)direction.X, doorY - (int)direction.Y));
 								break;
 							}
 						}
@@ -202,7 +191,7 @@ public partial class Map : Node2D
 	{
 		Structure.Add(new byte[(int)_borders.X, (int)_borders.Y]);
 		List<System.Numerics.Vector2> automatas;
-		bool roomCreated = false;
+		bool roomCreated;
 		for (int i = 1; i < DoorsPositions.Length; i++)
 		{
 			automatas = new(DoorsPositions[i]);
@@ -210,18 +199,7 @@ public partial class Map : Node2D
 			while (!roomCreated)
 			{
 				// Comprobar con un BFS que todas las casillas están conectadas
-				try
-				{
-
-					roomCreated = PathConnected(automatas[0], i) && (double)Surfaces[i].ground / Surfaces[i].area > MinimumGroundPerRoom;
-				}
-				catch (Exception e)
-				{
-					GD.Print("i: ", i);
-					GD.Print("automatas ", automatas);
-					GD.Print("automatas ", automatas.Count);
-					GD.Print(e);
-				}
+				roomCreated = PathConnected(automatas[0], i) && (double)Surfaces[i].ground / Surfaces[i].area > MinimumGroundPerRoom;
 				// mover cada automata
 				for (int j = 0; j < DoorsPositions[i].Count; j++)
 				{
@@ -287,6 +265,12 @@ public partial class Map : Node2D
 		{
 			for (int j = 0; j < _borders.Y; j++)
 			{
+				// 	if (Structure[(int)MapType.DOORS][i, j] != 0)
+				// 	{
+				// 		Node2D DoorInstance = (Node2D)DoorScene.Instantiate();
+				// 		AddChild(DoorInstance);
+				// 		DoorInstance.Position = new Vector2(i * 16 + 8, j * 16 + 8);
+				// 	}
 				if (Structure[(int)MapType.GROUND][i, j] == 0)
 				{
 					DungeonTileMap.SetCell(0, new Vector2I(i, j), 2, Vector2I.Zero);
@@ -295,13 +279,23 @@ public partial class Map : Node2D
 				{
 					groundTiles.Add(new System.Numerics.Vector2(i, j));
 				}
-				if (Structure[(int)MapType.DOORS][i, j] != 0)
-				{
-					DungeonTileMap.SetCell(0, new Vector2I(i, j), 7, Vector2I.Zero);
-				}
 			}
 		}
 		Array<Vector2I> groundTilesArray = new(groundTiles.Select(v => new Vector2I((int)v.X, (int)v.Y)).ToArray());
 		DungeonTileMap.SetCellsTerrainConnect(0, groundTilesArray, 0, 0);
+	}
+
+	private void SetPlayer()
+	{
+		Random random = new();
+		while (true)
+		{
+			System.Numerics.Vector2 playerPosition = new(random.Next(1, (int)_borders.X), random.Next(1, (int)_borders.Y));
+			if (Structure[(int)MapType.GROUND][(int)playerPosition.X, (int)playerPosition.Y] != 0)
+			{
+				Player.Position = new Vector2(playerPosition.X, playerPosition.Y) * DungeonTileMap.TileSet.TileSize;
+				break;
+			}
+		}
 	}
 }

@@ -25,7 +25,7 @@ theme_override_constants/separation = 70
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-text = "Map C#"
+text = "Play"
 
 [node name="Map" type="Node2D" parent="."]
 

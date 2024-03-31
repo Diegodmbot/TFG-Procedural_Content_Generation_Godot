@@ -7,18 +7,18 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h7bd6"]
 size = Vector2(16, 16)
 
-[node name="Door" type="Node2D"]
+[node name="Door" type="Node2D" groups=["door"]]
 script = ExtResource("1_mn6rl")
 
 [node name="Animations" type="Node2D" parent="."]
 
-[node name="Closed" type="Sprite2D" parent="Animations"]
-unique_name_in_owner = true
-texture = ExtResource("1_xdq6m")
-
 [node name="Opened" type="Sprite2D" parent="Animations"]
 unique_name_in_owner = true
 texture = ExtResource("2_vm5o5")
+
+[node name="Closed" type="Sprite2D" parent="Animations"]
+unique_name_in_owner = true
+texture = ExtResource("1_xdq6m")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2
