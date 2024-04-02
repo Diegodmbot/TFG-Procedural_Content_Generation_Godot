@@ -84,6 +84,7 @@ states/Walk/position = Vector2(397, 173)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8ve2g"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_iomla"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_exws0")]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 1
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1

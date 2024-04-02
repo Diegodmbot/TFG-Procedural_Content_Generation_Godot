@@ -27,6 +27,4 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Play"
 
-[node name="Map" type="Node2D" parent="."]
-
 [connection signal="pressed" from="UI/MarginContainer/HBoxContainer/CSharp" to="." method="_on_c_sharp_pressed"]

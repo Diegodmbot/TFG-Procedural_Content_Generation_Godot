@@ -1,7 +1,6 @@
 extends Node2D
 
-func _ready():
-	$DoorsManager.connect("player_exit_door", handle_door_exit)
+@onready var static_body_2d: StaticBody2D = $StaticBody2D
 
-func handle_door_exit(door_position: Vector2):
-	$Player.position = door_position
+func _ready():
+	pass

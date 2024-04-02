@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=3 uid="uid://d00amdeuu14ms"]
+
+[ext_resource type="Script" path="res://scripts/map.gd" id="1_eslsp"]
+[ext_resource type="PackedScene" uid="uid://do0mlkhyc563f" path="res://scenes/MapStructure.tscn" id="2_fuvdd"]
+[ext_resource type="PackedScene" uid="uid://dyecqsk0e20wp" path="res://scenes/doors_manager.tscn" id="3_8a8kj"]
+[ext_resource type="PackedScene" uid="uid://ceg1k1jansa7d" path="res://scenes/player_camera.tscn" id="5_o455t"]
+[ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="5_ugeyh"]
+
+[node name="Map" type="Node"]
+script = ExtResource("1_eslsp")
+
+[node name="MapStructure" parent="." instance=ExtResource("2_fuvdd")]
+
+[node name="DoorsManager" parent="." instance=ExtResource("3_8a8kj")]
+
+[node name="Player" parent="." instance=ExtResource("5_ugeyh")]
+
+[node name="PlayerCamera" parent="." instance=ExtResource("5_o455t")]
+extra_zoom = 3.0

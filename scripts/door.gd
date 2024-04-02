@@ -1,23 +1,19 @@
 extends Node2D
+class_name Door
 
 signal player_entering
 
-@export var id: int = 0
-var is_open: bool = true
+@onready var animation_player: AnimationPlayer = $Animations/AnimationPlayer
 
-func _process(delta):
-	update_sprite()
+var id: int = -1
+var spawn_position: Vector2
 
-func update_sprite():
-	if is_open:
-		%Closed.visible = false
-	else:
-		%Closed.visible = true
+func open_door():
+	animation_player.play("Open")
 
-func player_going_out(door_id: int):
-	if door_id == id:
-		return
+func close_door():
+	animation_player.play_backwards("Open")
 
 func _on_area_2d_body_entered(body):
-	if get_tree().get_nodes_in_group("player").has(body) and is_open:
+	if get_tree().get_nodes_in_group("player").has(body):
 		emit_signal("player_entering", id)
