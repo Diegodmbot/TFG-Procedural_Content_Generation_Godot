@@ -7,7 +7,7 @@ func _ready():
 	self.zoom *= extra_zoom
 	make_current()
 
-func _process(delta):
+func _process(_delta):
 	acquire_target()
 	global_position = target_position
 

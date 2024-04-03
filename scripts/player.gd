@@ -6,7 +6,7 @@ extends CharacterBody2D
 func _ready():
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var movement_vector = get_movement_vector()
 	velocity_component.accelerate_in_direction(movement_vector)
 	velocity_component.move(self)

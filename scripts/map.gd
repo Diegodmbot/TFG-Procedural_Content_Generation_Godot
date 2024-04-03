@@ -14,8 +14,8 @@ func _ready():
 
 func set_player():
 	var ground_structure: Array = map_structure.GetRoom(1)
-	var player_starting_position = ground_structure.pick_random()
-	player.position = player_starting_position * 16 + Vector2(8,8)
+	var player_starting_position: Vector2 = ground_structure.pick_random()
+	player.position =  PositionFixer.fix_position_to_tilemap16(player_starting_position)
 
 
 func set_doors():
@@ -24,8 +24,8 @@ func set_doors():
 	for i in doors_positions.size():
 		var door_instance: Door = door_scene.instantiate()
 		door_instance.id = i
-		door_instance.position = doors_positions[i] * 16 + Vector2(8,8)
-		door_instance.spawn_position = spawns[i] * 16 + Vector2(8,8)
+		door_instance.position = PositionFixer.fix_position_to_tilemap16(doors_positions[i])
+		door_instance.spawn_position = PositionFixer.fix_position_to_tilemap16(spawns[i])
 		doors_manager.add_door(door_instance)
 
 func on_player_exit_door(position: Vector2 ):
