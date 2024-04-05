@@ -1,5 +1,6 @@
-[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://0xui0dwind23"]
+[gd_resource type="TileSet" load_steps=22 format=3 uid="uid://0xui0dwind23"]
 
+[ext_resource type="Texture2D" uid="uid://b6jj54byjxbxi" path="res://assets/Dungeon/mainlevbuild.png" id="1_n3rrw"]
 [ext_resource type="Texture2D" uid="uid://bixwadh1ej5lt" path="res://assets/Dungeon/floor_1(1).png" id="2_08bo1"]
 [ext_resource type="Texture2D" uid="uid://c44uaqpunbc0r" path="res://assets/Dungeon/doors_leaf_closed.png" id="2_ocw0h"]
 [ext_resource type="Texture2D" uid="uid://biuwb06hq5o1w" path="res://assets/Dungeon/floor_2(1).png" id="3_3mawq"]
@@ -8,9 +9,52 @@
 [ext_resource type="Texture2D" uid="uid://d4j40puoc2c5h" path="res://assets/Dungeon/floor_3(1).png" id="4_tfn1n"]
 [ext_resource type="Texture2D" uid="uid://bkm6gd0l228gb" path="res://assets/Dungeon/floor_5(1).png" id="5_tpavf"]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_57bcb"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_l26vf"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0s00b"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wtvjw"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k7bto"]
+texture = ExtResource("1_n3rrw")
+48:27/0 = 0
+48:27/0/terrain_set = 0
+48:27/0/terrain = 1
+48:27/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_0s00b")
+48:27/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+48:27/0/physics_layer_0/angular_velocity = 0.0
+48:28/0 = 0
+48:28/0/terrain_set = 0
+48:28/0/terrain = 1
+48:28/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_wtvjw")
+48:28/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+48:28/0/physics_layer_0/angular_velocity = 0.0
+47:28/0 = 0
+47:28/0/terrain_set = 0
+47:28/0/terrain = 1
+47:28/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_l26vf")
+47:28/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+47:28/0/physics_layer_0/angular_velocity = 0.0
+47:27/0 = 0
+47:27/0/terrain_set = 0
+47:27/0/terrain = 1
+47:27/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_57bcb")
+47:27/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+47:27/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hx1lt"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ydy7j"]
 texture = ExtResource("3_cy4qe")
 0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_hx1lt")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -63,15 +107,15 @@ texture = ExtResource("3_joacc")
 0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [resource]
+occlusion_layer_0/light_mask = 1
+occlusion_layer_0/sdf_collision = true
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Ground 0"
 terrain_set_0/terrain_0/color = Color(0.698039, 0.027451, 0.360784, 1)
-terrain_set_0/terrain_1/name = "Wall 1"
-terrain_set_0/terrain_1/color = Color(0.545098, 0.478431, 0.0156863, 1)
-terrain_set_0/terrain_2/name = "Misc 2"
-terrain_set_0/terrain_2/color = Color(0.376471, 0.376471, 0.807843, 1)
+terrain_set_0/terrain_1/name = "Locked 1"
+terrain_set_0/terrain_1/color = Color(0, 0.529412, 0.301961, 1)
 sources/2 = SubResource("TileSetAtlasSource_ydy7j")
 sources/3 = SubResource("TileSetAtlasSource_qx8cc")
 sources/4 = SubResource("TileSetAtlasSource_aq4sa")
@@ -79,3 +123,4 @@ sources/5 = SubResource("TileSetAtlasSource_iqfq2")
 sources/6 = SubResource("TileSetAtlasSource_7vrxk")
 sources/7 = SubResource("TileSetAtlasSource_cd4lf")
 sources/8 = SubResource("TileSetAtlasSource_qba81")
+sources/0 = SubResource("TileSetAtlasSource_k7bto")

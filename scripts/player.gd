@@ -1,10 +1,8 @@
 extends CharacterBody2D
 
-@onready var state_machine : AnimationNodeStateMachinePlayback = $Animations/AnimationTree["parameters/playback"]
+@onready var animation_player = $Animations/AnimationPlayer
 @onready var velocity_component = $VelocityComponent
-
-func _ready():
-	pass
+@onready var orb = $Orb
 
 func _physics_process(_delta):
 	var movement_vector = get_movement_vector()
@@ -16,10 +14,11 @@ func _physics_process(_delta):
 		$Animations/Sprite2D.flip_h = true
 
 	move_and_slide()
+
 	if movement_vector != Vector2.ZERO:
-		state_machine.travel("Walk")
+		animation_player.play("Walk")
 	else:
-		state_machine.travel("Idle")
+		animation_player.play("Idle")
 
 
 func get_movement_vector():

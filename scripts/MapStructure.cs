@@ -29,6 +29,7 @@ public partial class MapStructure : Node2D
 
 	VoronoiDiagram VoronoiDiagram;
 	TileMap DungeonTileMap;
+	// map size
 	private System.Numerics.Vector2 _borders;
 	public List<byte[,]> Structure { get; set; } = [];
 	// Si el número en la posición [i,j] es diferente a 0 significa que las habitaciones i y j están conectadas
@@ -64,10 +65,9 @@ public partial class MapStructure : Node2D
 		SetNeighborsConnections();
 		SetDoors();
 		RunRandomWalker();
-		DrawMap();
 	}
 
-	private Array<Vector2> GetRoom(int roomId)
+	public Array<Vector2> GetRoom(int roomId)
 	{
 		Array<Vector2> structure = [];
 		for (int i = 0; i < _borders.X; i++)
@@ -81,6 +81,22 @@ public partial class MapStructure : Node2D
 			}
 		}
 		return structure;
+	}
+
+	public Array<Array<int>> GetLayer(int layerId)
+	{
+		Array<Array<int>> layer = [];
+		layer.Resize((int)_borders.X);
+		for (int i = 0; i < layer.Count; i++)
+		{
+			layer[i] = [];
+			layer[i].Resize((int)_borders.Y);
+			for (int j = 0; j < layer[i].Count; j++)
+			{
+				layer[i][j] = Structure[layerId][i, j];
+			}
+		}
+		return layer;
 	}
 
 	public Array<Vector2> GetDoors()
@@ -242,7 +258,7 @@ public partial class MapStructure : Node2D
 			roomCreated = false;
 			while (!roomCreated)
 			{
-				roomCreated = PathConnected(automatas[0], i) && (double)Surfaces[i].ground / Surfaces[i].area > MinimumGroundPerRoom;
+				roomCreated = PathConnected(automatas.ElementAtOrDefault(0), i) && (double)Surfaces[i].ground / Surfaces[i].area > MinimumGroundPerRoom;
 				for (int j = 0; j < DoorsPositions[i].Count; j++)
 				{
 					if (Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] == 0)
@@ -302,7 +318,6 @@ public partial class MapStructure : Node2D
 	private void DrawMap()
 	{
 		List<System.Numerics.Vector2> groundTiles = [];
-		List<System.Numerics.Vector2> wallTiles = [];
 		for (int i = 0; i < _borders.X; i++)
 		{
 			for (int j = 0; j < _borders.Y; j++)
@@ -321,4 +336,18 @@ public partial class MapStructure : Node2D
 		DungeonTileMap.SetCellsTerrainConnect(0, groundTilesArray, 0, 0);
 	}
 
+	private void DrawLockedMap()
+	{
+		List<System.Numerics.Vector2> groundTiles = [];
+		for (int i = 0; i < _borders.X; i++)
+		{
+			for (int j = 0; j < _borders.Y; j++)
+			{
+				groundTiles.Add(new System.Numerics.Vector2(i, j));
+
+			}
+		}
+		Array<Vector2I> groundTilesArray = new(groundTiles.Select(v => new Vector2I((int)v.X, (int)v.Y)).ToArray());
+		DungeonTileMap.SetCellsTerrainConnect(1, groundTilesArray, 0, 1);
+	}
 }
