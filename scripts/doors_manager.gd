@@ -14,5 +14,5 @@ func on_player_entering(id : int):
 	var exit_id = id + 1 if id % 2 == 0 else id - 1
 	for door in doors:
 		if door.id == exit_id:
-			emit_signal("player_exit_door", door.spawn_position)
-		door.close_door()
+			emit_signal("player_exit_door", door.id, door.spawn_position)
+		#door.close_door()

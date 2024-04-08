@@ -131,6 +131,13 @@ public partial class MapStructure : Node2D
 		return spawns;
 	}
 
+	private int GetRoomByPosition(int coord_x, int coord_y)
+	{
+		return Structure[(int)MapType.AREA][coord_x, coord_y];
+		// return 2;
+	}
+
+
 	private void CreateRooms()
 	{
 		var map = VoronoiDiagram.BuildVoronoiDiagram(_borders);
@@ -338,16 +345,32 @@ public partial class MapStructure : Node2D
 
 	private void DrawLockedMap()
 	{
-		List<System.Numerics.Vector2> groundTiles = [];
+		List<System.Numerics.Vector2> tiles = [];
 		for (int i = 0; i < _borders.X; i++)
 		{
 			for (int j = 0; j < _borders.Y; j++)
 			{
-				groundTiles.Add(new System.Numerics.Vector2(i, j));
+				tiles.Add(new System.Numerics.Vector2(i, j));
 
 			}
 		}
-		Array<Vector2I> groundTilesArray = new(groundTiles.Select(v => new Vector2I((int)v.X, (int)v.Y)).ToArray());
+		Array<Vector2I> groundTilesArray = new(tiles.Select(v => new Vector2I((int)v.X, (int)v.Y)).ToArray());
 		DungeonTileMap.SetCellsTerrainConnect(1, groundTilesArray, 0, 1);
 	}
+
+	private void DrawUnlockedRoom(int roomId)
+	{
+		for (int i = 0; i < _borders.X; i++)
+		{
+			for (int j = 0; j < _borders.Y; j++)
+			{
+				if (Structure[(int)MapType.AREA][i, j] == roomId)
+				{
+					DungeonTileMap.SetCell(1, new Vector2I(i, j));
+				}
+			}
+		}
+		DungeonTileMap.UpdateInternals();
+	}
 }
+

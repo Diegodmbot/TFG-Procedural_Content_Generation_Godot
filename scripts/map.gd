@@ -2,11 +2,14 @@ extends Node
 
 var door_scene = preload("res://scenes/door.tscn")
 
+const Staring_Room_Id: int = 1
+
 @onready var map_structure = $MapStructure
 @onready var player = $Player
 @onready var doors_manager = $DoorsManager
 
 var visited_rooms: Array
+@onready var player_current_room: int = Staring_Room_Id
 
 func _ready():
 	doors_manager.connect("player_exit_door", on_player_exit_door)
@@ -14,8 +17,8 @@ func _ready():
 	map_structure.DrawMap()
 	map_structure.DrawLockedMap()
 	settle_doors()
-	move_player_to_room(1)
-	visited_rooms.append(1)
+	move_player_to_room(Staring_Room_Id)
+	set_current_room(Staring_Room_Id)
 
 func move_player_to_room(id: int):
 	var ground_structure: Array = map_structure.GetRoom(id)
@@ -33,5 +36,13 @@ func settle_doors():
 		door_instance.spawn_position = PositionFixer.fix_position_to_tilemap16(spawns[i])
 		doors_manager.add_door(door_instance)
 
-func on_player_exit_door(position: Vector2):
+func set_current_room(room_id: int):
+	player_current_room = room_id
+	map_structure.DrawUnlockedRoom(player_current_room)
+	if not visited_rooms.has(room_id):
+		visited_rooms.append(room_id)
+
+func on_player_exit_door(door_id: int, position: Vector2):
+	var room_id = map_structure.GetRoomByPosition(position.x/16, position.y/16)
+	set_current_room(room_id)
 	player.position = position
