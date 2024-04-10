@@ -1,6 +1,6 @@
 extends Node
 
-signal player_exit_door
+signal player_going_out
 
 var doors: Array[Door] = []
 
@@ -14,5 +14,5 @@ func on_player_entering(id : int):
 	var exit_id = id + 1 if id % 2 == 0 else id - 1
 	for door in doors:
 		if door.id == exit_id:
-			emit_signal("player_exit_door", door.id, door.spawn_position)
+			emit_signal("player_going_out", door.id, door.spawn_position)
 		#door.close_door()
