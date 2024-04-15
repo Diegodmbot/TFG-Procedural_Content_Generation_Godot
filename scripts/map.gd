@@ -20,17 +20,12 @@ func _ready():
 	move_player_to_room(Staring_Room_Id)
 	settle_doors()
 
-func generate_room(room_id: int):
-	visited_rooms.append(room_id)
-	map_structure.GenerateGround(room_id)
-	map_structure.DrawUnlockedRoom(room_id)
-	generate_enemies(room_id)
-	map_structure.DrawMap()
 
 func move_player_to_room(id: int):
 	var ground_structure: Array = map_structure.GetRoom(id)
 	var player_starting_position: Vector2 = ground_structure.pick_random()
 	player.position =  PositionFixer.fix_position_to_tilemap16(player_starting_position)
+
 
 
 func settle_doors():
@@ -47,6 +42,13 @@ func set_current_room(room_id: int):
 	player_current_room = room_id
 	if not visited_rooms.has(room_id):
 		generate_room(room_id)
+
+func generate_room(room_id: int):
+	visited_rooms.append(room_id)
+	map_structure.GenerateGround(room_id)
+	map_structure.DrawUnlockedRoom(room_id)
+	generate_enemies(room_id)
+	map_structure.DrawRoom(room_id)
 
 func generate_enemies(room_id: int):
 	var room_tiles: Array = map_structure.GetRoom(room_id)

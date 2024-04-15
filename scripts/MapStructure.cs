@@ -31,7 +31,7 @@ public partial class MapStructure : Node2D
 	TileMap DungeonTileMap;
 	// map size
 	private System.Numerics.Vector2 _borders;
-	public List<byte[,]> Structure { get; set; } = [];
+	public List<byte[,]> Structure = [];
 	// Si el número en la posición [i,j] es diferente a 0 significa que las habitaciones i y j están conectadas
 	byte[,] Neighborhood;
 	// Guarda la posición de las puertas de cada habitación
@@ -47,6 +47,10 @@ public partial class MapStructure : Node2D
 		DungeonTileMap.Clear();
 		int pointsCount = VoronoiDiagram.PointsLimit + 1;
 		_borders = new(ExportedBorders.X, ExportedBorders.Y);
+		// Lo sé... si lo cambio la escena no se carga. Simplemente ignoralo, NO LO MIRES!!!
+		Structure.Add(new byte[(int)_borders.X, (int)_borders.Y]);
+		Structure.Add(new byte[(int)_borders.X, (int)_borders.Y]);
+		Structure.Add(new byte[(int)_borders.X, (int)_borders.Y]);
 		Structure.Add(new byte[(int)_borders.X, (int)_borders.Y]);
 		Neighborhood = new byte[pointsCount, pointsCount];
 		DoorsPositions = Enumerable.Range(0, pointsCount)
@@ -64,7 +68,6 @@ public partial class MapStructure : Node2D
 		GenerateBorders();
 		SetNeighborsConnections();
 		SetDoors();
-		// RunRandomWalker();
 	}
 
 	public Array<Vector2> GetRoom(int roomId)
@@ -145,7 +148,6 @@ public partial class MapStructure : Node2D
 
 	private void GenerateBorders()
 	{
-		Structure.Add(new byte[(int)_borders.X, (int)_borders.Y]);
 		for (int i = 0; i < _borders.X; i++)
 		{
 			for (int j = 0; j < _borders.Y; j++)
@@ -192,7 +194,6 @@ public partial class MapStructure : Node2D
 
 	private void SetDoors()
 	{
-		Structure.Add(new byte[(int)_borders.X, (int)_borders.Y]);
 		byte doorId = 0;
 		bool allDoorsSet = false;
 		Random random = new();
@@ -255,13 +256,12 @@ public partial class MapStructure : Node2D
 
 	private void GenerateGround(int roomId)
 	{
-		Structure.Add(new byte[(int)_borders.X, (int)_borders.Y]);
 		List<System.Numerics.Vector2> automatas;
 		automatas = new(DoorsPositions[roomId]);
 		bool roomCreated = false;
 		while (!roomCreated)
 		{
-			roomCreated = (double)RoomsSurface[roomId].ground / RoomsSurface[roomId].area > MinimumGroundPerRoom && PathConnected(automatas.ElementAtOrDefault(0), roomId);
+			roomCreated = (double)RoomsSurface[roomId].ground / RoomsSurface[roomId].area > MinimumGroundPerRoom && PathConnected(automatas[0], roomId);
 			for (int j = 0; j < automatas.Count; j++)
 			{
 				if (Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] == 0)
@@ -317,20 +317,24 @@ public partial class MapStructure : Node2D
 		return doors.Count == 0;
 	}
 
-	private void DrawMap()
+	private void DrawRoom(int roomId)
 	{
 		List<System.Numerics.Vector2> groundTiles = [];
 		for (int i = 0; i < _borders.X; i++)
 		{
 			for (int j = 0; j < _borders.Y; j++)
 			{
-				if (Structure[(int)MapType.GROUND][i, j] == 0)
+				if (Structure[(int)MapType.AREA][i, j] == roomId)
 				{
-					DungeonTileMap.SetCell(0, new Vector2I(i, j), 2, Vector2I.Zero);
-				}
-				else
-				{
-					groundTiles.Add(new System.Numerics.Vector2(i, j));
+
+					if (Structure[(int)MapType.GROUND][i, j] == 0)
+					{
+						DungeonTileMap.SetCell(0, new Vector2I(i, j), 2, Vector2I.Zero);
+					}
+					else
+					{
+						groundTiles.Add(new System.Numerics.Vector2(i, j));
+					}
 				}
 			}
 		}
@@ -346,12 +350,12 @@ public partial class MapStructure : Node2D
 			for (int j = 0; j < _borders.Y; j++)
 			{
 				tiles.Add(new System.Numerics.Vector2(i, j));
-
 			}
 		}
 		Array<Vector2I> groundTilesArray = new(tiles.Select(v => new Vector2I((int)v.X, (int)v.Y)).ToArray());
 		DungeonTileMap.SetCellsTerrainConnect(1, groundTilesArray, 0, 1);
 	}
+
 
 	private void DrawUnlockedRoom(int roomId)
 	{
