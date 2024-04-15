@@ -18,6 +18,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 PositionFixer="*res://scripts/position_fixer.gd"
+GameEvents="*res://scripts/GameEvents.gd"
 
 [debug]
 

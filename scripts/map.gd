@@ -8,9 +8,10 @@ const Staring_Room_Id: int = 1
 @onready var player = $Player
 @onready var doors_manager = $DoorsManager
 @onready var enemy_manager = $EnemyManager
+@onready var transition = $Transition
 
-var visited_rooms: Array
 @onready var player_current_room: int = Staring_Room_Id
+var visited_rooms: Array
 
 func _ready():
 	doors_manager.connect("player_going_out", on_player_going_out)
