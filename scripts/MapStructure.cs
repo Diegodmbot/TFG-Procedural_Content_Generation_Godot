@@ -37,7 +37,7 @@ public partial class MapStructure : Node2D
 	// Guarda la posición de las puertas de cada habitación
 	List<System.Numerics.Vector2>[] DoorsPositions;
 	List<System.Numerics.Vector2>[] SpawnPositions;
-	(int area, int ground)[] Surfaces;
+	(int area, int ground)[] RoomsSurface;
 
 
 	public override void _Ready()
@@ -55,7 +55,7 @@ public partial class MapStructure : Node2D
 		SpawnPositions = Enumerable.Range(0, pointsCount)
 														.Select(_ => new List<System.Numerics.Vector2>())
 														.ToArray();
-		Surfaces = new (int, int)[pointsCount];
+		RoomsSurface = new (int, int)[pointsCount];
 	}
 
 	public void GenerateMapStructure()
@@ -64,7 +64,7 @@ public partial class MapStructure : Node2D
 		GenerateBorders();
 		SetNeighborsConnections();
 		SetDoors();
-		RunRandomWalker();
+		// RunRandomWalker();
 	}
 
 	public Array<Vector2> GetRoom(int roomId)
@@ -134,7 +134,6 @@ public partial class MapStructure : Node2D
 	private int GetRoomByPosition(int coord_x, int coord_y)
 	{
 		return Structure[(int)MapType.AREA][coord_x, coord_y];
-		// return 2;
 	}
 
 
@@ -170,7 +169,7 @@ public partial class MapStructure : Node2D
 					}
 					if (Structure[(int)MapType.WALLS][i, j] == 0)
 					{
-						Surfaces[Structure[(int)MapType.AREA][i, j]].area += 1;
+						RoomsSurface[Structure[(int)MapType.AREA][i, j]].area += 1;
 					}
 				}
 			}
@@ -254,27 +253,23 @@ public partial class MapStructure : Node2D
 		}
 	}
 
-	private void RunRandomWalker()
+	private void GenerateGround(int roomId)
 	{
 		Structure.Add(new byte[(int)_borders.X, (int)_borders.Y]);
 		List<System.Numerics.Vector2> automatas;
-		bool roomCreated;
-		for (int i = 1; i < DoorsPositions.Length; i++)
+		automatas = new(DoorsPositions[roomId]);
+		bool roomCreated = false;
+		while (!roomCreated)
 		{
-			automatas = new(DoorsPositions[i]);
-			roomCreated = false;
-			while (!roomCreated)
+			roomCreated = (double)RoomsSurface[roomId].ground / RoomsSurface[roomId].area > MinimumGroundPerRoom && PathConnected(automatas.ElementAtOrDefault(0), roomId);
+			for (int j = 0; j < automatas.Count; j++)
 			{
-				roomCreated = PathConnected(automatas.ElementAtOrDefault(0), i) && (double)Surfaces[i].ground / Surfaces[i].area > MinimumGroundPerRoom;
-				for (int j = 0; j < DoorsPositions[i].Count; j++)
+				if (Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] == 0)
 				{
-					if (Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] == 0)
-					{
-						Surfaces[i].ground += 1;
-					}
-					Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] = (byte)i;
-					automatas[j] = MoveAutomata(automatas[j]);
+					RoomsSurface[roomId].ground += 1;
 				}
+				Structure[(int)MapType.GROUND][(int)automatas[j].X, (int)automatas[j].Y] = (byte)roomId;
+				automatas[j] = MoveAutomata(automatas[j]);
 			}
 		}
 	}

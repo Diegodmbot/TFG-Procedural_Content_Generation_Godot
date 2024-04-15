@@ -11,6 +11,7 @@
 script = ExtResource("1_eslsp")
 
 [node name="MapStructure" parent="." instance=ExtResource("2_fuvdd")]
+ExportedBorders = Vector2(500, 500)
 
 [node name="DoorsManager" parent="." instance=ExtResource("3_8a8kj")]
 

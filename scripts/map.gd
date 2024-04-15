@@ -15,11 +15,17 @@ var visited_rooms: Array
 func _ready():
 	doors_manager.connect("player_going_out", on_player_going_out)
 	map_structure.GenerateMapStructure()
-	map_structure.DrawMap()
 	map_structure.DrawLockedMap()
-	settle_doors()
-	move_player_to_room(Staring_Room_Id)
 	set_current_room(Staring_Room_Id)
+	move_player_to_room(Staring_Room_Id)
+	settle_doors()
+
+func generate_room(room_id: int):
+	visited_rooms.append(room_id)
+	map_structure.GenerateGround(room_id)
+	map_structure.DrawUnlockedRoom(room_id)
+	generate_enemies(room_id)
+	map_structure.DrawMap()
 
 func move_player_to_room(id: int):
 	var ground_structure: Array = map_structure.GetRoom(id)
@@ -40,9 +46,7 @@ func settle_doors():
 func set_current_room(room_id: int):
 	player_current_room = room_id
 	if not visited_rooms.has(room_id):
-		map_structure.DrawUnlockedRoom(room_id)
-		visited_rooms.append(room_id)
-		generate_enemies(room_id)
+		generate_room(room_id)
 
 func generate_enemies(room_id: int):
 	var room_tiles: Array = map_structure.GetRoom(room_id)
