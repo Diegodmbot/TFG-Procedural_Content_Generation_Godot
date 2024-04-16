@@ -73,7 +73,7 @@ public partial class MapStructure : Node2D
 		{
 			for (int j = 0; j < _borders.Y; j++)
 			{
-				if (Structure[i, j, (int)MapType.GROUND] == roomId)
+				if (Structure[i, j, (int)MapType.GROUND] == roomId && Structure[i, j, (int)MapType.DOORS] == 0)
 				{
 					structure.Add(new Vector2(i, j));
 				}

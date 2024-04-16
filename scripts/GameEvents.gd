@@ -4,7 +4,7 @@ signal enter_door
 signal exit_door
 
 func emit_enter_door():
-	enter_door.emit()
+	emit_signal("enter_door")
 
 func emit_exit_door():
-	exit_door.emit()
+	emit_signal("exit_door")

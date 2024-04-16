@@ -17,3 +17,4 @@ func close_door():
 func _on_area_2d_body_entered(body):
 	if get_tree().get_nodes_in_group("player").has(body):
 		emit_signal("player_entering", id)
+		GameEvents.emit_enter_door()

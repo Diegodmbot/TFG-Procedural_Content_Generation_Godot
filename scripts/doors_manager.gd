@@ -4,6 +4,10 @@ signal player_going_out
 
 var doors: Array[Door] = []
 
+func _ready():
+	# conectar señal de GameEvents
+	pass
+
 func add_door(new_door: Door):
 	doors.append(new_door)
 	add_child(new_door)

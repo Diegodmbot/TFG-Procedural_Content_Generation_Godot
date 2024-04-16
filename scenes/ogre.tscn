@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://yquogj37313x"]
+[gd_scene load_steps=8 format=3 uid="uid://yquogj37313x"]
 
 [ext_resource type="Script" path="res://scripts/ogre.gd" id="1_uflum"]
-[ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_ujno1"]
 [ext_resource type="Texture2D" uid="uid://dqpc25w8aukmw" path="res://assets/Sprites/Ogre.png" id="9_1egpa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_156eq"]
@@ -63,11 +62,8 @@ _data = {
 }
 
 [node name="Ogre" type="CharacterBody2D"]
+scale = Vector2(0.4, 0.4)
 script = ExtResource("1_uflum")
-
-[node name="VelocityComponent" parent="." instance=ExtResource("2_ujno1")]
-max_speed = 20
-acceleration = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)

@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://d00amdeuu14ms"]
+[gd_scene load_steps=7 format=3 uid="uid://d00amdeuu14ms"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_eslsp"]
 [ext_resource type="PackedScene" uid="uid://do0mlkhyc563f" path="res://scenes/MapStructure.tscn" id="2_fuvdd"]
 [ext_resource type="PackedScene" uid="uid://dyecqsk0e20wp" path="res://scenes/doors_manager.tscn" id="3_8a8kj"]
 [ext_resource type="PackedScene" uid="uid://ceg1k1jansa7d" path="res://scenes/player_camera.tscn" id="5_j6j8e"]
-[ext_resource type="PackedScene" uid="uid://bd61cjrfsh215" path="res://scenes/transition.tscn" id="5_mhayc"]
 [ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="5_ugeyh"]
 [ext_resource type="PackedScene" uid="uid://bm5bv4negurg1" path="res://scenes/enemy_manager.tscn" id="6_esl24"]
 
@@ -16,8 +15,6 @@ script = ExtResource("1_eslsp")
 [node name="DoorsManager" parent="." instance=ExtResource("3_8a8kj")]
 
 [node name="EnemyManager" parent="." instance=ExtResource("6_esl24")]
-
-[node name="Transition" parent="." instance=ExtResource("5_mhayc")]
 
 [node name="Player" parent="." instance=ExtResource("5_ugeyh")]
 
