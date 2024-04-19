@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var animation_player = $AnimationPlayer
+
 @onready var velocity_component = $VelocityComponent
 @onready var enemy_radar_component = $EnemyRadarComponent
 
@@ -11,9 +12,10 @@ func _ready():
 	enemy_radar_component.player_detected.connect(on_player_detection)
 
 func _physics_process(_delta):
-	if chase_player == true:
+	if chase_player:
 		velocity_component.accelerate_to_player()
 	velocity_component.move(self)
+
 	if velocity.x > 0:
 		$Sprite2D.flip_h = false
 	else:

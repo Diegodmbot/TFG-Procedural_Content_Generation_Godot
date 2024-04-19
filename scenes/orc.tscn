@@ -1,12 +1,84 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvoobir73nuxi"]
+[gd_scene load_steps=11 format=3 uid="uid://bvoobir73nuxi"]
 
+[ext_resource type="Script" path="res://scripts/orc.gd" id="1_4cqec"]
 [ext_resource type="Texture2D" uid="uid://6x16m8xruv43" path="res://assets/Sprites/Orc.png" id="1_wk3qr"]
+[ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_8y2cx"]
+[ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/enemy_radar_component.tscn" id="3_2wcqb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j2hl6"]
+radius = 80.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_musvx"]
 radius = 7.0
 
+[sub_resource type="Animation" id="Animation_5g4fp"]
+resource_name = "Idle"
+length = 1.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_idctb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_u58e4"]
+resource_name = "Run"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3lvpe"]
+_data = {
+"Idle": SubResource("Animation_5g4fp"),
+"RESET": SubResource("Animation_idctb"),
+"Run": SubResource("Animation_u58e4")
+}
+
 [node name="Orc" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
+script = ExtResource("1_4cqec")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("2_8y2cx")]
+max_speed = 40
+acceleration = 15.0
+
+[node name="EnemyRadarComponent" parent="." instance=ExtResource("3_2wcqb")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRadarComponent"]
+shape = SubResource("CircleShape2D_j2hl6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_musvx")
@@ -15,3 +87,8 @@ shape = SubResource("CircleShape2D_musvx")
 texture = ExtResource("1_wk3qr")
 hframes = 4
 vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3lvpe")
+}

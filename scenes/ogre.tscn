@@ -1,7 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://yquogj37313x"]
+[gd_scene load_steps=11 format=3 uid="uid://yquogj37313x"]
 
 [ext_resource type="Script" path="res://scripts/ogre.gd" id="1_uflum"]
+[ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/enemy_radar_component.tscn" id="3_s61v1"]
+[ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="3_u5sm0"]
 [ext_resource type="Texture2D" uid="uid://dqpc25w8aukmw" path="res://assets/Sprites/Ogre.png" id="9_1egpa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t74jy"]
+radius = 160.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_156eq"]
 
@@ -64,6 +69,15 @@ _data = {
 [node name="Ogre" type="CharacterBody2D"]
 scale = Vector2(0.4, 0.4)
 script = ExtResource("1_uflum")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_u5sm0")]
+max_speed = 10
+acceleration = 5.0
+
+[node name="EnemyRadarComponent" parent="." instance=ExtResource("3_s61v1")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRadarComponent"]
+shape = SubResource("CircleShape2D_t74jy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)

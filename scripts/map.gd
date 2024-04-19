@@ -43,8 +43,7 @@ func settle_doors():
 func set_current_room(room_id: int):
 	player_current_room = room_id
 	if not visited_rooms.has(room_id):
-		#generate_room(room_id)
-		call_deferred("generate_room", room_id)
+		generate_room(room_id)
 		generate_enemies(room_id)
 		visited_rooms.append(room_id)
 
@@ -60,5 +59,5 @@ func generate_enemies(room_id: int):
 func on_player_going_out(door_id: int, position: Vector2):
 	var room_id = map_structure.GetRoomByPosition(position.x/16, position.y/16)
 	player.position = position
-	set_current_room(room_id)
+	call_deferred("set_current_room", room_id)
 	GameEvents.emit_exit_door()

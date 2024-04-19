@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bm5bv4negurg1"]
 
-[ext_resource type="Script" path="res://scenes/enemy_manager.gd" id="1_aeagy"]
+[ext_resource type="Script" path="res://scripts/enemy_manager.gd" id="1_aeagy"]
 [ext_resource type="PackedScene" uid="uid://yquogj37313x" path="res://scenes/ogre.tscn" id="2_87c3a"]
 [ext_resource type="PackedScene" uid="uid://bvoobir73nuxi" path="res://scenes/orc.tscn" id="3_1gfap"]
 
