@@ -9,7 +9,6 @@ var aggresive = false
 
 func _ready():
 	enemy_radar_component.player_detected.connect(on_player_detection)
-	bone_controller.throw_bone.connect(on_throw_bone)
 
 func _physics_process(delta):
 	if aggresive:
@@ -21,8 +20,7 @@ func _physics_process(delta):
 	else:
 		animation_player.play("Idle")
 
-func on_throw_bone():
-	bone_controller.position = self.position
 
 func on_player_detection():
 	aggresive = true
+	# activar el modo disparos
