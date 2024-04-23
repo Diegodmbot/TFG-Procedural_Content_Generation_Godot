@@ -19,4 +19,6 @@ script = ExtResource("1_eslsp")
 [node name="Player" parent="." instance=ExtResource("5_ugeyh")]
 
 [node name="PlayerCamera" parent="." instance=ExtResource("5_j6j8e")]
-extra_zoom = 3.0
+extra_zoom = 4.0
+
+[node name="Abilities" type="Node2D" parent="." groups=["abilities_layer"]]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b70guts2lyo25"]
+
+[ext_resource type="Script" path="res://scripts/bone_controller.gd" id="1_m28wc"]
+[ext_resource type="PackedScene" uid="uid://brr1dcvv8ictr" path="res://scenes/bone.tscn" id="2_8wbqf"]
+
+[node name="BoneController" type="Node"]
+script = ExtResource("1_m28wc")
+bone_scene = ExtResource("2_8wbqf")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,8 +1,6 @@
 extends Node2D
 class_name Door
 
-signal player_entering
-
 @onready var animation_player: AnimationPlayer = $Animations/AnimationPlayer
 
 var id: int = -1
@@ -16,5 +14,4 @@ func close_door():
 
 func _on_area_2d_body_entered(body):
 	if get_tree().get_nodes_in_group("player").has(body):
-		emit_signal("player_entering", id)
-		GameEvents.emit_enter_door()
+		GameEvents.emit_enter_door(id)

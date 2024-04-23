@@ -1,9 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bm5bv4negurg1"]
+[gd_scene load_steps=5 format=3 uid="uid://bm5bv4negurg1"]
 
 [ext_resource type="Script" path="res://scripts/enemy_manager.gd" id="1_aeagy"]
 [ext_resource type="PackedScene" uid="uid://yquogj37313x" path="res://scenes/ogre.tscn" id="2_87c3a"]
 [ext_resource type="PackedScene" uid="uid://bvoobir73nuxi" path="res://scenes/orc.tscn" id="3_1gfap"]
+[ext_resource type="PackedScene" uid="uid://def084pgk5uba" path="res://scenes/skeleton.tscn" id="4_pb702"]
 
 [node name="EnemyManager" type="Node"]
 script = ExtResource("1_aeagy")
-enemies_type = Array[PackedScene]([ExtResource("2_87c3a"), ExtResource("3_1gfap")])
+enemies_type = Array[PackedScene]([ExtResource("2_87c3a"), ExtResource("3_1gfap"), ExtResource("4_pb702")])

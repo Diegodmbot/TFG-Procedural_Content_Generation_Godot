@@ -13,7 +13,7 @@ const Staring_Room_Id: int = 1
 var visited_rooms: Array
 
 func _ready():
-	doors_manager.connect("player_going_out", on_player_going_out)
+	GameEvents.exit_door.connect(on_exit_door)
 	map_structure.GenerateMapStructure()
 	map_structure.DrawLockedMap()
 	visited_rooms.append(Staring_Room_Id)
@@ -56,8 +56,7 @@ func generate_enemies(room_id: int):
 	var room_tiles: Array = map_structure.GetRoom(room_id)
 	enemy_manager.generate_enemies(room_tiles)
 
-func on_player_going_out(door_id: int, position: Vector2):
-	var room_id = map_structure.GetRoomByPosition(position.x/16, position.y/16)
-	player.position = position
+func on_exit_door(spawn_position: Vector2):
+	var room_id = map_structure.GetRoomByPosition(spawn_position.x/16, spawn_position.y/16)
+	player.position = spawn_position
 	call_deferred("set_current_room", room_id)
-	GameEvents.emit_exit_door()

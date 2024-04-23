@@ -1,24 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4n0dcav0vfix"]
+[gd_scene load_steps=3 format=3 uid="uid://d4n0dcav0vfix"]
 
 [ext_resource type="Script" path="res://scripts/test.gd" id="1_27rqk"]
-[ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="2_rbi07"]
-[ext_resource type="PackedScene" uid="uid://ceg1k1jansa7d" path="res://scenes/player_camera.tscn" id="3_xsvsm"]
-[ext_resource type="PackedScene" uid="uid://bvoobir73nuxi" path="res://scenes/orc.tscn" id="5_eeorp"]
-[ext_resource type="PackedScene" uid="uid://yquogj37313x" path="res://scenes/ogre.tscn" id="7_c7kv4"]
+[ext_resource type="PackedScene" uid="uid://def084pgk5uba" path="res://scenes/skeleton.tscn" id="2_rfd28"]
 
 [node name="test" type="Node2D"]
 script = ExtResource("1_27rqk")
 
-[node name="PlayerCamera" parent="." instance=ExtResource("3_xsvsm")]
-extra_zoom = 4.0
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.466667, 0.494118, 0.466667, 1)
-
-[node name="Player" parent="." instance=ExtResource("2_rbi07")]
-position = Vector2(170, 53)
-
-[node name="Ogre" parent="." instance=ExtResource("7_c7kv4")]
-position = Vector2(53, 25)
-
-[node name="Orc" parent="." instance=ExtResource("5_eeorp")]
+[node name="Skeleton" parent="." instance=ExtResource("2_rfd28")]
+position = Vector2(163, 58)
