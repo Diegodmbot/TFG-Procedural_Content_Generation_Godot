@@ -13,8 +13,6 @@ func _physics_process(_delta):
 	else:
 		$Animations/Sprite2D.flip_h = true
 
-	move_and_slide()
-
 	if movement_vector != Vector2.ZERO:
 		animation_player.play("Walk")
 	else:

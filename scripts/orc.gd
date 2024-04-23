@@ -21,8 +21,6 @@ func _physics_process(_delta):
 	else:
 		$Sprite2D.flip_h = true
 
-	move_and_slide()
-
 	if velocity != Vector2.ZERO:
 		animation_player.play("Run")
 	else:

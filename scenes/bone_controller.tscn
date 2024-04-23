@@ -8,7 +8,7 @@ script = ExtResource("1_m28wc")
 bone_scene = ExtResource("2_8wbqf")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
