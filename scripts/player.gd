@@ -1,8 +1,12 @@
 extends CharacterBody2D
 
-@onready var animation_player = $Animations/AnimationPlayer
+@onready var health_component: HealthComponent = $HealthComponent
 @onready var velocity_component = $VelocityComponent
+@onready var animation_player = $Animations/AnimationPlayer
 @onready var orb = $Orb
+
+func _ready():
+	health_component.health_changed.connect(on_health_changed)
 
 func _physics_process(_delta):
 	var movement_vector = get_movement_vector()
@@ -18,9 +22,11 @@ func _physics_process(_delta):
 	else:
 		animation_player.play("Idle")
 
-
 func get_movement_vector():
 	var movement_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	return movement_vector.normalized()
 
+func on_health_changed():
+	# cambiar los corazones de $HealthBar pasándole current_hp de healthComponent
+	pass
 

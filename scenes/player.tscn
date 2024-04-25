@@ -1,13 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://dlildot4mqcx3"]
+[gd_scene load_steps=14 format=3 uid="uid://dlildot4mqcx3"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sfcgu"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_2sd5o"]
 [ext_resource type="Texture2D" uid="uid://4rb5cjtom3k7" path="res://assets/Sprites/MainCharacter.png" id="3_lpu6f"]
+[ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/health_component.tscn" id="3_tktnp"]
 [ext_resource type="PackedScene" uid="uid://cn8b5if1uoey6" path="res://scenes/orb.tscn" id="4_lpkt1"]
+[ext_resource type="PackedScene" uid="uid://c87172ansg6ek" path="res://scenes/hurt_component.tscn" id="5_3wyxr"]
+[ext_resource type="PackedScene" uid="uid://tr4ip3dll1g" path="res://scenes/health_bar.tscn" id="6_tipjp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2shqx"]
 radius = 3.5625
 height = 11.625
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xa3a8"]
+radius = 2.70189
+height = 11.2154
 
 [sub_resource type="Animation" id="Animation_lj6vd"]
 resource_name = "Idle"
@@ -77,9 +84,30 @@ script = ExtResource("1_sfcgu")
 max_speed = 50
 acceleration = 20.0
 
+[node name="HealthBar" parent="." instance=ExtResource("6_tipjp")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -3.4687
+offset_top = -12.0879
+offset_right = -3.4687
+offset_bottom = -12.0879
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.7, 0.7)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_2shqx")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_tktnp")]
+
+[node name="HurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_3wyxr")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+position = Vector2(0, 0.630672)
+shape = SubResource("CapsuleShape2D_xa3a8")
 
 [node name="Animations" type="Node2D" parent="."]
 

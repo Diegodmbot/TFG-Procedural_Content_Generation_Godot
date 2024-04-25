@@ -1,12 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bvoobir73nuxi"]
+[gd_scene load_steps=13 format=3 uid="uid://bvoobir73nuxi"]
 
 [ext_resource type="Script" path="res://scripts/orc.gd" id="1_4cqec"]
 [ext_resource type="Texture2D" uid="uid://6x16m8xruv43" path="res://assets/Sprites/Orc.png" id="1_wk3qr"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_8y2cx"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/enemy_radar_component.tscn" id="3_2wcqb"]
+[ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/hitbox_component.tscn" id="4_74rdo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j2hl6"]
 radius = 80.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d76wl"]
+radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_musvx"]
 radius = 7.0
@@ -69,16 +73,24 @@ _data = {
 
 [node name="Orc" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
+collision_layer = 4
 script = ExtResource("1_4cqec")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_8y2cx")]
-max_speed = 40
+max_speed = 30
 acceleration = 15.0
 
 [node name="EnemyRadarComponent" parent="." instance=ExtResource("3_2wcqb")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRadarComponent"]
 shape = SubResource("CircleShape2D_j2hl6")
+
+[node name="Hitbox_component" parent="." instance=ExtResource("4_74rdo")]
+collision_mask = 6
+damage = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_component"]
+shape = SubResource("CircleShape2D_d76wl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_musvx")

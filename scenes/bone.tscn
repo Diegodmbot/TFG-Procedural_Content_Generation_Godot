@@ -46,6 +46,7 @@ _data = {
 radius = 12.0416
 
 [node name="Bone" type="Node2D"]
+scale = Vector2(0.25, 0.25)
 script = ExtResource("1_lx232")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_epee0")]

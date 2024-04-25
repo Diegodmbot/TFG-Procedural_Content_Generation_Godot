@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 @onready var animation_player = $AnimationPlayer
-
 @onready var velocity_component = $VelocityComponent
 @onready var enemy_radar_component = $EnemyRadarComponent
+@onready var hitbox_component = $Hitbox_component
 
 var chase_player: bool = false
 var counter = 0
