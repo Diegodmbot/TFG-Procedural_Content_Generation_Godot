@@ -1,19 +1,22 @@
-[gd_scene load_steps=13 format=3 uid="uid://bvoobir73nuxi"]
+[gd_scene load_steps=16 format=3 uid="uid://bvoobir73nuxi"]
 
 [ext_resource type="Script" path="res://scripts/orc.gd" id="1_4cqec"]
 [ext_resource type="Texture2D" uid="uid://6x16m8xruv43" path="res://assets/Sprites/Orc.png" id="1_wk3qr"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_8y2cx"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/enemy_radar_component.tscn" id="3_2wcqb"]
+[ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/health_component.tscn" id="3_5rkpu"]
 [ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/hitbox_component.tscn" id="4_74rdo"]
+[ext_resource type="PackedScene" uid="uid://c87172ansg6ek" path="res://scenes/hurt_component.tscn" id="4_pc1ga"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_j2hl6"]
-radius = 80.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_ms74d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d76wl"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_j2hl6"]
+radius = 80.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_musvx"]
-radius = 7.0
 
 [sub_resource type="Animation" id="Animation_5g4fp"]
 resource_name = "Idle"
@@ -73,26 +76,37 @@ _data = {
 
 [node name="Orc" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
-collision_layer = 4
+collision_layer = 0
 script = ExtResource("1_4cqec")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_8y2cx")]
 max_speed = 30
 acceleration = 15.0
 
+[node name="HealthComponent" parent="." instance=ExtResource("3_5rkpu")]
+max_health = 1.0
+
+[node name="HurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_pc1ga")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+shape = SubResource("CircleShape2D_ms74d")
+
+[node name="Hitbox_component" parent="." instance=ExtResource("4_74rdo")]
+collision_mask = 6
+damage = 1
+character_type = Array[int]([3])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_component"]
+shape = SubResource("CircleShape2D_d76wl")
+
 [node name="EnemyRadarComponent" parent="." instance=ExtResource("3_2wcqb")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRadarComponent"]
 shape = SubResource("CircleShape2D_j2hl6")
 
-[node name="Hitbox_component" parent="." instance=ExtResource("4_74rdo")]
-collision_mask = 6
-damage = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_component"]
-shape = SubResource("CircleShape2D_d76wl")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_musvx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

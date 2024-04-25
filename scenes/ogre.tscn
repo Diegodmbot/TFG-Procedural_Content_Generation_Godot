@@ -1,9 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://yquogj37313x"]
+[gd_scene load_steps=16 format=3 uid="uid://yquogj37313x"]
 
 [ext_resource type="Script" path="res://scripts/ogre.gd" id="1_uflum"]
+[ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/health_component.tscn" id="3_4tqvm"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/enemy_radar_component.tscn" id="3_s61v1"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="3_u5sm0"]
+[ext_resource type="PackedScene" uid="uid://c87172ansg6ek" path="res://scenes/hurt_component.tscn" id="5_kixyf"]
+[ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/hitbox_component.tscn" id="5_xftb4"]
 [ext_resource type="Texture2D" uid="uid://dqpc25w8aukmw" path="res://assets/Sprites/Ogre.png" id="9_1egpa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dttq"]
+size = Vector2(25, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wlkcc"]
+size = Vector2(25, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t74jy"]
 radius = 160.0
@@ -68,11 +77,33 @@ _data = {
 
 [node name="Ogre" type="CharacterBody2D"]
 scale = Vector2(0.4, 0.4)
+collision_layer = 0
 script = ExtResource("1_uflum")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("3_u5sm0")]
 max_speed = 10
 acceleration = 5.0
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_4tqvm")]
+scale = Vector2(1, 1)
+max_health = 2.0
+
+[node name="HurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_kixyf")]
+scale = Vector2(1, 1)
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+position = Vector2(4.47035e-07, 2.5)
+shape = SubResource("RectangleShape2D_2dttq")
+
+[node name="Hitbox_component" parent="." instance=ExtResource("5_xftb4")]
+scale = Vector2(1, 1)
+damage = 2
+character_type = Array[int]([3])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_component"]
+position = Vector2(-4.47035e-07, 2.5)
+shape = SubResource("RectangleShape2D_wlkcc")
 
 [node name="EnemyRadarComponent" parent="." instance=ExtResource("3_s61v1")]
 

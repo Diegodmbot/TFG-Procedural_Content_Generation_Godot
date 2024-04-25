@@ -1,13 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://def084pgk5uba"]
+[gd_scene load_steps=15 format=3 uid="uid://def084pgk5uba"]
 
 [ext_resource type="Texture2D" uid="uid://cvkoqbmi51ma0" path="res://assets/Sprites/Skeleton.png" id="1_5t5p6"]
 [ext_resource type="Script" path="res://scripts/skeleton.gd" id="1_78pud"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_fdrnq"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/enemy_radar_component.tscn" id="2_q43ln"]
+[ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/health_component.tscn" id="4_43i5a"]
+[ext_resource type="PackedScene" uid="uid://c87172ansg6ek" path="res://scenes/hurt_component.tscn" id="5_a16tx"]
 [ext_resource type="PackedScene" uid="uid://b70guts2lyo25" path="res://scenes/bone_controller.tscn" id="5_ksglh"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8lqg4"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_mumq5"]
-radius = 320.0
+radius = 160.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cmg0q"]
 radius = 8.0
@@ -78,6 +82,14 @@ max_speed = 15
 acceleration = 10.0
 
 [node name="BoneController" parent="." instance=ExtResource("5_ksglh")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_43i5a")]
+
+[node name="HurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_a16tx")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+shape = SubResource("CircleShape2D_8lqg4")
 
 [node name="EnemyRadarComponent" parent="." instance=ExtResource("2_q43ln")]
 

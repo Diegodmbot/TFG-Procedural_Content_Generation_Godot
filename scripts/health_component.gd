@@ -1,7 +1,6 @@
 extends Node2D
 class_name HealthComponent
 
-signal died
 signal health_changed
 
 @export var max_health: float = 6
@@ -15,6 +14,6 @@ func damage(damage_amount: float):
 
 func check_death():
 	if current_health == 0:
-		died.emit()
-		owner.queue_free()
+		pass
+		#owner.queue_free()
 
