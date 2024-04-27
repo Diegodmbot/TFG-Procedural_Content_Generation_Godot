@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 func _ready():
 	health_component.health_changed.connect(on_health_changed)
+	%HealthBar.add_max_health(health_component.current_health)
 
 func _physics_process(_delta):
 	var movement_vector = get_movement_vector()
@@ -27,6 +28,5 @@ func get_movement_vector():
 	return movement_vector.normalized()
 
 func on_health_changed():
-	# cambiar los corazones de $HealthBar pasándole current_hp de healthComponent
-	pass
+	%HealthBar.change_health(health_component.current_health)
 

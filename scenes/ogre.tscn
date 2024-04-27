@@ -85,11 +85,9 @@ max_speed = 10
 acceleration = 5.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_4tqvm")]
-scale = Vector2(1, 1)
 max_health = 2.0
 
 [node name="HurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_kixyf")]
-scale = Vector2(1, 1)
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
@@ -97,7 +95,6 @@ position = Vector2(4.47035e-07, 2.5)
 shape = SubResource("RectangleShape2D_2dttq")
 
 [node name="Hitbox_component" parent="." instance=ExtResource("5_xftb4")]
-scale = Vector2(1, 1)
 damage = 2
 character_type = Array[int]([3])
 

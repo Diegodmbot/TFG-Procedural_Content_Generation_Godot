@@ -12,3 +12,4 @@ func emit_exit_door(spawn_position: Vector2):
 
 func emit_player_damaged():
 	emit_signal("player_damaged")
+
