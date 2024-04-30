@@ -11,7 +11,7 @@ func _ready():
 	enemy_radar_component.player_detected.connect(on_player_detection)
 
 func _physics_process(delta):
-	if aggresive:
+	if not aggresive:
 		velocity_component.accelerate_to_player()
 	velocity_component.move(self)
 
@@ -23,4 +23,5 @@ func _physics_process(delta):
 
 func on_player_detection():
 	aggresive = true
+	bone_controller.set_bone_ability(true)
 	# activar el modo disparos

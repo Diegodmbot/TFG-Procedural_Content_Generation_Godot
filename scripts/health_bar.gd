@@ -5,7 +5,6 @@ var heart_scene = preload("res://scenes/heart_visual.tscn")
 @onready var h_box_container = $HBoxContainer
 
 var current_health: int = 0
-var hearts: Array = []
 
 func change_health(new_health: int):
 	var health_diff = current_health - new_health
@@ -33,12 +32,18 @@ func add_max_health(health_amount: int):
 
 func remove_health(health_diff: int):
 	var player_hearts = h_box_container.get_children() as Array[Heart]
-	var remaining_health = health_diff
 	var i = player_hearts.size()-1
-	while(remaining_health > 0):
+	while(health_diff > 0):
 		var actual_heart_state: StateEnums.HeartState = player_hearts[i].actual_state
 		if actual_heart_state == StateEnums.HeartState.empty:
 			i -= 1
 			continue
 		player_hearts[i].change_state(actual_heart_state - 1)
-		remaining_health -= 1
+		health_diff -= 1
+		player_hearts[i].play_hit()
+		check_hp()
+
+func check_hp():
+	var hearts = h_box_container.get_children() as Array[Heart]
+	if hearts[1].actual_state == StateEnums.HeartState.empty:
+		hearts[0].play_last_hp()
