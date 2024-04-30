@@ -11,11 +11,12 @@ func _ready():
 	enemy_radar_component.player_detected.connect(on_player_detection)
 
 func _physics_process(delta):
-	if not aggresive:
+	if aggresive:
+		velocity_component.decelerate()
+	else:
 		velocity_component.accelerate_to_player()
 	velocity_component.move(self)
-
-	if velocity != Vector2.ZERO:
+	if velocity_component.velocity.floor() > Vector2(0,0):
 		animation_player.play("Run")
 	else:
 		animation_player.play("Idle")
@@ -24,4 +25,9 @@ func _physics_process(delta):
 func on_player_detection():
 	aggresive = true
 	bone_controller.set_bone_ability(true)
-	# activar el modo disparos
+
+
+func _on_enemy_radar_component_body_exited(body):
+	aggresive = false
+	bone_controller.set_bone_ability(false)
+

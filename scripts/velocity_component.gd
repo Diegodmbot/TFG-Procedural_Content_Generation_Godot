@@ -12,7 +12,6 @@ func accelerate_to_player():
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
 		return
-
 	var direction = (player.global_position - owner.global_position).normalized()
 	accelerate_in_direction(direction)
 

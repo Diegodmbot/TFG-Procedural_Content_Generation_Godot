@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var speed: int = 50
 @onready var hitbox_component = $Hitbox_component
 @onready var animation_player = $AnimationPlayer
 
@@ -7,7 +8,8 @@ var target_position: Vector2
 var is_moving = true
 
 func _process(delta):
-	self.position = self.position.move_toward(target_position, delta * 25)
+	if is_moving:
+		self.position = self.position.move_toward(target_position, delta * speed)
 	if self.position == target_position:
 		free_bone()
 
@@ -27,3 +29,4 @@ func _on_hitbox_component_body_entered(body):
 		bone_hit()
 	else:
 		free_bone()
+		is_moving = false

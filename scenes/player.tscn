@@ -1,25 +1,58 @@
-[gd_scene load_steps=14 format=3 uid="uid://dlildot4mqcx3"]
+[gd_scene load_steps=16 format=3 uid="uid://dlildot4mqcx3"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sfcgu"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_2sd5o"]
-[ext_resource type="Texture2D" uid="uid://4rb5cjtom3k7" path="res://assets/Sprites/MainCharacter.png" id="3_lpu6f"]
 [ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/health_component.tscn" id="3_tktnp"]
 [ext_resource type="PackedScene" uid="uid://cn8b5if1uoey6" path="res://scenes/orb.tscn" id="4_lpkt1"]
 [ext_resource type="PackedScene" uid="uid://c87172ansg6ek" path="res://scenes/hurt_component.tscn" id="5_3wyxr"]
+[ext_resource type="Texture2D" uid="uid://3ed05pv1hm6v" path="res://assets/Sprites/Knight.png" id="5_7wfhi"]
 [ext_resource type="PackedScene" uid="uid://tr4ip3dll1g" path="res://scenes/health_bar.tscn" id="6_tipjp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2shqx"]
-radius = 3.5625
-height = 11.625
+radius = 2.49328
+height = 8.16448
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xa3a8"]
 radius = 2.70189
-height = 11.2154
+height = 8.90313
+
+[sub_resource type="Animation" id="Animation_ohjcl"]
+resource_name = "Dead"
+length = 2.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animations/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_6bhiv"]
+resource_name = "Hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animations/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 3)]
+}
 
 [sub_resource type="Animation" id="Animation_lj6vd"]
 resource_name = "Idle"
-length = 2.0
-loop_mode = 1
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -27,10 +60,10 @@ tracks/0/path = NodePath("Animations/Sprite2D:frame_coords")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 0), Vector2i(1, 0)]
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_5js6w"]
@@ -62,11 +95,13 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2)]
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7p0w5"]
 _data = {
+"Dead": SubResource("Animation_ohjcl"),
+"Hit": SubResource("Animation_6bhiv"),
 "Idle": SubResource("Animation_lj6vd"),
 "RESET": SubResource("Animation_5js6w"),
 "Walk": SubResource("Animation_l1dak")
@@ -75,6 +110,7 @@ _data = {
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 light_mask = 4
 visibility_layer = 4
+scale = Vector2(1.2, 1.2)
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
@@ -101,10 +137,11 @@ shape = SubResource("CapsuleShape2D_xa3a8")
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Animations"]
+position = Vector2(-0.210228, -0.210224)
 scale = Vector2(0.326, 0.328)
-texture = ExtResource("3_lpu6f")
-hframes = 8
-vframes = 9
+texture = ExtResource("5_7wfhi")
+hframes = 4
+vframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animations"]
 root_node = NodePath("../..")
