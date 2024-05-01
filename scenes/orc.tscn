@@ -88,6 +88,7 @@ max_health = 1.0
 
 [node name="HurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_pc1ga")]
 health_component = NodePath("../HealthComponent")
+character_type = Array[int]([2])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
 shape = SubResource("CircleShape2D_ms74d")

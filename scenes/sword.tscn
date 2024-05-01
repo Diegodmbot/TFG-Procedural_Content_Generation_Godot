@@ -1,0 +1,104 @@
+[gd_scene load_steps=8 format=3 uid="uid://8gapb0enotrh"]
+
+[ext_resource type="Texture2D" uid="uid://bymw33tuxlmmj" path="res://assets/Weapons/weapon_knight_sword.png" id="1_a6as4"]
+[ext_resource type="Script" path="res://scripts/sword.gd" id="1_tr38j"]
+[ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/hitbox_component.tscn" id="2_xw52w"]
+
+[sub_resource type="Animation" id="Animation_xapcf"]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1.46408, 0.63728),
+"update": 0,
+"values": [0.0, -0.261799, 3.14159, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.475, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1), Vector2(1.5, 1.5), Vector2(0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_3edqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p0113"]
+_data = {
+"RESET": SubResource("Animation_3edqv"),
+"attack": SubResource("Animation_xapcf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q25eb"]
+size = Vector2(37.189, 51.0743)
+
+[node name="Sword" type="Node2D"]
+script = ExtResource("1_tr38j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_a6as4")
+offset = Vector2(0, -10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p0113")
+}
+autoplay = "attack"
+
+[node name="Hitbox_component" parent="." instance=ExtResource("2_xw52w")]
+damage = 1
+character_type = Array[int]([2])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_component"]
+position = Vector2(8.59449, -1.43953)
+shape = SubResource("RectangleShape2D_q25eb")

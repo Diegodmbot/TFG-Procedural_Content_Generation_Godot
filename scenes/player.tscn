@@ -1,12 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://dlildot4mqcx3"]
+[gd_scene load_steps=18 format=3 uid="uid://dlildot4mqcx3"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sfcgu"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_2sd5o"]
 [ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/health_component.tscn" id="3_tktnp"]
 [ext_resource type="PackedScene" uid="uid://cn8b5if1uoey6" path="res://scenes/orb.tscn" id="4_lpkt1"]
+[ext_resource type="PackedScene" uid="uid://dahs0lpcdw7qr" path="res://scenes/sword_ability_controller.tscn" id="4_rnr73"]
 [ext_resource type="PackedScene" uid="uid://c87172ansg6ek" path="res://scenes/hurt_component.tscn" id="5_3wyxr"]
 [ext_resource type="Texture2D" uid="uid://3ed05pv1hm6v" path="res://assets/Sprites/Knight.png" id="5_7wfhi"]
 [ext_resource type="PackedScene" uid="uid://tr4ip3dll1g" path="res://scenes/health_bar.tscn" id="6_tipjp"]
+[ext_resource type="PackedScene" uid="uid://8gapb0enotrh" path="res://scenes/sword.tscn" id="8_b3bbk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2shqx"]
 radius = 2.49328
@@ -48,6 +50,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2i(0, 3)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"set_hitted"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_lj6vd"]
@@ -149,6 +165,9 @@ libraries = {
 "": SubResource("AnimationLibrary_7p0w5")
 }
 autoplay = "Idle"
+
+[node name="SwordAbilityController" parent="." instance=ExtResource("4_rnr73")]
+sword_scene = ExtResource("8_b3bbk")
 
 [node name="Orb" parent="." instance=ExtResource("4_lpkt1")]
 position = Vector2(3, -3)

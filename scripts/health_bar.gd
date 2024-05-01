@@ -11,11 +11,7 @@ func change_health(new_health: int):
 	current_health = new_health
 	if health_diff > 0:
 		remove_health(health_diff)
-	else:
-		add_health(health_diff)
-
-func add_health(health_diff: int):
-	return
+	check_hp()
 
 func add_max_health(health_amount: int):
 	current_health += health_amount
@@ -27,7 +23,7 @@ func add_max_health(health_amount: int):
 		h_box_container.add_child(heart_instance)
 	if has_half_hearts:
 		var heart_instance = heart_scene.instantiate()
-		heart_instance.change_state(StateEnums.HeartState.full)
+		heart_instance.change_state(StateEnums.HeartState.half)
 		h_box_container.add_child(heart_instance)
 
 func remove_health(health_diff: int):
@@ -41,9 +37,8 @@ func remove_health(health_diff: int):
 		player_hearts[i].change_state(actual_heart_state - 1)
 		health_diff -= 1
 		player_hearts[i].play_hit()
-		check_hp()
 
 func check_hp():
-	var hearts = h_box_container.get_children() as Array[Heart]
-	if hearts[1].actual_state == StateEnums.HeartState.empty:
+	if current_health <= 2:
+		var hearts = h_box_container.get_children() as Array[Heart]
 		hearts[0].play_last_hp()

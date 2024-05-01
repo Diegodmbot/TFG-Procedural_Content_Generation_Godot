@@ -1,6 +1,85 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk7q1dn0buwnx"]
+[gd_scene load_steps=14 format=3 uid="uid://dk7q1dn0buwnx"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_k032e"]
+[ext_resource type="Texture2D" uid="uid://3ed05pv1hm6v" path="res://assets/Sprites/Knight.png" id="2_sorwa"]
+[ext_resource type="Texture2D" uid="uid://budjf447v6cha" path="res://assets/Sprites/Zombie.png" id="3_q613l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2p2ke"]
+atlas = ExtResource("2_sorwa")
+region = Rect2(0, 56, 16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fw8k4"]
+atlas = ExtResource("2_sorwa")
+region = Rect2(16, 56, 16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imuxt"]
+atlas = ExtResource("2_sorwa")
+region = Rect2(32, 56, 16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epj6r"]
+atlas = ExtResource("2_sorwa")
+region = Rect2(48, 56, 16, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bs3xq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2p2ke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fw8k4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imuxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epj6r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4tq1"]
+atlas = ExtResource("3_q613l")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awvoy"]
+atlas = ExtResource("3_q613l")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nva0w"]
+atlas = ExtResource("3_q613l")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpdxs"]
+atlas = ExtResource("3_q613l")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ngfgh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4tq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awvoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nva0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cpdxs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_k032e")
@@ -15,16 +94,49 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/separation = 70
+size_flags_vertical = 4
+theme_override_constants/separation = 50
 
-[node name="CSharp" type="Button" parent="UI/MarginContainer/HBoxContainer"]
+[node name="Play" type="Button" parent="UI/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 70)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 4
 text = "Play"
 
-[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/CSharp" to="." method="_on_c_sharp_pressed"]
+[node name="Settings" type="Button" parent="UI/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Settings"
+
+[node name="Quit" type="Button" parent="UI/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Quit"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI"]
+position = Vector2(304, 448)
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_bs3xq")
+autoplay = "default"
+speed_scale = 0.2
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="UI"]
+position = Vector2(912, 480)
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_ngfgh")
+autoplay = "default"
+frame_progress = 0.11071
+speed_scale = 0.5
+flip_h = true
+
+[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

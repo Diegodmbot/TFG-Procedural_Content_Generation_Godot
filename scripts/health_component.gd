@@ -2,6 +2,7 @@ extends Node2D
 class_name HealthComponent
 
 signal health_changed
+signal died
 
 @export var max_health: int = 6
 @onready var current_health = max_health
@@ -13,5 +14,7 @@ func damage(damage_amount: int):
 
 func check_death():
 	if current_health == 0:
-		owner.queue_free()
+		emit_signal("died")
+		if not owner.is_in_group("player"):
+			owner.queue_free()
 

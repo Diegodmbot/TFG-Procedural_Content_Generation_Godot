@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4n0dcav0vfix"]
+[gd_scene load_steps=4 format=3 uid="uid://d4n0dcav0vfix"]
 
 [ext_resource type="Script" path="res://scripts/test.gd" id="1_27rqk"]
 [ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="2_cstpn"]
-[ext_resource type="PackedScene" uid="uid://blm53jygasxpi" path="res://scenes/drag_camera.tscn" id="4_po5d6"]
-[ext_resource type="TileSet" uid="uid://0xui0dwind23" path="res://resources/DungeonTileSet.tres" id="5_d0dq1"]
-[ext_resource type="PackedScene" uid="uid://def084pgk5uba" path="res://scenes/skeleton.tscn" id="5_uc71n"]
+[ext_resource type="PackedScene" uid="uid://ceg1k1jansa7d" path="res://scenes/player_camera.tscn" id="4_1adox"]
 
 [node name="test" type="Node2D"]
 script = ExtResource("1_27rqk")
@@ -12,12 +10,5 @@ script = ExtResource("1_27rqk")
 [node name="Player" parent="." instance=ExtResource("2_cstpn")]
 position = Vector2(137, 5)
 
-[node name="Skeleton" parent="." instance=ExtResource("5_uc71n")]
-position = Vector2(133, 43)
-
-[node name="DragCamera" parent="." instance=ExtResource("4_po5d6")]
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("5_d0dq1")
-format = 2
-layer_0/tile_data = PackedInt32Array(4, 2, 0, 65540, 2, 0, 131076, 2, 0, 131077, 2, 0, 196613, 2, 0, 262149, 2, 0, 327685, 2, 0, 327684, 2, 0, 262148, 2, 0, 196612, 2, 0, 65541, 2, 0, 5, 2, 0)
+[node name="PlayerCamera" parent="." instance=ExtResource("4_1adox")]
+extra_zoom = 8.0

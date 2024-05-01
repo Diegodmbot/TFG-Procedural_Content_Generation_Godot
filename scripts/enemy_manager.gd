@@ -1,7 +1,7 @@
 extends Node
 
 const SPAWN_TILE_DISTANCE = 5
-const ENEMIES_COUNT = 10
+const ENEMIES_COUNT = 2
 
 @export var enemies_type: Array[PackedScene] = []
 
@@ -14,9 +14,10 @@ func generate_enemies(room_tiles: Array):
 	for i in ENEMIES_COUNT:
 		var enemy_scene = enemies_type.pick_random()
 		var enemy_instance = enemy_scene.instantiate() as Node2D
-		call_deferred("add_child", enemy_instance)
+		$Enemies.add_child(enemy_instance)
 		var enemy_position = avaible_positions.pick_random()
 		enemy_instance.global_position = enemy_position
+		enemy_instance.died.connect(on_enemy_died)
 		avaible_positions.erase(enemy_position)
 
 func get_avaible_positions(player_tile_position: Vector2, tiles: Array):
@@ -26,3 +27,7 @@ func get_avaible_positions(player_tile_position: Vector2, tiles: Array):
 			avaible_tiles.append(PositionFixer.fix_position_to_tilemap16(tile))
 	return avaible_tiles
 
+func on_enemy_died():
+	var enemies_count = $Enemies.get_child_count()
+	if enemies_count == 0:
+		GameEvents.emit_signal_room_finished()

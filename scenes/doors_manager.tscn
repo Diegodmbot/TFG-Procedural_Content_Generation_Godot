@@ -4,3 +4,5 @@
 
 [node name="DoorsManager" type="Node"]
 script = ExtResource("1_n8eid")
+
+[node name="Doors" type="Node" parent="."]
