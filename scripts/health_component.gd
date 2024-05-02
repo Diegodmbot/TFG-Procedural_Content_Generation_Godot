@@ -15,6 +15,4 @@ func damage(damage_amount: int):
 func check_death():
 	if current_health == 0:
 		emit_signal("died")
-		if not owner.is_in_group("player"):
-			owner.queue_free()
 

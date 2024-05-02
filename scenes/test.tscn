@@ -1,14 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4n0dcav0vfix"]
+[gd_scene load_steps=2 format=3 uid="uid://d4n0dcav0vfix"]
 
 [ext_resource type="Script" path="res://scripts/test.gd" id="1_27rqk"]
-[ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="2_cstpn"]
-[ext_resource type="PackedScene" uid="uid://ceg1k1jansa7d" path="res://scenes/player_camera.tscn" id="4_1adox"]
 
 [node name="test" type="Node2D"]
 script = ExtResource("1_27rqk")
-
-[node name="Player" parent="." instance=ExtResource("2_cstpn")]
-position = Vector2(137, 5)
-
-[node name="PlayerCamera" parent="." instance=ExtResource("4_1adox")]
-extra_zoom = 8.0

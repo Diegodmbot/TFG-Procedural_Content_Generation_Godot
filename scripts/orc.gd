@@ -33,3 +33,4 @@ func on_player_detection():
 
 func on_died():
 	emit_signal("died")
+	queue_free()

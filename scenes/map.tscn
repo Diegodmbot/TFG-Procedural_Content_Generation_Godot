@@ -20,3 +20,6 @@ script = ExtResource("1_eslsp")
 
 [node name="PlayerCamera" parent="." instance=ExtResource("5_j6j8e")]
 extra_zoom = 4.0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.47788, 0.47788, 0.47788, 1)

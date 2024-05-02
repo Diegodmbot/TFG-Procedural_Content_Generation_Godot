@@ -34,5 +34,6 @@ func _on_enemy_radar_component_body_exited(body):
 	bone_controller.set_bone_ability(false)
 
 func on_died():
+	queue_free()
 	emit_signal("died")
 

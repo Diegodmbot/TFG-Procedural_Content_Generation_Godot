@@ -49,12 +49,8 @@ public partial class MapStructure : Node2D
 		_borders = new(ExportedBorders.X, ExportedBorders.Y);
 		Structure = new byte[(int)_borders.X, (int)_borders.Y, 4];
 		Neighborhood = new byte[pointsCount, pointsCount];
-		DoorsPositions = Enumerable.Range(0, pointsCount)
-														.Select(_ => new List<System.Numerics.Vector2>())
-														.ToArray();
-		SpawnPositions = Enumerable.Range(0, pointsCount)
-														.Select(_ => new List<System.Numerics.Vector2>())
-														.ToArray();
+		DoorsPositions = Enumerable.Range(0, pointsCount).Select(_ => new List<System.Numerics.Vector2>()).ToArray();
+		SpawnPositions = Enumerable.Range(0, pointsCount).Select(_ => new List<System.Numerics.Vector2>()).ToArray();
 		RoomsSurface = new (int, int)[pointsCount];
 	}
 

@@ -1,7 +1,7 @@
 extends Node
 
 const SPAWN_TILE_DISTANCE = 5
-const ENEMIES_COUNT = 2
+const ENEMIES_COUNT = 10
 
 @export var enemies_type: Array[PackedScene] = []
 
@@ -29,5 +29,5 @@ func get_avaible_positions(player_tile_position: Vector2, tiles: Array):
 
 func on_enemy_died():
 	var enemies_count = $Enemies.get_child_count()
-	if enemies_count == 0:
+	if enemies_count == 1:
 		GameEvents.emit_signal_room_finished()

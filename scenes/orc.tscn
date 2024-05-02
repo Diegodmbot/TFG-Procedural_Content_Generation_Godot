@@ -84,7 +84,6 @@ max_speed = 30
 acceleration = 15.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_5rkpu")]
-max_health = 1.0
 
 [node name="HurtComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_pc1ga")]
 health_component = NodePath("../HealthComponent")
