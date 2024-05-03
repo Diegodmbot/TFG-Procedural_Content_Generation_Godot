@@ -23,15 +23,3 @@ extra_zoom = 4.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.520872, 0.56552, 0.589819, 1)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="EnemiesCount" type="Label" parent="CanvasLayer"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -0.5
-offset_right = 0.5
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "Enemies: X"

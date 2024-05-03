@@ -32,5 +32,5 @@ func on_player_detection():
 	chase_player = true
 
 func on_died():
-	emit_signal("died")
 	queue_free()
+	emit_signal("died")

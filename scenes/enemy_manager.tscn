@@ -10,3 +10,16 @@ script = ExtResource("1_aeagy")
 enemies_type = Array[PackedScene]([ExtResource("2_87c3a"), ExtResource("3_1gfap"), ExtResource("4_pb702")])
 
 [node name="Enemies" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EnemiesCount" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.0
+offset_right = 37.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Enemies: "
