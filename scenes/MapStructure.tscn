@@ -6,9 +6,11 @@
 
 [node name="MapStructure" type="Node2D"]
 script = ExtResource("1_mf7c5")
+ExportedBorders = Vector2(50, 50)
 
 [node name="VoronoiDiagram" parent="." instance=ExtResource("2_aqhkv")]
-PointsLimit = 10
+PointsLimit = 4
+DistanceToPoint = 0
 
 [node name="DungeonTileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_h1wlv")

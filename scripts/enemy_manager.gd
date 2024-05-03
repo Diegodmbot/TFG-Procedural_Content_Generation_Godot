@@ -1,7 +1,7 @@
 extends Node
 
 const SPAWN_TILE_DISTANCE = 5
-const ENEMIES_COUNT = 10
+const ENEMIES_COUNT = 1
 
 @export var enemies_type: Array[PackedScene] = []
 

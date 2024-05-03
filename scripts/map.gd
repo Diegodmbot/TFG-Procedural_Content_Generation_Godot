@@ -29,7 +29,6 @@ func move_player_to_room(id: int):
 	player.position =  PositionFixer.fix_position_to_tilemap16(player_starting_position)
 
 
-
 func settle_doors():
 	var doors_positions: Array = map_structure.GetDoors()
 	var spawns: Array = map_structure.GetSpawnsPositions()
@@ -60,3 +59,5 @@ func on_exit_door(spawn_position: Vector2):
 	var room_id = map_structure.GetRoomByPosition(spawn_position.x/16, spawn_position.y/16)
 	player.position = spawn_position
 	call_deferred("set_current_room", room_id)
+	if visited_rooms.has(room_id):
+		doors_manager.open_doors()

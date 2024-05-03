@@ -18,8 +18,8 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 PositionFixer="*res://scripts/position_fixer.gd"
-GameEvents="*res://scripts/GameEvents.gd"
-StateEnums="*res://scripts/StateEnums.gd"
+GameEvents="*res://scripts/autoload/GameEvents.gd"
+StateEnums="*res://scripts/autoload/StateEnums.gd"
 
 [debug]
 

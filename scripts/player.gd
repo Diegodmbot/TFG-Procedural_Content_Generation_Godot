@@ -10,7 +10,6 @@ var direction: Vector2 = Vector2.ZERO
 var hitted: bool = false
 
 func _ready():
-	GameEvents.player_death.connect(on_player_death)
 	health_component.health_changed.connect(on_health_changed)
 	%HealthBar.add_max_health(health_component.current_health)
 
@@ -49,7 +48,4 @@ func update_animation():
 func on_health_changed():
 	%HealthBar.change_health(health_component.current_health)
 	set_hitted(true)
-
-func on_player_death():
-	pass
 
