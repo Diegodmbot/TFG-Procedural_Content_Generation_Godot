@@ -3,8 +3,8 @@ extends CharacterBody2D
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var velocity_component = $VelocityComponent
 @onready var animation_player = $Animations/AnimationPlayer
-@onready var orb = $Orb
 @onready var sword_ability_controller = $SwordAbilityController
+@onready var hurt_component = $HurtComponent
 
 var direction: Vector2 = Vector2.ZERO
 var hitted: bool = false
@@ -24,7 +24,7 @@ func _physics_process(_delta):
 
 func _process(delta):
 	direction = get_movement_vector()
-	if Input.is_action_pressed("melee_attack"):
+	if Input.is_action_pressed("melee_attack") and not hitted:
 		sword_ability_controller.attack()
 		velocity_component.decelerate()
 	update_animation()
@@ -48,8 +48,9 @@ func update_animation():
 
 func on_health_changed():
 	%HealthBar.change_health(health_component.current_health)
+	$HitVignette.play_hit()
 	set_hitted(true)
 
 func on_died():
-	pass
+	GameEvents.player_lose()
 

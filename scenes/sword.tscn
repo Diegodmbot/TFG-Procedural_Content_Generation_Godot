@@ -4,6 +4,33 @@
 [ext_resource type="Script" path="res://scripts/sword.gd" id="1_tr38j"]
 [ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/hitbox_component.tscn" id="2_xw52w"]
 
+[sub_resource type="Animation" id="Animation_3edqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_xapcf"]
 resource_name = "attack"
 length = 0.6
@@ -46,33 +73,6 @@ tracks/2/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_3edqv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p0113"]
 _data = {
 "RESET": SubResource("Animation_3edqv"),
@@ -83,6 +83,7 @@ _data = {
 size = Vector2(37.189, 51.0743)
 
 [node name="Sword" type="Node2D"]
+scale = Vector2(0.7, 0.7)
 script = ExtResource("1_tr38j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
