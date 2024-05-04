@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dlildot4mqcx3"]
+[gd_scene load_steps=18 format=3 uid="uid://cba36vjp4f0ah"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_sfcgu"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_2sd5o"]
@@ -11,12 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://8gapb0enotrh" path="res://scenes/sword.tscn" id="8_b3bbk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2shqx"]
-radius = 2.49328
-height = 8.16448
+radius = 7.625
+height = 20.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xa3a8"]
-radius = 2.70189
-height = 8.90313
+radius = 7.86933
+height = 20.2387
 
 [sub_resource type="Animation" id="Animation_ohjcl"]
 resource_name = "Dead"
@@ -126,7 +126,6 @@ _data = {
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 light_mask = 4
 visibility_layer = 4
-scale = Vector2(1.2, 1.2)
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
@@ -137,7 +136,7 @@ max_speed = 50
 acceleration = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(0, 4.125)
 shape = SubResource("CapsuleShape2D_2shqx")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_tktnp")]
@@ -147,14 +146,13 @@ health_component = NodePath("../HealthComponent")
 character_type = Array[int]([3])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
-position = Vector2(0, 0.630672)
+position = Vector2(0.125, 4.25567)
 shape = SubResource("CapsuleShape2D_xa3a8")
 
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Animations"]
 position = Vector2(-0.210228, -0.210224)
-scale = Vector2(0.326, 0.328)
 texture = ExtResource("5_7wfhi")
 hframes = 4
 vframes = 4
@@ -167,6 +165,7 @@ libraries = {
 autoplay = "Idle"
 
 [node name="SwordAbilityController" parent="." instance=ExtResource("4_rnr73")]
+position = Vector2(16.3024, -22.4406)
 sword_scene = ExtResource("8_b3bbk")
 
 [node name="Orb" parent="." instance=ExtResource("4_lpkt1")]

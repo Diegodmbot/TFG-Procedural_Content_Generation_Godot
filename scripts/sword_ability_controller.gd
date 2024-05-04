@@ -7,6 +7,10 @@ extends Node2D
 
 var base_damage = 5
 
+func _process(delta):
+	$HSlider.value = timer.time_left/timer.wait_time * 100
+	print(timer.time_left/timer.wait_time)
+
 func attack():
 	if not timer.is_stopped():
 		return

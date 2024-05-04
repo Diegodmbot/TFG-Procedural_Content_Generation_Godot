@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://do0mlkhyc563f" path="res://scenes/MapStructure.tscn" id="2_fuvdd"]
 [ext_resource type="PackedScene" uid="uid://dyecqsk0e20wp" path="res://scenes/doors_manager.tscn" id="3_8a8kj"]
 [ext_resource type="PackedScene" uid="uid://ceg1k1jansa7d" path="res://scenes/player_camera.tscn" id="5_j6j8e"]
-[ext_resource type="PackedScene" uid="uid://dlildot4mqcx3" path="res://scenes/player.tscn" id="5_ugeyh"]
+[ext_resource type="PackedScene" uid="uid://cba36vjp4f0ah" path="res://scenes/player.tscn" id="5_ugeyh"]
 [ext_resource type="PackedScene" uid="uid://bm5bv4negurg1" path="res://scenes/enemy_manager.tscn" id="6_esl24"]
 
 [node name="Map" type="Node"]
@@ -17,6 +17,7 @@ script = ExtResource("1_eslsp")
 [node name="EnemyManager" parent="." instance=ExtResource("6_esl24")]
 
 [node name="Player" parent="." instance=ExtResource("5_ugeyh")]
+scale = Vector2(0.5, 0.5)
 
 [node name="PlayerCamera" parent="." instance=ExtResource("5_j6j8e")]
 extra_zoom = 4.0

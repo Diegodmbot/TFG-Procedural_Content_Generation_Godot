@@ -11,6 +11,7 @@ var hitted: bool = false
 
 func _ready():
 	health_component.health_changed.connect(on_health_changed)
+	health_component.died.connect(on_died)
 	%HealthBar.add_max_health(health_component.current_health)
 
 func _physics_process(_delta):
@@ -48,4 +49,7 @@ func update_animation():
 func on_health_changed():
 	%HealthBar.change_health(health_component.current_health)
 	set_hitted(true)
+
+func on_died():
+	pass
 
