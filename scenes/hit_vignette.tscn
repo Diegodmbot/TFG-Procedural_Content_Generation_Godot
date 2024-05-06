@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://duhu4iiem7j3g"]
 
 [ext_resource type="Shader" path="res://resources/vignette.gdshader" id="1_m05pg"]
-[ext_resource type="Script" path="res://scenes/hit_vignette.gd" id="1_rtyl3"]
+[ext_resource type="Script" path="res://scripts/hit_vignette.gd" id="1_rtyl3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jkisq"]
 shader = ExtResource("1_m05pg")
-shader_parameter/vignette_intensity = 0.7
-shader_parameter/vignette_opacity = 0.115
+shader_parameter/vignette_intensity = 0.5
+shader_parameter/vignette_opacity = 0.1
 shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_br1pr"]
@@ -31,10 +31,10 @@ tracks/1/path = NodePath("ColorRect:material:shader_parameter/vignette_opacity")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.115, 0.505]
+"values": [0.115, 0.505, 0.115]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -61,7 +61,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.7]
+"values": [0.5]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -85,7 +85,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.115]
+"values": [0.1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ioda2"]

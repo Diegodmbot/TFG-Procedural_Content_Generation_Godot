@@ -25,5 +25,6 @@ func on_player_entering(id : int):
 		if door.id == exit_id:
 			exit_door_spawn = door.spawn_position
 	GameEvents.emit_exit_door(exit_door_spawn)
+
 func on_room_finished():
 	open_doors()

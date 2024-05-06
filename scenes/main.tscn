@@ -101,36 +101,36 @@ size_flags_vertical = 4
 theme_override_constants/separation = 50
 
 [node name="Play" type="Button" parent="UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 70)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Play"
 
 [node name="Settings" type="Button" parent="UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Settings"
 
 [node name="Quit" type="Button" parent="UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 80)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Quit"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI"]
-position = Vector2(304, 448)
-scale = Vector2(10, 10)
+position = Vector2(112, 192)
+scale = Vector2(5.54698, 5.54698)
 sprite_frames = SubResource("SpriteFrames_bs3xq")
 autoplay = "default"
 speed_scale = 0.2
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="UI"]
-position = Vector2(912, 480)
-scale = Vector2(10, 10)
+position = Vector2(528, 192)
+scale = Vector2(7.57387, 7.57387)
 sprite_frames = SubResource("SpriteFrames_ngfgh")
 autoplay = "default"
 frame_progress = 0.11071

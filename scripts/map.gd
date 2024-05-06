@@ -14,6 +14,7 @@ var visited_rooms: Array
 
 func _ready():
 	GameEvents.exit_door.connect(on_exit_door)
+	GameEvents.room_finished.connect(on_room_finished)
 	map_structure.GenerateMapStructure()
 	map_structure.DrawLockedMap()
 	visited_rooms.append(Staring_Room_Id)
@@ -61,3 +62,8 @@ func on_exit_door(spawn_position: Vector2):
 	call_deferred("set_current_room", room_id)
 	if visited_rooms.has(room_id):
 		doors_manager.open_doors()
+
+func on_room_finished():
+	if visited_rooms.size() == map_structure.VoronoiDiagram.Points:
+		GameEvents.player_wins()
+

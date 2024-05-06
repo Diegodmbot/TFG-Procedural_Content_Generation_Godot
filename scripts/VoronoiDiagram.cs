@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public partial class VoronoiDiagram : Node
 {
-	[Export] public int PointsLimit { get; set; } = 20;
+	[Export] public int Points { get; set; } = 20;
 	[Export] private int DistanceToPoint { get; set; } = 10;
 
 	System.Numerics.Vector2 borders = new(100, 100);
@@ -18,7 +18,7 @@ public partial class VoronoiDiagram : Node
 		borders = newBorders;
 		map = new byte[(int)borders.X, (int)borders.Y];
 		// Seleccionar puntos aleatorios en el mapa
-		while (points.Count < PointsLimit)
+		while (points.Count < Points)
 		{
 			System.Numerics.Vector2 random_point = new(GD.Randi() % borders.X, GD.Randi() % borders.Y);
 			if (CanBePoint(random_point))

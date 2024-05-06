@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://bffxkxk8k3hps"]
+
+[ext_resource type="Script" path="res://scripts/win_screen.gd" id="1_ihjx5"]
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ihjx5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 163.502
+offset_top = 39.685
+offset_right = 558.502
+offset_bottom = 176.685
+theme_override_font_sizes/font_size = 100
+text = "You Win"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 282.557
+offset_top = 220.649
+offset_right = 397.557
+offset_bottom = 251.649
+text = "Back to menu"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

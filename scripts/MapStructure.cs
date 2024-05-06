@@ -45,7 +45,7 @@ public partial class MapStructure : Node2D
 		VoronoiDiagram = GetNode<VoronoiDiagram>("VoronoiDiagram");
 		DungeonTileMap = GetNode<TileMap>("DungeonTileMap");
 		DungeonTileMap.Clear();
-		int pointsCount = VoronoiDiagram.PointsLimit + 1;
+		int pointsCount = VoronoiDiagram.Points + 1;
 		_borders = new(ExportedBorders.X, ExportedBorders.Y);
 		Structure = new byte[(int)_borders.X, (int)_borders.Y, 4];
 		Neighborhood = new byte[pointsCount, pointsCount];

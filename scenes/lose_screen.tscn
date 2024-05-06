@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bgkgr4m1acrr5"]
+[gd_scene load_steps=2 format=3 uid="uid://bgkgr4m1acrr5"]
+
+[ext_resource type="Script" path="res://scenes/lose_screen.gd" id="1_7arle"]
 
 [node name="LoseScreen" type="Control"]
 layout_mode = 3
@@ -7,10 +9,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_7arle")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_right = 76.01
-offset_bottom = 23.0
+offset_left = 229.248
+offset_top = 75.7621
+offset_right = 457.248
+offset_bottom = 144.762
 theme_override_font_sizes/font_size = 50
 text = "You loses"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 285.367
+offset_top = 216.129
+offset_right = 400.367
+offset_bottom = 247.129
+text = "Back to menu"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
