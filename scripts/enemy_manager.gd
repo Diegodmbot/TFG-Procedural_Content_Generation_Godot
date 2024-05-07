@@ -1,7 +1,7 @@
 extends Node
 
 const SPAWN_TILE_DISTANCE = 5
-const ENEMIES_COUNT = 2
+const ENEMIES_COUNT = 1
 const LABEL_TEXT: String = "Enemies: "
 
 @export var enemies_type: Array[PackedScene] = []
@@ -17,9 +17,11 @@ func generate_enemies(room_tiles: Array):
 		var enemy_scene = enemies_type.pick_random()
 		var enemy_instance = enemy_scene.instantiate() as Node2D
 		$Enemies.add_child(enemy_instance)
+		enemy_instance.scale = Vector2(0.5, 0.5)
 		var enemy_position = avaible_positions.pick_random()
 		enemy_instance.global_position = enemy_position
-		enemy_instance.died.connect(on_enemy_died)
+		# Conectar señal de muerte
+		enemy_instance.death_component.died.connect(on_enemy_died)
 		avaible_positions.erase(enemy_position)
 		enemies_count += 1
 	update_counter()

@@ -1,11 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://yquogj37313x"]
+[gd_scene load_steps=19 format=3 uid="uid://yquogj37313x"]
 
 [ext_resource type="Script" path="res://scripts/ogre.gd" id="1_uflum"]
 [ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/health_component.tscn" id="3_4tqvm"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/enemy_radar_component.tscn" id="3_s61v1"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="3_u5sm0"]
+[ext_resource type="PackedScene" uid="uid://d4immjrrh5iwh" path="res://scenes/death_component.tscn" id="3_vu61g"]
 [ext_resource type="PackedScene" uid="uid://c87172ansg6ek" path="res://scenes/hurt_component.tscn" id="5_kixyf"]
 [ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/hitbox_component.tscn" id="5_xftb4"]
+[ext_resource type="Shader" path="res://resources/white.gdshader" id="7_2aewi"]
 [ext_resource type="Texture2D" uid="uid://dqpc25w8aukmw" path="res://assets/Sprites/Ogre.png" id="9_1egpa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dttq"]
@@ -75,14 +77,19 @@ _data = {
 "Run": SubResource("Animation_ib0mq")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8c3tp"]
+shader = ExtResource("7_2aewi")
+
 [node name="Ogre" type="CharacterBody2D"]
-scale = Vector2(0.4, 0.4)
 collision_layer = 0
 script = ExtResource("1_uflum")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("3_u5sm0")]
 max_speed = 10
 acceleration = 5.0
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_vu61g")]
+health_component = NodePath("../HealthComponent")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_4tqvm")]
 max_health = 2.0
@@ -118,6 +125,8 @@ libraries = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8c3tp")
+use_parent_material = true
 texture = ExtResource("9_1egpa")
 hframes = 4
 vframes = 3

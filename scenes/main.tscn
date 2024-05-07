@@ -107,13 +107,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Play"
 
-[node name="Settings" type="Button" parent="UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-text = "Settings"
-
 [node name="Quit" type="Button" parent="UI/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
@@ -138,5 +131,4 @@ speed_scale = 0.5
 flip_h = true
 
 [connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

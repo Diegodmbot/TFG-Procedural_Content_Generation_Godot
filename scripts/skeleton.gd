@@ -2,15 +2,16 @@ extends Enemy
 
 @onready var enemy_radar_component = $EnemyRadarComponent
 @onready var velocity_component = $VelocityComponent
-@onready var animation_player = $AnimationPlayer
-@onready var bone_controller = $BoneController
 @onready var health_component = $HealthComponent
+@onready var death_component = $DeathComponent
+@onready var bone_controller = $BoneController
+
+@onready var animation_player = $AnimationPlayer
 
 var aggresive = false
 
 func _ready():
 	enemy_radar_component.player_detected.connect(on_player_detection)
-	health_component.died.connect(on_died)
 
 func _physics_process(delta):
 	if aggresive:
@@ -33,7 +34,4 @@ func _on_enemy_radar_component_body_exited(body):
 	aggresive = false
 	bone_controller.set_bone_ability(false)
 
-func on_died():
-	queue_free()
-	emit_signal("died")
 

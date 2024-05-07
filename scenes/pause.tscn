@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cenu141voy6vx"]
+
+[ext_resource type="Script" path="res://scripts/pause.gd" id="1_ndf3c"]
+
+[node name="Pause" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_ndf3c")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 224.0
+offset_top = 112.0
+offset_right = 400.0
+offset_bottom = 181.0
+theme_override_font_sizes/font_size = 50
+text = "Paused"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 272.0
+offset_top = 208.0
+offset_right = 280.0
+offset_bottom = 216.0
+mouse_filter = 1
+text = "Resume"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

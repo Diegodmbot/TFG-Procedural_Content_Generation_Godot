@@ -1,6 +1,7 @@
 extends Node
 
 var door_scene = preload("res://scenes/door.tscn")
+var pause_menu_scene = preload("res://scenes/pause.tscn")
 
 const Staring_Room_Id: int = 1
 
@@ -23,6 +24,10 @@ func _ready():
 	generate_enemies(Staring_Room_Id)
 	settle_doors()
 
+func _unhandled_input(event):
+	if event.is_action_pressed("pause"):
+		add_child(pause_menu_scene.instantiate())
+		get_tree().root.set_input_as_handled()
 
 func move_player_to_room(id: int):
 	var ground_structure: Array = map_structure.GetRoom(id)
@@ -62,6 +67,7 @@ func on_exit_door(spawn_position: Vector2):
 	call_deferred("set_current_room", room_id)
 	if visited_rooms.has(room_id):
 		doors_manager.open_doors()
+	$Transition.play_open_circle()
 
 func on_room_finished():
 	if visited_rooms.size() == map_structure.VoronoiDiagram.Points:

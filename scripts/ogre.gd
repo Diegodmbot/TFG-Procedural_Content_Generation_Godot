@@ -4,13 +4,14 @@ extends Enemy
 @onready var velocity_component = $VelocityComponent
 @onready var enemy_radar_component = $EnemyRadarComponent
 @onready var health_component = $HealthComponent
+@onready var death_component = $DeathComponent
 
 var chase_player: bool = false
 var counter = 0
 
 func _ready():
-	health_component.died.connect(on_died)
 	enemy_radar_component.player_detected.connect(on_player_detection)
+	health_component.health_changed.connect(on_health_changed)
 
 func _physics_process(_delta):
 	if chase_player == true:
@@ -29,6 +30,7 @@ func _physics_process(_delta):
 func on_player_detection():
 	chase_player = true
 
-func on_died():
-	queue_free()
-	emit_signal("died")
+func on_health_changed():
+	var tween = create_tween()
+	tween.tween_property($Sprite2D, "use_parent_material", false, 0.2)
+	tween.tween_property($Sprite2D, "use_parent_material", true, 0.2)

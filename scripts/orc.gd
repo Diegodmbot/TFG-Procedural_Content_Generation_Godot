@@ -1,17 +1,18 @@
 extends Enemy
 
-@onready var animation_player = $AnimationPlayer
 @onready var velocity_component = $VelocityComponent
 @onready var enemy_radar_component = $EnemyRadarComponent
 @onready var hitbox_component = $Hitbox_component
 @onready var health_component = $HealthComponent
+@onready var death_component = $DeathComponent
+
+@onready var animation_player = $AnimationPlayer
 
 var chase_player: bool = false
 var counter = 0
 
 func _ready():
 	enemy_radar_component.player_detected.connect(on_player_detection)
-	health_component.died.connect(on_died)
 
 func _physics_process(_delta):
 	if chase_player:
@@ -31,6 +32,3 @@ func _physics_process(_delta):
 func on_player_detection():
 	chase_player = true
 
-func on_died():
-	queue_free()
-	emit_signal("died")

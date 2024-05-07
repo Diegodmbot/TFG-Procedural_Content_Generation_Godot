@@ -1,12 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://bvoobir73nuxi"]
+[gd_scene load_steps=19 format=3 uid="uid://bvoobir73nuxi"]
 
 [ext_resource type="Script" path="res://scripts/orc.gd" id="1_4cqec"]
 [ext_resource type="Texture2D" uid="uid://6x16m8xruv43" path="res://assets/Sprites/Orc.png" id="1_wk3qr"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/velocity_component.tscn" id="2_8y2cx"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/enemy_radar_component.tscn" id="3_2wcqb"]
 [ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/health_component.tscn" id="3_5rkpu"]
+[ext_resource type="PackedScene" uid="uid://d4immjrrh5iwh" path="res://scenes/death_component.tscn" id="3_hxuuj"]
 [ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/hitbox_component.tscn" id="4_74rdo"]
 [ext_resource type="PackedScene" uid="uid://c87172ansg6ek" path="res://scenes/hurt_component.tscn" id="4_pc1ga"]
+[ext_resource type="Shader" path="res://resources/white.gdshader" id="7_p8w0d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ms74d"]
 
@@ -17,6 +19,9 @@ radius = 8.0
 radius = 80.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_musvx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bi34f"]
+shader = ExtResource("7_p8w0d")
 
 [sub_resource type="Animation" id="Animation_5g4fp"]
 resource_name = "Idle"
@@ -49,6 +54,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:use_parent_material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_u58e4"]
 resource_name = "Run"
@@ -75,13 +92,15 @@ _data = {
 }
 
 [node name="Orc" type="CharacterBody2D"]
-scale = Vector2(0.5, 0.5)
 collision_layer = 0
 script = ExtResource("1_4cqec")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_8y2cx")]
 max_speed = 30
 acceleration = 15.0
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_hxuuj")]
+health_component = NodePath("../HealthComponent")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_5rkpu")]
 max_health = 1
@@ -111,6 +130,8 @@ position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_musvx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_bi34f")
+use_parent_material = true
 texture = ExtResource("1_wk3qr")
 hframes = 4
 vframes = 3

@@ -2,6 +2,8 @@ extends Node
 
 signal player_going_out
 
+@export var transition: CanvasLayer
+
 func _ready():
 	GameEvents.enter_door.connect(on_player_entering)
 	GameEvents.room_finished.connect(on_room_finished)
@@ -17,6 +19,8 @@ func open_doors():
 
 
 func on_player_entering(id : int):
+	if transition != null:
+		transition.play_close_circle()
 	var exit_id = id + 1 if id % 2 == 0 else id - 1
 	var doors = $Doors.get_children()
 	var exit_door_spawn: Vector2 = Vector2.ZERO
