@@ -70,6 +70,6 @@ func on_exit_door(spawn_position: Vector2):
 	$Transition.play_open_circle()
 
 func on_room_finished():
-	if visited_rooms.size() == map_structure.VoronoiDiagram.Points:
+	if visited_rooms.size() == map_structure.RoomsCount:
 		GameEvents.player_wins()
 

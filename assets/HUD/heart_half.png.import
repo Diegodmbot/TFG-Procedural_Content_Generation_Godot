@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5ikxchpg6dqj"
-path="res://.godot/imported/Sprite-0001.png-301f2c522e57282b7df856433eb0ee72.ctex"
+uid="uid://br05of5dtar8h"
+path="res://.godot/imported/heart_half.png-c11d8e246855c80b2847db8a77a4e613.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprite-0001.png"
-dest_files=["res://.godot/imported/Sprite-0001.png-301f2c522e57282b7df856433eb0ee72.ctex"]
+source_file="res://assets/HUD/heart_half.png"
+dest_files=["res://.godot/imported/heart_half.png-c11d8e246855c80b2847db8a77a4e613.ctex"]
 
 [params]
 

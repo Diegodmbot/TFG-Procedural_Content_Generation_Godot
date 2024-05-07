@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://dk7q1dn0buwnx"]
+[gd_scene load_steps=15 format=3 uid="uid://dk7q1dn0buwnx"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_k032e"]
+[ext_resource type="PackedScene" uid="uid://cer0t50d76v5m" path="res://scenes/sound_button.tscn" id="2_qorah"]
 [ext_resource type="Texture2D" uid="uid://3ed05pv1hm6v" path="res://assets/Sprites/Knight.png" id="2_sorwa"]
 [ext_resource type="Texture2D" uid="uid://budjf447v6cha" path="res://assets/Sprites/Zombie.png" id="3_q613l"]
 
@@ -95,23 +96,18 @@ grow_vertical = 2
 theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 50
 
-[node name="Play" type="Button" parent="UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 40)
+[node name="Play" parent="UI/MarginContainer/HBoxContainer" instance=ExtResource("2_qorah")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 text = "Play"
 
-[node name="Quit" type="Button" parent="UI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 40)
+[node name="Quit" parent="UI/MarginContainer/HBoxContainer" instance=ExtResource("2_qorah")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
 text = "Quit"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI"]

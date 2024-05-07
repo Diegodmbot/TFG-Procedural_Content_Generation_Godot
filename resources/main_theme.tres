@@ -1,7 +1,32 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bnngh44ouncgj"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bnngh44ouncgj"]
+
+[ext_resource type="Texture2D" uid="uid://dlsav84pfvheq" path="res://assets/UI/Default.png" id="1_7bs4e"]
+[ext_resource type="FontFile" uid="uid://bjqmh51qb1a3i" path="res://resources/Kubasta.ttf" id="1_k620a"]
+[ext_resource type="Texture2D" uid="uid://b07l80ehfs5ec" path="res://assets/UI/Hover.png" id="1_vf0yb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kmbs0"]
+texture = ExtResource("1_vf0yb")
+texture_margin_left = 8.0
+texture_margin_top = 7.0
+texture_margin_right = 8.0
+texture_margin_bottom = 13.0
+region_rect = Rect2(0, 0, 80, 83)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wbaa4"]
+texture = ExtResource("1_7bs4e")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(0, 0, 80, 83)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6qj2n"]
 bg_color = Color(0.520872, 0.56552, 0.589819, 1)
 
 [resource]
+default_font = ExtResource("1_k620a")
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 3
+Button/styles/hover = SubResource("StyleBoxTexture_kmbs0")
+Button/styles/normal = SubResource("StyleBoxTexture_wbaa4")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_6qj2n")

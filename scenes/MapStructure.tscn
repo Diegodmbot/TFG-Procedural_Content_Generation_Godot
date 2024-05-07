@@ -9,8 +9,7 @@ script = ExtResource("1_mf7c5")
 ExportedBorders = Vector2(50, 50)
 
 [node name="VoronoiDiagram" parent="." instance=ExtResource("2_aqhkv")]
-Points = 3
-DistanceToPoint = 0
+DistanceToPoint = 5
 
 [node name="DungeonTileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_h1wlv")

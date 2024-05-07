@@ -19,13 +19,17 @@ boot_splash/bg_color=Color(0.521569, 0.227451, 0.337255, 1)
 boot_splash/image="res://assets/Weapons/Bone.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://assets/icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://resources/default_bus_layout.tres"
 
 [autoload]
 
 PositionFixer="*res://scripts/position_fixer.gd"
 GameEvents="*res://scripts/autoload/GameEvents.gd"
 StateEnums="*res://scripts/autoload/StateEnums.gd"
+ClickSound="*res://scenes/click_sound.tscn"
 
 [debug]
 
@@ -46,6 +50,10 @@ project/assembly_name="Testing_Procedural_Generation"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
+
+[gui]
+
+theme/custom="res://resources/main_theme.tres"
 
 [input]
 

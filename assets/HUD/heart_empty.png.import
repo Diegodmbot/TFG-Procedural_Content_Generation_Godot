@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw3lj2i4wqvdj"
-path="res://.godot/imported/BasicTiles.png-d61d4e1e3441b79396c989f3b412f081.ctex"
+uid="uid://8dw41qqt8ecp"
+path="res://.godot/imported/heart_empty.png-b6bb300bfceffb045ffd54a388b158a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/BasicTiles.png"
-dest_files=["res://.godot/imported/BasicTiles.png-d61d4e1e3441b79396c989f3b412f081.ctex"]
+source_file="res://assets/HUD/heart_empty.png"
+dest_files=["res://.godot/imported/heart_empty.png-b6bb300bfceffb045ffd54a388b158a7.ctex"]
 
 [params]
 

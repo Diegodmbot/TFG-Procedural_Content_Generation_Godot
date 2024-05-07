@@ -22,17 +22,18 @@ public partial class MapStructure : Node2D
 	}
 
 
-	[Export] Godot.Vector2 ExportedBorders = new(100, 100);
-
+	[Export] Vector2 ExportedBorders = new(100, 100);
+	[Export] int RoomsCount = 10;
 	readonly System.Numerics.Vector2[] Directions = [new(0, 1), new(0, -1), new(1, 0), new(-1, 0)];
 	const double MinimumGroundPerRoom = 0.3;
 
 	VoronoiDiagram VoronoiDiagram;
 	TileMap DungeonTileMap;
-	// map size
+	// Map size
 	private System.Numerics.Vector2 _borders;
+	// Store map structure in different layers
 	public byte[,,] Structure;
-	// Si el número en la posición [i,j] es diferente a 0 significa que las habitaciones i y j están conectadas
+	// Store rooms neighbors
 	byte[,] Neighborhood;
 	// Guarda la posición de las puertas de cada habitación
 	List<System.Numerics.Vector2>[] DoorsPositions;
@@ -45,13 +46,13 @@ public partial class MapStructure : Node2D
 		VoronoiDiagram = GetNode<VoronoiDiagram>("VoronoiDiagram");
 		DungeonTileMap = GetNode<TileMap>("DungeonTileMap");
 		DungeonTileMap.Clear();
-		int pointsCount = VoronoiDiagram.Points + 1;
 		_borders = new(ExportedBorders.X, ExportedBorders.Y);
 		Structure = new byte[(int)_borders.X, (int)_borders.Y, 4];
-		Neighborhood = new byte[pointsCount, pointsCount];
-		DoorsPositions = Enumerable.Range(0, pointsCount).Select(_ => new List<System.Numerics.Vector2>()).ToArray();
-		SpawnPositions = Enumerable.Range(0, pointsCount).Select(_ => new List<System.Numerics.Vector2>()).ToArray();
-		RoomsSurface = new (int, int)[pointsCount];
+		int roomsCountExtra = RoomsCount + 1;
+		Neighborhood = new byte[roomsCountExtra, roomsCountExtra + 1];
+		DoorsPositions = Enumerable.Range(0, roomsCountExtra).Select(_ => new List<System.Numerics.Vector2>()).ToArray();
+		SpawnPositions = Enumerable.Range(0, roomsCountExtra).Select(_ => new List<System.Numerics.Vector2>()).ToArray();
+		RoomsSurface = new (int, int)[roomsCountExtra];
 	}
 
 	public void GenerateMapStructure()
@@ -134,7 +135,7 @@ public partial class MapStructure : Node2D
 
 	private void CreateRooms()
 	{
-		var map = VoronoiDiagram.BuildVoronoiDiagram(_borders);
+		var map = VoronoiDiagram.BuildVoronoiDiagram(_borders, RoomsCount);
 		for (int i = 0; i < _borders.X; i++)
 		{
 			for (int j = 0; j < _borders.Y; j++)
@@ -260,6 +261,7 @@ public partial class MapStructure : Node2D
 		while (!roomCreated)
 		{
 			roomCreated = (double)RoomsSurface[roomId].ground / RoomsSurface[roomId].area > MinimumGroundPerRoom && PathConnected(automatas[0], roomId);
+			// POr algún motivo automata.Count es 0
 			for (int j = 0; j < automatas.Count; j++)
 			{
 				if (Structure[(int)automatas[j].X, (int)automatas[j].Y, (int)MapType.GROUND] == 0)

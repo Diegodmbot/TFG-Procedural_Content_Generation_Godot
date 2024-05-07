@@ -1,9 +1,9 @@
 extends TextureRect
 class_name Heart
 
-var heart_full_img = preload("res://assets/UI/heart_full.png")
-var heart_half_img = preload("res://assets/UI/heart_half.png")
-var heart_empty_img = preload("res://assets/UI/heart_empty.png")
+var heart_full_img = preload("res://assets/HUD/heart_full.png")
+var heart_half_img = preload("res://assets/HUD/heart_half.png")
+var heart_empty_img = preload("res://assets/HUD/heart_empty.png")
 
 @onready var animation_player = $AnimationPlayer
 
