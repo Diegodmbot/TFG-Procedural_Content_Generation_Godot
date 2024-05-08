@@ -4,8 +4,8 @@ signal enter_door
 signal exit_door
 signal room_finished
 
-var lose_scene = preload("res://scenes/lose_screen.tscn")
-var win_scene = preload("res://scenes/win_screen.tscn")
+var lose_scene = preload("res://scenes/UI/lose_screen.tscn")
+var win_scene = preload("res://scenes/UI/win_screen.tscn")
 
 func emit_enter_door(door_id: int):
 	emit_signal("enter_door", door_id)

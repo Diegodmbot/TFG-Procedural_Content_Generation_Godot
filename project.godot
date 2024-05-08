@@ -26,10 +26,11 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 
 [autoload]
 
-PositionFixer="*res://scripts/position_fixer.gd"
+PositionFixer="*res://scripts/autoload/position_fixer.gd"
 GameEvents="*res://scripts/autoload/GameEvents.gd"
 StateEnums="*res://scripts/autoload/StateEnums.gd"
-ClickSound="*res://scenes/click_sound.tscn"
+ClickSound="*res://scenes/UI/click_sound.tscn"
+MusicPlayer="*res://scenes/autoload/music_player.tscn"
 
 [debug]
 

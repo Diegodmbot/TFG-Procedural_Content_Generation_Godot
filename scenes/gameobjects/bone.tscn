@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://brr1dcvv8ictr"]
+
+[ext_resource type="Script" path="res://scripts/gameobjects/bone.gd" id="1_lx232"]
+[ext_resource type="Texture2D" uid="uid://banp6q7vwgdwd" path="res://assets/Weapons/Bone.png" id="1_pnc70"]
+[ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/components/hitbox_component.tscn" id="2_ia2yv"]
+
+[sub_resource type="Animation" id="Animation_u7jgm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.25, 0.25)]
+}
+
+[sub_resource type="Animation" id="Animation_v4rcd"]
+resource_name = "Rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dfivo"]
+_data = {
+"RESET": SubResource("Animation_u7jgm"),
+"Rotate": SubResource("Animation_v4rcd")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o4r0j"]
+radius = 12.0416
+
+[node name="Bone" type="Node2D"]
+scale = Vector2(0.25, 0.25)
+script = ExtResource("1_lx232")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.29786, 1.1441)
+texture = ExtResource("1_pnc70")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dfivo")
+}
+autoplay = "Rotate"
+
+[node name="Hitbox_component" parent="." instance=ExtResource("2_ia2yv")]
+damage = 1
+character_type = Array[int]([3])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox_component"]
+shape = SubResource("CircleShape2D_o4r0j")
+
+[connection signal="body_entered" from="Hitbox_component" to="." method="_on_hitbox_component_body_entered"]

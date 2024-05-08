@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqf3hon38ngj2"]
+
+[ext_resource type="Script" path="res://scripts/components/enemy_radar_component.gd" id="1_acyad"]
+
+[node name="EnemyRadarComponent" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_acyad")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

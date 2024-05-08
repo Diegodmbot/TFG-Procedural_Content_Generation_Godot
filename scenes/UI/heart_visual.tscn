@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://btwpggvt0q818"]
+
+[ext_resource type="Texture2D" uid="uid://bn1mjl133qc2s" path="res://assets/HUD/heart_full.png" id="1_8rmrq"]
+[ext_resource type="Script" path="res://scripts/UI/heart_visual.gd" id="1_22gf3"]
+
+[sub_resource type="Animation" id="Animation_xgeg2"]
+resource_name = "Hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.269649, 0.0774223, -0.163658, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_spc1f"]
+resource_name = "Last_heart"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="Animation" id="Animation_1dv3g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u2r6y"]
+_data = {
+"Hit": SubResource("Animation_xgeg2"),
+"Last_heart": SubResource("Animation_spc1f"),
+"RESET": SubResource("Animation_1dv3g")
+}
+
+[node name="HeartVisual" type="TextureRect"]
+custom_minimum_size = Vector2(50, 50)
+offset_right = 50.0
+offset_bottom = 50.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(23.3, 25)
+texture = ExtResource("1_8rmrq")
+script = ExtResource("1_22gf3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u2r6y")
+}

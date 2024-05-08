@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn8b5if1uoey6"]
+
+[ext_resource type="Texture2D" uid="uid://cqita8a8q6lua" path="res://resources/LightSprite.tres" id="1_lqq72"]
+[ext_resource type="Script" path="res://scripts/gameobjects/orb.gd" id="1_yo2c2"]
+
+[node name="Orb" type="Node2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_yo2c2")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 1, 1, 0.780392)
+shadow_enabled = true
+texture = ExtResource("1_lqq72")
+texture_scale = 0.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.768627, 0.105882, 0.2, 1)
+texture = ExtResource("1_lqq72")

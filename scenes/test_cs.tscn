@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5rjcwi368lmr"]
 
-[ext_resource type="PackedScene" uid="uid://d3tmn2ptpg2le" path="res://scenes/VoronoiDiagram.tscn" id="1_jmyas"]
+[ext_resource type="PackedScene" uid="uid://d3tmn2ptpg2le" path="res://scenes/map/VoronoiDiagram.tscn" id="1_jmyas"]
 [ext_resource type="Script" path="res://scripts/TestCS.cs" id="1_ku0w0"]
 [ext_resource type="PackedScene" path="res://scenes_cs/RandomWalker.tscn" id="2_tnhhn"]
 

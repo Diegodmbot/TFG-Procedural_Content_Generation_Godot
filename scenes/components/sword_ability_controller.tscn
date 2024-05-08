@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dahs0lpcdw7qr"]
+
+[ext_resource type="Script" path="res://scripts/components/sword_ability_controller.gd" id="1_lat25"]
+[ext_resource type="Theme" uid="uid://bnngh44ouncgj" path="res://resources/main_theme.tres" id="2_rc0w4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rl32f"]
+bg_color = Color(0.101961, 0.313726, 0.6, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.520872, 0.56552, 0.589819, 1)
+
+[node name="SwordAbilityController" type="Node2D"]
+position = Vector2(-16, -3)
+script = ExtResource("1_lat25")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(32, 6)
+offset_right = 32.0
+offset_bottom = 6.0
+pivot_offset = Vector2(16, 3)
+theme = ExtResource("2_rc0w4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rl32f")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="Swords" type="Node2D" parent="."]

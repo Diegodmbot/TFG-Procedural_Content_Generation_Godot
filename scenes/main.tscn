@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://dk7q1dn0buwnx"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_k032e"]
-[ext_resource type="PackedScene" uid="uid://cer0t50d76v5m" path="res://scenes/sound_button.tscn" id="2_qorah"]
+[ext_resource type="PackedScene" uid="uid://cer0t50d76v5m" path="res://scenes/UI/sound_button.tscn" id="2_qorah"]
 [ext_resource type="Texture2D" uid="uid://3ed05pv1hm6v" path="res://assets/Sprites/Knight.png" id="2_sorwa"]
 [ext_resource type="Texture2D" uid="uid://budjf447v6cha" path="res://assets/Sprites/Zombie.png" id="3_q613l"]
 
