@@ -5,12 +5,15 @@ func _ready():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("pause"):
-		close()
 		get_tree().root.set_input_as_handled()
+		queue_free()
 
-func close():
+func _exit_tree():
 	get_tree().paused = false
-	queue_free()
 
 func _on_sound_button_pressed():
-	close()
+	queue_free()
+
+func _on_sound_button_2_pressed():
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
+

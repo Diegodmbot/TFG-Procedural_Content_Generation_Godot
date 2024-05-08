@@ -29,4 +29,9 @@ text = "Paused"
 layout_mode = 2
 text = "Resume"
 
+[node name="SoundButton2" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_sado7")]
+layout_mode = 2
+text = "Back to menu"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SoundButton" to="." method="_on_sound_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SoundButton2" to="." method="_on_sound_button_2_pressed"]

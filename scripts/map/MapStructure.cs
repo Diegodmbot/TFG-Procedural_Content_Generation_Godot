@@ -260,8 +260,6 @@ public partial class MapStructure : Node2D
 		bool roomCreated = false;
 		while (!roomCreated)
 		{
-			roomCreated = (double)RoomsSurface[roomId].ground / RoomsSurface[roomId].area > MinimumGroundPerRoom && PathConnected(automatas[0], roomId);
-			// POr algún motivo automata.Count es 0
 			for (int j = 0; j < automatas.Count; j++)
 			{
 				if (Structure[(int)automatas[j].X, (int)automatas[j].Y, (int)MapType.GROUND] == 0)
@@ -271,6 +269,7 @@ public partial class MapStructure : Node2D
 				Structure[(int)automatas[j].X, (int)automatas[j].Y, (int)MapType.GROUND] = (byte)roomId;
 				automatas[j] = MoveAutomata(automatas[j]);
 			}
+			roomCreated = (double)RoomsSurface[roomId].ground / RoomsSurface[roomId].area > MinimumGroundPerRoom && PathConnected(automatas[0], roomId);
 		}
 	}
 
@@ -293,7 +292,7 @@ public partial class MapStructure : Node2D
 		bool[,] visited = new bool[(int)_borders.X, (int)_borders.Y];
 		queue.Enqueue(initialPosition);
 		visited[(int)initialPosition.X, (int)initialPosition.Y] = true;
-		List<System.Numerics.Vector2> doors = new(DoorsPositions[roomId]);
+		List<System.Numerics.Vector2> doors = new(SpawnPositions[roomId]);
 		while (queue.Count > 0)
 		{
 			System.Numerics.Vector2 current = queue.Dequeue();
