@@ -292,7 +292,7 @@ public partial class MapStructure : Node2D
 		bool[,] visited = new bool[(int)_borders.X, (int)_borders.Y];
 		queue.Enqueue(initialPosition);
 		visited[(int)initialPosition.X, (int)initialPosition.Y] = true;
-		List<System.Numerics.Vector2> doors = new(SpawnPositions[roomId]);
+		List<System.Numerics.Vector2> spawns = new(SpawnPositions[roomId]);
 		while (queue.Count > 0)
 		{
 			System.Numerics.Vector2 current = queue.Dequeue();
@@ -305,15 +305,15 @@ public partial class MapStructure : Node2D
 					{
 						queue.Enqueue(neighbor);
 						visited[(int)neighbor.X, (int)neighbor.Y] = true;
-						if (doors.Contains(neighbor))
+						if (spawns.Contains(neighbor))
 						{
-							doors.Remove(neighbor);
+							spawns.Remove(neighbor);
 						}
 					}
 				}
 			}
 		}
-		return doors.Count == 0;
+		return spawns.Count == 0;
 	}
 
 	private void DrawRoom(int roomId)
