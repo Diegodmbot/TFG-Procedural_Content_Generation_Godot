@@ -1,11 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://cenu141voy6vx"]
+[gd_scene load_steps=5 format=3 uid="uid://cenu141voy6vx"]
 
 [ext_resource type="Script" path="res://scripts/UI/pause.gd" id="1_ndf3c"]
 [ext_resource type="PackedScene" uid="uid://cer0t50d76v5m" path="res://scenes/UI/sound_button.tscn" id="2_sado7"]
+[ext_resource type="Shader" path="res://resources/vignette.gdshader" id="2_tx7xp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rjtb8"]
+shader = ExtResource("2_tx7xp")
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.46
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [node name="Pause" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_ndf3c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_rjtb8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15

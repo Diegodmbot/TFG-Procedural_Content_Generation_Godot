@@ -6,7 +6,8 @@ extends CharacterBody2D
 @onready var sword_ability_controller = $SwordAbilityController
 @onready var hurt_component = $HurtComponent
 
-var direction: Vector2 = Vector2.ZERO
+var direction: Vector2 = Vector2.RIGHT
+var player_pointing: Vector2 = Vector2.RIGHT
 var hitted: bool = false
 
 func _ready():
@@ -25,6 +26,8 @@ func _physics_process(_delta):
 
 func _process(delta):
 	direction = get_movement_vector()
+	if direction != Vector2.ZERO:
+		player_pointing = direction
 	if Input.is_action_pressed("melee_attack") and not hitted:
 		sword_ability_controller.attack()
 		velocity_component.decelerate()

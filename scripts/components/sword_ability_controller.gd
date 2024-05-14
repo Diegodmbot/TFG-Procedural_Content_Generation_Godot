@@ -20,8 +20,10 @@ func attack():
 		return
 	var player_position = player.global_position
 	sword_instance.global_position = player_position + Vector2(0, 2)
-	var mouse_position = get_global_mouse_position()
-	var sword_rotation = sword_instance.global_position.angle_to_point(mouse_position)
+	var player_direction = player.player_pointing
+	print(player_direction)
+	var sword_rotation = Vector2.ZERO.angle_to_point(player_direction)
+	#var sword_rotation = sword_instance.global_position.angle_to_point(player_direction)
 	sword_instance.rotation = sword_rotation
 	sword_instance.hitbox_component.damage = base_damage
 	timer.start()
