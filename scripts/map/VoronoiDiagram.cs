@@ -42,6 +42,17 @@ public partial class VoronoiDiagram : Node
 
 	public bool CanBePoint(System.Numerics.Vector2 point)
 	{
+		// check if the point already exists
+		if (points.Contains(point))
+		{
+			return false;
+		}
+		// check if the point is inside the borders
+		if (point.X < DistanceToPoint || point.X > borders.X - DistanceToPoint ||
+			point.Y < DistanceToPoint || point.Y > borders.Y - DistanceToPoint)
+		{
+			return false;
+		}
 		// check if the point is not too close to the other points
 		foreach (System.Numerics.Vector2 current_point in points)
 		{
@@ -50,12 +61,6 @@ public partial class VoronoiDiagram : Node
 			{
 				return false;
 			}
-		}
-		// check if the point is inside the borders
-		if (point.X < DistanceToPoint || point.X > borders.X - DistanceToPoint ||
-			point.Y < DistanceToPoint || point.Y > borders.Y - DistanceToPoint)
-		{
-			return false;
 		}
 		return true;
 	}
