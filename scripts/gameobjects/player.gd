@@ -30,7 +30,6 @@ func _process(delta):
 		player_pointing = direction
 	if Input.is_action_pressed("melee_attack") and not hitted:
 		sword_ability_controller.attack()
-		velocity_component.decelerate()
 	update_animation()
 
 func set_hitted(value: bool = false):

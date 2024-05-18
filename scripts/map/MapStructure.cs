@@ -105,7 +105,7 @@ public partial class MapStructure : Node2D
 			{
 				int doorId = Structure[(int)DoorsPositions[i][j].X, (int)DoorsPositions[i][j].Y, (int)MapType.DOORS];
 				Vector2 doorPosition = new((int)DoorsPositions[i][j].X, (int)DoorsPositions[i][j].Y);
-				doors[doorId] = doorPosition;
+				doors[doorId - 1] = doorPosition;
 			}
 		}
 		return doors;
@@ -121,7 +121,7 @@ public partial class MapStructure : Node2D
 			{
 				int id = Structure[(int)SpawnPositions[i][j].X, (int)SpawnPositions[i][j].Y, (int)MapType.DOORS];
 				Vector2 position = new((int)SpawnPositions[i][j].X, (int)SpawnPositions[i][j].Y);
-				spawns[id] = position;
+				spawns[id - 1] = position;
 			}
 		}
 		return spawns;
@@ -153,7 +153,7 @@ public partial class MapStructure : Node2D
 			{
 				if (i == 0 || i == _borders.X - 1 || j == 0 || j == _borders.Y - 1)
 				{
-					Structure[i, j, (int)MapType.WALLS] = 1;
+					Structure[i, j, (int)MapType.WALLS] = (byte)(RoomsCount + 1);
 				}
 				else
 				{
@@ -193,7 +193,7 @@ public partial class MapStructure : Node2D
 
 	private void SetDoors()
 	{
-		byte doorId = 0;
+		byte doorId = 1;
 		bool allDoorsSet = false;
 		Random random = new();
 		while (allDoorsSet == false)
@@ -258,8 +258,9 @@ public partial class MapStructure : Node2D
 		List<System.Numerics.Vector2> automatas;
 		automatas = new(DoorsPositions[roomId]);
 		bool roomCreated = false;
-		while (!roomCreated)
+		do
 		{
+			roomCreated = (double)RoomsSurface[roomId].ground / RoomsSurface[roomId].area > MinimumGroundPerRoom && PathConnected(automatas[0], roomId);
 			for (int j = 0; j < automatas.Count; j++)
 			{
 				if (Structure[(int)automatas[j].X, (int)automatas[j].Y, (int)MapType.GROUND] == 0)
@@ -269,8 +270,7 @@ public partial class MapStructure : Node2D
 				Structure[(int)automatas[j].X, (int)automatas[j].Y, (int)MapType.GROUND] = (byte)roomId;
 				automatas[j] = MoveAutomata(automatas[j]);
 			}
-			roomCreated = (double)RoomsSurface[roomId].ground / RoomsSurface[roomId].area > MinimumGroundPerRoom && PathConnected(automatas[0], roomId);
-		}
+		} while (!roomCreated);
 	}
 
 	private System.Numerics.Vector2 MoveAutomata(System.Numerics.Vector2 automata)

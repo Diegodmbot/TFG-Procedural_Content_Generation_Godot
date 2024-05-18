@@ -13,6 +13,8 @@
 script = ExtResource("1_eslsp")
 
 [node name="MapStructure" parent="." instance=ExtResource("2_fuvdd")]
+ExportedBorders = Vector2(30, 30)
+RoomsCount = 5
 
 [node name="DoorsManager" parent="." node_paths=PackedStringArray("transition") instance=ExtResource("3_8a8kj")]
 transition = NodePath("../Transition")
