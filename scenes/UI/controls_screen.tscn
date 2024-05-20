@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl33b53344o3o"]
+
+[ext_resource type="Script" path="res://scripts/UI/controls_screen.gd" id="1_e8m7j"]
+[ext_resource type="PackedScene" uid="uid://cer0t50d76v5m" path="res://scenes/UI/sound_button.tscn" id="1_vb750"]
+
+[node name="ControlsScreen" type="CanvasLayer"]
+script = ExtResource("1_e8m7j")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 50
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0.521569, 0.564706, 0.588235, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Move - WASD or Arrow Keys	
+Attack - Q or Click"
+
+[node name="SoundButton" parent="MarginContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_vb750")]
+layout_mode = 2
+text = "Back to Menu"
+
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/SoundButton" to="." method="_on_sound_button_pressed"]

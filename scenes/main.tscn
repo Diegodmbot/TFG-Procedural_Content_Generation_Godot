@@ -106,6 +106,10 @@ theme_override_constants/separation = 50
 layout_mode = 2
 text = "Play"
 
+[node name="Controls" parent="UI/MarginContainer/HBoxContainer" instance=ExtResource("2_qorah")]
+layout_mode = 2
+text = "Controls"
+
 [node name="Quit" parent="UI/MarginContainer/HBoxContainer" instance=ExtResource("2_qorah")]
 layout_mode = 2
 text = "Quit"
@@ -127,4 +131,5 @@ speed_scale = 0.5
 flip_h = true
 
 [connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Controls" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

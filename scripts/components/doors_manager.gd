@@ -2,15 +2,21 @@ extends Node
 
 signal player_going_out
 
+var door_scene = preload("res://scenes/gameobjects/door.tscn")
+
 @export var transition: CanvasLayer
 
 func _ready():
 	GameEvents.enter_door.connect(on_player_entering)
 	GameEvents.room_finished.connect(on_room_finished)
 
-func add_door(new_door: Door):
-	$Doors.add_child(new_door)
-	new_door.close_door()
+func create_door(door_id: int, door_position: Vector2, door_spawn: Vector2):
+	var door_instance: Door = door_scene.instantiate()
+	door_instance.id = door_id
+	door_instance.position = door_position
+	door_instance.spawn_position = door_spawn
+	$Doors.add_child(door_instance)
+	door_instance.close_door()
 
 func open_doors():
 	var doors = $Doors.get_children()
