@@ -29,5 +29,3 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_rl32f")
 max_value = 1.0
 value = 0.5
 show_percentage = false
-
-[node name="Swords" type="Node2D" parent="."]

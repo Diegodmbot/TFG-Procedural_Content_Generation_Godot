@@ -48,7 +48,7 @@ func settle_doors():
 	var spawns: Array = map_structure.GetSpawnsPositions()
 	for i in doors_positions.size():
 		var door_position = PositionFixer.fix_position_to_tilemap16(doors_positions[i])
-		var door_spawn  = PositionFixer.fix_position_to_tilemap16(spawns[i])
+		var door_spawn = PositionFixer.fix_position_to_tilemap16(spawns[i])
 		doors_manager.create_door(i, door_position, door_spawn)
 
 func set_current_room(room_id: int):

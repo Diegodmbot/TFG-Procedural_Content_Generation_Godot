@@ -145,3 +145,5 @@ libraries = {
 
 [node name="HurtAudioStream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_7yon5")
+
+[connection signal="died" from="DeathComponent" to="." method="_on_death_component_died"]

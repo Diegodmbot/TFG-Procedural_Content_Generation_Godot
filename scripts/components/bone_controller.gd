@@ -21,7 +21,7 @@ func _on_timer_timeout():
 	if player == null:
 		return
 	var bone_instance = bone_scene.instantiate()
-	$Bones.add_child(bone_instance)
+	owner.abilities.add_child(bone_instance)
 	bone_instance.hitbox_component.damage = base_damage
 	bone_instance.hitbox_component.set_collision_mask_value(2, true)
 	bone_instance.hitbox_component.set_collision_mask_value(1, true)

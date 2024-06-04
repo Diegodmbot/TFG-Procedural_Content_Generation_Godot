@@ -9,6 +9,8 @@ extends Enemy
 @onready var animation_player = $AnimationPlayer
 @onready var hurt_component = $HurtComponent
 
+@onready var abilities = $Abilities
+
 var aggresive = false
 
 func _ready():

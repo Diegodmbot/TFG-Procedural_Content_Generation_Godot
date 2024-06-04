@@ -10,6 +10,7 @@ extends Enemy
 @onready var animation_player = $AnimationPlayer
 
 var chase_player: bool = false
+var is_dead: bool = false
 var counter = 0
 
 func _ready():
@@ -17,7 +18,9 @@ func _ready():
 	hurt_component.hurted.connect(on_hurted)
 
 func _physics_process(_delta):
-	if chase_player:
+	if is_dead:
+		velocity_component.decelerate()
+	elif chase_player:
 		velocity_component.accelerate_to_player()
 	velocity_component.move(self)
 
@@ -36,3 +39,6 @@ func on_player_detection():
 
 func on_hurted():
 	$HurtAudioStream.play()
+
+func _on_death_component_died():
+	is_dead = true

@@ -14,7 +14,7 @@ func attack():
 	if not timer.is_stopped():
 		return
 	var sword_instance: Node2D = sword_scene.instantiate()
-	$Swords.add_child(sword_instance)
+	owner.abilities.add_child(sword_instance)
 	var player = get_tree().get_first_node_in_group("player") as Node2D
 	if player == null:
 		return
@@ -22,7 +22,6 @@ func attack():
 	sword_instance.global_position = player_position + Vector2(0, 2)
 	var player_direction = player.player_pointing
 	var sword_rotation = Vector2.ZERO.angle_to_point(player_direction)
-	#var sword_rotation = sword_instance.global_position.angle_to_point(player_direction)
 	sword_instance.rotation = sword_rotation
 	sword_instance.hitbox_component.damage = base_damage
 	timer.start()

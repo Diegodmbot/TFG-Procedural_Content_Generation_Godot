@@ -12,10 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://duhu4iiem7j3g" path="res://scenes/UI/hit_vignette.tscn" id="9_hkdxx"]
 [ext_resource type="AudioStream" uid="uid://6bc7irionhtr" path="res://assets/Audio/impactMining_001.ogg" id="10_fa1d4"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2shqx"]
-radius = 7.625
-height = 20.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xa3a8"]
 radius = 7.86933
 height = 20.2387
@@ -152,6 +148,10 @@ _data = {
 "Walk": SubResource("Animation_l1dak")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2shqx"]
+radius = 7.625
+height = 20.0
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 light_mask = 4
 visibility_layer = 4
@@ -163,10 +163,6 @@ script = ExtResource("1_sfcgu")
 [node name="VelocityComponent" parent="." instance=ExtResource("2_2sd5o")]
 max_speed = 50
 acceleration = 20.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.125)
-shape = SubResource("CapsuleShape2D_2shqx")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_tktnp")]
 
@@ -200,6 +196,10 @@ autoplay = "Idle"
 position = Vector2(-16.541, -14.2298)
 sword_scene = ExtResource("8_b3bbk")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.125)
+shape = SubResource("CapsuleShape2D_2shqx")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthBar" parent="CanvasLayer" instance=ExtResource("6_tipjp")]
@@ -210,3 +210,5 @@ unique_name_in_owner = true
 [node name="HurtAudioStream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_fa1d4")
 bus = &"sfx"
+
+[node name="Abilities" type="Node2D" parent="."]

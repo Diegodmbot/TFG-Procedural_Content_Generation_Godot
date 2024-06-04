@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var animation_player = $Animations/AnimationPlayer
 @onready var sword_ability_controller = $SwordAbilityController
 @onready var hurt_component = $HurtComponent
+@onready var abilities = $Abilities
 
 var direction: Vector2 = Vector2.RIGHT
 var player_pointing: Vector2 = Vector2.RIGHT

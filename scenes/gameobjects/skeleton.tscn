@@ -123,4 +123,6 @@ libraries = {
 [node name="HurtAudioStream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_ycbmw")
 
+[node name="Abilities" type="Node" parent="."]
+
 [connection signal="body_exited" from="EnemyRadarComponent" to="." method="_on_enemy_radar_component_body_exited"]

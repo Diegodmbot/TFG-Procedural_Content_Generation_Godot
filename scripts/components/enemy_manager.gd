@@ -20,7 +20,6 @@ func generate_enemies(room_tiles: Array):
 		enemy_instance.scale = Vector2(0.5, 0.5)
 		var enemy_position = avaible_positions.pick_random()
 		enemy_instance.global_position = enemy_position
-		# Conectar señal de muerte
 		enemy_instance.death_component.died.connect(on_enemy_died)
 		avaible_positions.erase(enemy_position)
 		enemies_count += 1
