@@ -49,7 +49,7 @@ public partial class MapStructure : Node2D
 		_borders = new(ExportedBorders.X, ExportedBorders.Y);
 		Structure = new byte[(int)_borders.X, (int)_borders.Y, 4];
 		int roomsCountExtra = RoomsCount + 1;
-		Neighborhood = new byte[roomsCountExtra, roomsCountExtra + 1];
+		Neighborhood = new byte[roomsCountExtra + 1, roomsCountExtra + 1];
 		DoorsPositions = Enumerable.Range(0, roomsCountExtra).Select(_ => new List<System.Numerics.Vector2>()).ToArray();
 		SpawnPositions = Enumerable.Range(0, roomsCountExtra).Select(_ => new List<System.Numerics.Vector2>()).ToArray();
 		RoomsSurface = new (int, int)[roomsCountExtra];
@@ -183,9 +183,10 @@ public partial class MapStructure : Node2D
 		{
 			for (int j = 1; j < i; j++)
 			{
-				if (Neighborhood[i, j] == 1)
+				if (Neighborhood[i, j] == (byte)NeighborType.NEIGHBOORS)
 				{
 					Neighborhood[i, j] = (byte)NeighborType.COUNTED;
+					Neighborhood[j, i] = (byte)NeighborType.COUNTED;
 				}
 			}
 		}
@@ -234,23 +235,24 @@ public partial class MapStructure : Node2D
 						}
 					}
 				}
-				for (int i = 0; i < Neighborhood.GetLength(0); i++)
+				allDoorsSet = CheckDoorsConnections();
+			}
+		}
+	}
+
+	private bool CheckDoorsConnections()
+	{
+		for (int i = 1; i < Neighborhood.GetLength(0); i++)
+		{
+			for (int j = 1; j < i; j++)
+			{
+				if (Neighborhood[i, j] == (byte)NeighborType.COUNTED)
 				{
-					for (int j = 0; j < Neighborhood.GetLength(1); j++)
-					{
-						if (Neighborhood[i, j] == (byte)NeighborType.COUNTED)
-						{
-							allDoorsSet = false;
-							break;
-						}
-						else
-						{
-							allDoorsSet = true;
-						}
-					}
+					return false;
 				}
 			}
 		}
+		return true;
 	}
 
 	private void GenerateGround(int roomId)
