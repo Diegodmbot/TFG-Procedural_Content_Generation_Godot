@@ -1,6 +1,6 @@
 extends Node
 
-const SPAWN_TILE_DISTANCE = 5
+const SPAWN_TILE_DISTANCE = 3
 const ENEMIES_COUNT = 5
 const LABEL_TEXT: String = "Enemies: "
 

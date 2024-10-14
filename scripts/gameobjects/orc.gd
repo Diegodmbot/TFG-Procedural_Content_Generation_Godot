@@ -10,7 +10,6 @@ extends Enemy
 @onready var animation_player = $AnimationPlayer
 
 var chase_player: bool = false
-var is_dead: bool = false
 var counter = 0
 
 func _ready():
@@ -18,17 +17,15 @@ func _ready():
 	hurt_component.hurted.connect(on_hurted)
 
 func _physics_process(_delta):
-	if is_dead:
-		velocity_component.decelerate()
-	elif chase_player:
+	if chase_player:
 		velocity_component.accelerate_to_player()
+	else:
+		velocity_component.decelerate()
 	velocity_component.move(self)
-
 	if velocity.x > 0:
 		$Sprite2D.flip_h = false
 	else:
 		$Sprite2D.flip_h = true
-
 	if velocity != Vector2.ZERO:
 		animation_player.play("Run")
 	else:
@@ -39,6 +36,9 @@ func on_player_detection():
 
 func on_hurted():
 	$HurtAudioStream.play()
+	#chase_player = false
+	#velocity_component.accelerate_in_direction(velocity_component.velocity * -1.5)
+	#chase_player = true
 
 func _on_death_component_died():
-	is_dead = true
+	remove_child(velocity_component)

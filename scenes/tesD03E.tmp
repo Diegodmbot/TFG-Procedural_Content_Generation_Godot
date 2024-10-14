@@ -12,3 +12,9 @@ position = Vector2(390, 149)
 
 [node name="Orc" parent="." instance=ExtResource("3_tr57p")]
 position = Vector2(291, 102)
+
+[node name="Orc2" parent="." instance_placeholder="res://scenes/gameobjects/orc.tscn"]
+position = Vector2(84, 251)
+
+[node name="Orc3" parent="." instance_placeholder="res://scenes/gameobjects/orc.tscn"]
+position = Vector2(315, 241)

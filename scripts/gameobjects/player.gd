@@ -49,6 +49,10 @@ func update_animation():
 		else:
 			animation_player.play("Idle")
 
+func disable_hurt_collision(time: float):
+	$HurtComponent/CollisionShape2D.disabled = true
+	await get_tree().create_timer(time).timeout
+	$HurtComponent/CollisionShape2D.disabled = false
 
 func on_health_changed():
 	%HealthBar.change_health(health_component.current_health)

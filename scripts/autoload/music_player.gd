@@ -6,6 +6,5 @@ func _ready():
 func on_finished():
 	$Timer.start()
 
-
 func _on_timer_timeout():
 	play()

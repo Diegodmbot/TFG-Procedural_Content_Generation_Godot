@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4n0dcav0vfix"]
+
+[ext_resource type="Script" path="res://scripts/test.gd" id="1_27rqk"]
+[ext_resource type="Texture2D" uid="uid://bymw33tuxlmmj" path="res://assets/Weapons/weapon_knight_sword.png" id="2_r2bbw"]
+[ext_resource type="Script" path="res://scenes/CharacterBody2D.gd" id="2_xbf6w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_21upb"]
+radius = 15.0333
+
+[node name="test" type="Node2D"]
+script = ExtResource("1_27rqk")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(58, 44)
+script = ExtResource("2_xbf6w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_21upb")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("2_r2bbw")
