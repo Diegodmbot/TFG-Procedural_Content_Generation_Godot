@@ -19,9 +19,11 @@ func attack():
 	if player == null:
 		return
 	var player_position = player.global_position
-	sword_instance.global_position = player_position + Vector2(0, 2)
+	# ajustar la posición según el sentido en x del jugador
+	sword_instance.global_position = player_position + Vector2(2, 5)
 	var player_direction = player.player_pointing
 	var sword_rotation = Vector2.ZERO.angle_to_point(player_direction)
 	sword_instance.rotation = sword_rotation
 	sword_instance.hitbox_component.damage = base_damage
+	sword_instance.sword_sweep(sword_rotation)
 	timer.start()

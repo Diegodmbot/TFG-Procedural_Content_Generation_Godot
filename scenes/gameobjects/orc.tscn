@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://bvoobir73nuxi"]
+[gd_scene load_steps=21 format=3 uid="uid://bvoobir73nuxi"]
 
 [ext_resource type="Script" path="res://scripts/gameobjects/orc.gd" id="1_4cqec"]
 [ext_resource type="Texture2D" uid="uid://6x16m8xruv43" path="res://assets/Sprites/Orc.png" id="1_wk3qr"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/components/velocity_component.tscn" id="2_8y2cx"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/components/enemy_radar_component.tscn" id="3_2wcqb"]
 [ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/components/health_component.tscn" id="3_5rkpu"]
+[ext_resource type="PackedScene" uid="uid://vv6k3nr5kw1t" path="res://scenes/components/flinch_component.tscn" id="3_bv0mk"]
 [ext_resource type="PackedScene" uid="uid://d4immjrrh5iwh" path="res://scenes/components/death_component.tscn" id="3_hxuuj"]
 [ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/components/hitbox_component.tscn" id="4_74rdo"]
 [ext_resource type="PackedScene" uid="uid://c87172ansg6ek" path="res://scenes/components/hurt_component.tscn" id="4_pc1ga"]
@@ -99,6 +100,9 @@ script = ExtResource("1_4cqec")
 [node name="VelocityComponent" parent="." instance=ExtResource("2_8y2cx")]
 max_speed = 30
 acceleration = 15.0
+
+[node name="Flinch_component" parent="." node_paths=PackedStringArray("velocity_component") instance=ExtResource("3_bv0mk")]
+velocity_component = NodePath("../VelocityComponent")
 
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_hxuuj")]
 health_component = NodePath("../HealthComponent")

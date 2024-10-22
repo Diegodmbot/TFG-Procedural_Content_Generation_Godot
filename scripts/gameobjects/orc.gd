@@ -6,6 +6,7 @@ extends Enemy
 @onready var health_component = $HealthComponent
 @onready var death_component = $DeathComponent
 @onready var hurt_component = $HurtComponent
+@onready var flinch_component = $Flinch_component
 
 @onready var animation_player = $AnimationPlayer
 
@@ -36,9 +37,7 @@ func on_player_detection():
 
 func on_hurted():
 	$HurtAudioStream.play()
-	#chase_player = false
-	#velocity_component.accelerate_in_direction(velocity_component.velocity * -1.5)
-	#chase_player = true
+	flinch_component.flinch()
 
 func _on_death_component_died():
 	remove_child(velocity_component)

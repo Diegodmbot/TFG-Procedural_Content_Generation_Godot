@@ -12,3 +12,8 @@ position = Vector2(390, 149)
 
 [node name="Orc" parent="." instance=ExtResource("3_tr57p")]
 position = Vector2(291, 102)
+
+[node name="HealthComponent" parent="Orc" index="3"]
+max_health = 999
+
+[editable path="Orc"]
