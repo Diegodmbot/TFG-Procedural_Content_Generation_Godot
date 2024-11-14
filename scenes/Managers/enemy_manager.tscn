@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bm5bv4negurg1"]
 
-[ext_resource type="Script" path="res://scripts/components/enemy_manager.gd" id="1_aeagy"]
+[ext_resource type="Script" path="res://scenes/Managers/enemy_manager.gd" id="1_aeagy"]
 [ext_resource type="PackedScene" uid="uid://yquogj37313x" path="res://scenes/gameobjects/ogre.tscn" id="2_87c3a"]
 [ext_resource type="PackedScene" uid="uid://bvoobir73nuxi" path="res://scenes/gameobjects/orc.tscn" id="3_1gfap"]
 [ext_resource type="PackedScene" uid="uid://def084pgk5uba" path="res://scenes/gameobjects/skeleton.tscn" id="4_pb702"]

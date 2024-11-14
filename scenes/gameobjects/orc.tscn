@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://bvoobir73nuxi"]
 
-[ext_resource type="Script" path="res://scripts/gameobjects/orc.gd" id="1_4cqec"]
+[ext_resource type="Script" path="res://scenes/gameobjects/orc.gd" id="1_4cqec"]
 [ext_resource type="Texture2D" uid="uid://6x16m8xruv43" path="res://assets/Sprites/Orc.png" id="1_wk3qr"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/components/velocity_component.tscn" id="2_8y2cx"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/components/enemy_radar_component.tscn" id="3_2wcqb"]

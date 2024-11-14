@@ -1,20 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://do0mlkhyc563f"]
+[gd_scene load_steps=3 format=3 uid="uid://do0mlkhyc563f"]
 
-[ext_resource type="Script" path="res://scripts/map/MapStructure.cs" id="1_mf7c5"]
+[ext_resource type="Script" path="res://scenes/map/MapStructure.cs" id="1_e2rsl"]
 [ext_resource type="PackedScene" uid="uid://d3tmn2ptpg2le" path="res://scenes/map/VoronoiDiagram.tscn" id="2_aqhkv"]
-[ext_resource type="TileSet" uid="uid://0xui0dwind23" path="res://resources/DungeonTileSet.tres" id="3_h1wlv"]
 
 [node name="MapStructure" type="Node2D"]
-script = ExtResource("1_mf7c5")
+script = ExtResource("1_e2rsl")
 ExportedBorders = Vector2(50, 50)
 
 [node name="VoronoiDiagram" parent="." instance=ExtResource("2_aqhkv")]
 DistanceToPoint = 5
-
-[node name="DungeonTileMap" type="TileMap" parent="."]
-tile_set = ExtResource("3_h1wlv")
-format = 2
-layer_0/name = "Ground"
-layer_1/name = "Locked"
-layer_1/z_index = 1000
-layer_1/tile_data = PackedInt32Array()

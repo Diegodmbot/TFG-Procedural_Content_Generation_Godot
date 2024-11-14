@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://duhu4iiem7j3g"]
 
 [ext_resource type="Shader" path="res://resources/vignette.gdshader" id="1_m05pg"]
-[ext_resource type="Script" path="res://scripts/UI/hit_vignette.gd" id="1_rtyl3"]
+[ext_resource type="Script" path="res://scenes/UI/hit_vignette.gd" id="1_rtyl3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jkisq"]
 shader = ExtResource("1_m05pg")

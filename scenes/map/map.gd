@@ -8,6 +8,7 @@ const Staring_Room_Id: int = 1
 @onready var player = $Player
 @onready var doors_manager = $DoorsManager
 @onready var enemy_manager = $EnemyManager
+@onready var dungeon_tile_map: TileMap = $DungeonTileMap
 
 @onready var player_current_room: int = Staring_Room_Id
 var visited_rooms: Array
@@ -15,13 +16,15 @@ var visited_rooms: Array
 func _ready():
 	GameEvents.exit_door.connect(on_exit_door)
 	GameEvents.room_finished.connect(on_room_finished)
+	dungeon_tile_map.clear()
 	map_structure.GenerateMapStructure()
-	map_structure.DrawLockedMap()
+	draw_unlocked_map()
 	visited_rooms.append(Staring_Room_Id)
 	generate_room(Staring_Room_Id)
 	move_player_to_room(Staring_Room_Id)
 	generate_enemies(Staring_Room_Id)
 	settle_doors()
+
 
 func _unhandled_input(event):
 	if event.is_action_pressed("pause"):
@@ -36,8 +39,9 @@ func move_player_to_room(id: int):
 
 func generate_room(room_id: int):
 	map_structure.GenerateGround(room_id)
-	map_structure.DrawRoom(room_id)
-	map_structure.DrawUnlockedRoom(room_id)
+	#map_structure.DrawRoom(room_id)
+	draw_room(room_id)
+	erase_locked_tiles_room(room_id)
 
 func generate_enemies(room_id: int):
 	var room_tiles: Array = map_structure.GetRoom(room_id)
@@ -57,6 +61,31 @@ func set_current_room(room_id: int):
 		generate_room(room_id)
 		generate_enemies(room_id)
 		visited_rooms.append(room_id)
+
+func draw_unlocked_map():
+	var room_structure = map_structure.GetLayer(0)
+	for i in range(room_structure.size()):
+		for j in range(room_structure[i].size()):
+			dungeon_tile_map.set_cells_terrain_connect(1,[Vector2i(i,j)], 0,1)
+
+# Remove the tiles that are over the room to see the room where the player is
+func erase_locked_tiles_room(room_id: int):
+	var room_structure = map_structure.GetLayer(0)
+	for i in range(room_structure.size()):
+		for j in range(room_structure[i].size()):
+			if room_structure[i][j] == room_id:
+				dungeon_tile_map.set_cell(1,Vector2i(i,j))
+
+func draw_room(room_id:int):
+	var area_structure = map_structure.GetLayer(0)
+	var ground_structure = map_structure.GetLayer(3)
+	for i in range(area_structure.size()):
+		for j in range(area_structure[i].size()):
+			if area_structure[i][j] == room_id:
+				if ground_structure[i][j] == 0:
+					dungeon_tile_map.set_cell(0, Vector2(i,j), 2, Vector2(0,0))
+				else:
+					dungeon_tile_map.set_cells_terrain_connect(0, [Vector2i(i,j)], 0, 0)
 
 func on_exit_door(spawn_position: Vector2):
 	var room_id = map_structure.GetRoomByPosition(spawn_position.x/16, spawn_position.y/16)

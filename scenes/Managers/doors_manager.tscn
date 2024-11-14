@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dyecqsk0e20wp"]
 
-[ext_resource type="Script" path="res://scripts/components/doors_manager.gd" id="1_n8eid"]
+[ext_resource type="Script" path="res://scenes/Managers/doors_manager.gd" id="1_n8eid"]
 
 [node name="DoorsManager" type="Node"]
 script = ExtResource("1_n8eid")

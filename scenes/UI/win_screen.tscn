@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bffxkxk8k3hps"]
 
-[ext_resource type="Script" path="res://scripts/UI/win_screen.gd" id="1_q85mm"]
+[ext_resource type="Script" path="res://scenes/UI/win_screen.gd" id="1_q85mm"]
 [ext_resource type="PackedScene" uid="uid://cer0t50d76v5m" path="res://scenes/UI/sound_button.tscn" id="2_tinv7"]
 
 [node name="WinScreen" type="Control"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://def084pgk5uba"]
 
 [ext_resource type="Texture2D" uid="uid://cvkoqbmi51ma0" path="res://assets/Sprites/Skeleton.png" id="1_5t5p6"]
-[ext_resource type="Script" path="res://scripts/gameobjects/skeleton.gd" id="1_78pud"]
+[ext_resource type="Script" path="res://scenes/gameobjects/skeleton.gd" id="1_78pud"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/components/velocity_component.tscn" id="2_fdrnq"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/components/enemy_radar_component.tscn" id="2_q43ln"]
 [ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/components/health_component.tscn" id="4_43i5a"]

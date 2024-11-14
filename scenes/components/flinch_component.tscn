@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://vv6k3nr5kw1t"]
 
-[ext_resource type="Script" path="res://scripts/components/flinch_component.gd" id="1_fnjyg"]
+[ext_resource type="Script" path="res://scenes/components/flinch_component.gd" id="1_fnjyg"]
 
 [node name="Flinch_component" type="Node"]
 script = ExtResource("1_fnjyg")

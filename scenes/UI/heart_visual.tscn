@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://btwpggvt0q818"]
 
 [ext_resource type="Texture2D" uid="uid://bn1mjl133qc2s" path="res://assets/HUD/heart_full.png" id="1_8rmrq"]
-[ext_resource type="Script" path="res://scripts/UI/heart_visual.gd" id="1_22gf3"]
+[ext_resource type="Script" path="res://scenes/UI/heart_visual.gd" id="1_22gf3"]
 
 [sub_resource type="Animation" id="Animation_xgeg2"]
 resource_name = "Hit"

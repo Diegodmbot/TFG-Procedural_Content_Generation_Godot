@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bd61cjrfsh215"]
 
 [ext_resource type="Shader" path="res://resources/transition.gdshader" id="1_20jti"]
-[ext_resource type="Script" path="res://scripts/UI/transition.gd" id="1_w7swj"]
+[ext_resource type="Script" path="res://scenes/UI/transition.gd" id="1_w7swj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wtdmv"]
 shader = ExtResource("1_20jti")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://cba36vjp4f0ah"]
 
-[ext_resource type="Script" path="res://scripts/gameobjects/player.gd" id="1_sfcgu"]
+[ext_resource type="Script" path="res://scenes/gameobjects/player.gd" id="1_sfcgu"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/components/velocity_component.tscn" id="2_2sd5o"]
 [ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/components/health_component.tscn" id="3_tktnp"]
 [ext_resource type="PackedScene" uid="uid://dahs0lpcdw7qr" path="res://scenes/components/sword_ability_controller.tscn" id="4_rnr73"]
@@ -159,7 +159,6 @@ shape = SubResource("CapsuleShape2D_xa3a8")
 [node name="Sprite2D" type="Sprite2D" parent="Animations"]
 material = SubResource("ShaderMaterial_mfnkq")
 use_parent_material = true
-position = Vector2(-0.210228, -0.210224)
 texture = ExtResource("5_7wfhi")
 hframes = 4
 vframes = 4

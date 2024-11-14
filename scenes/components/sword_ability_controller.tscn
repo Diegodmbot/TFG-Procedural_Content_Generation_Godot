@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dahs0lpcdw7qr"]
 
-[ext_resource type="Script" path="res://scripts/components/sword_ability_controller.gd" id="1_lat25"]
+[ext_resource type="Script" path="res://scenes/components/sword_ability_controller.gd" id="1_lat25"]
 [ext_resource type="Theme" uid="uid://bnngh44ouncgj" path="res://resources/main_theme.tres" id="2_rc0w4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rl32f"]

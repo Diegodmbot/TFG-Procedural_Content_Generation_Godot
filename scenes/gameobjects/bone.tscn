@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://brr1dcvv8ictr"]
 
-[ext_resource type="Script" path="res://scripts/gameobjects/bone.gd" id="1_lx232"]
+[ext_resource type="Script" path="res://scenes/gameobjects/bone.gd" id="1_lx232"]
 [ext_resource type="Texture2D" uid="uid://banp6q7vwgdwd" path="res://assets/Weapons/Bone.png" id="1_pnc70"]
 [ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/components/hitbox_component.tscn" id="2_ia2yv"]
 

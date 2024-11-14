@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://yquogj37313x"]
 
-[ext_resource type="Script" path="res://scripts/gameobjects/ogre.gd" id="1_uflum"]
+[ext_resource type="Script" path="res://scenes/gameobjects/ogre.gd" id="1_uflum"]
 [ext_resource type="PackedScene" uid="uid://btt6snnj05le0" path="res://scenes/components/health_component.tscn" id="3_4tqvm"]
 [ext_resource type="PackedScene" uid="uid://cqf3hon38ngj2" path="res://scenes/components/enemy_radar_component.tscn" id="3_s61v1"]
 [ext_resource type="PackedScene" uid="uid://cxvof3ef3d7f" path="res://scenes/components/velocity_component.tscn" id="3_u5sm0"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b70guts2lyo25"]
 
-[ext_resource type="Script" path="res://scripts/components/bone_controller.gd" id="1_m28wc"]
+[ext_resource type="Script" path="res://scenes/components/bone_controller.gd" id="1_m28wc"]
 [ext_resource type="PackedScene" uid="uid://brr1dcvv8ictr" path="res://scenes/gameobjects/bone.tscn" id="2_8wbqf"]
 
 [node name="BoneController" type="Node"]

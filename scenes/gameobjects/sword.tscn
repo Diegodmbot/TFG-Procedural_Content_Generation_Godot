@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://8gapb0enotrh"]
 
 [ext_resource type="Texture2D" uid="uid://bymw33tuxlmmj" path="res://assets/Weapons/weapon_knight_sword.png" id="1_a6as4"]
-[ext_resource type="Script" path="res://scripts/gameobjects/sword.gd" id="1_tr38j"]
+[ext_resource type="Script" path="res://scenes/gameobjects/sword.gd" id="1_tr38j"]
 [ext_resource type="PackedScene" uid="uid://crujcbptu0hb8" path="res://scenes/components/hitbox_component.tscn" id="2_xw52w"]
 
 [sub_resource type="Animation" id="Animation_3edqv"]

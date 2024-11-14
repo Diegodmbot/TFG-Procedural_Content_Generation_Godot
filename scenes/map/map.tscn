@@ -1,28 +1,38 @@
-[gd_scene load_steps=9 format=3 uid="uid://d00amdeuu14ms"]
+[gd_scene load_steps=10 format=3 uid="uid://d00amdeuu14ms"]
 
-[ext_resource type="Script" path="res://scripts/map/map.gd" id="1_eslsp"]
+[ext_resource type="Script" path="res://scenes/map/map.gd" id="1_3piem"]
 [ext_resource type="PackedScene" uid="uid://do0mlkhyc563f" path="res://scenes/map/MapStructure.tscn" id="2_fuvdd"]
-[ext_resource type="PackedScene" uid="uid://dyecqsk0e20wp" path="res://scenes/components/doors_manager.tscn" id="3_8a8kj"]
+[ext_resource type="PackedScene" uid="uid://dyecqsk0e20wp" path="res://scenes/Managers/doors_manager.tscn" id="3_patmm"]
+[ext_resource type="PackedScene" uid="uid://bm5bv4negurg1" path="res://scenes/Managers/enemy_manager.tscn" id="4_lp0t7"]
+[ext_resource type="TileSet" uid="uid://0xui0dwind23" path="res://resources/DungeonTileSet.tres" id="5_fukv4"]
 [ext_resource type="PackedScene" uid="uid://ceg1k1jansa7d" path="res://scenes/gameobjects/player_camera.tscn" id="5_j6j8e"]
 [ext_resource type="PackedScene" uid="uid://cba36vjp4f0ah" path="res://scenes/gameobjects/player.tscn" id="5_ugeyh"]
-[ext_resource type="PackedScene" uid="uid://bm5bv4negurg1" path="res://scenes/components/enemy_manager.tscn" id="6_esl24"]
 [ext_resource type="PackedScene" uid="uid://duhu4iiem7j3g" path="res://scenes/UI/hit_vignette.tscn" id="7_t1ils"]
 [ext_resource type="PackedScene" uid="uid://bd61cjrfsh215" path="res://scenes/UI/transition.tscn" id="8_07gcf"]
 
 [node name="Map" type="Node"]
-script = ExtResource("1_eslsp")
+script = ExtResource("1_3piem")
 
 [node name="MapStructure" parent="." instance=ExtResource("2_fuvdd")]
 ExportedBorders = Vector2(20, 20)
 RoomsCount = 3
 
-[node name="DoorsManager" parent="." node_paths=PackedStringArray("transition") instance=ExtResource("3_8a8kj")]
+[node name="DungeonTileMap" type="TileMap" parent="."]
+z_index = -10
+tile_set = ExtResource("5_fukv4")
+format = 2
+layer_0/name = "Ground"
+layer_1/name = "Locked"
+layer_1/z_index = 1000
+layer_1/tile_data = PackedInt32Array()
+
+[node name="DoorsManager" parent="." node_paths=PackedStringArray("transition") instance=ExtResource("3_patmm")]
 transition = NodePath("../Transition")
 
-[node name="EnemyManager" parent="." instance=ExtResource("6_esl24")]
+[node name="EnemyManager" parent="." instance=ExtResource("4_lp0t7")]
 
 [node name="Player" parent="." instance=ExtResource("5_ugeyh")]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 
 [node name="PlayerCamera" parent="." instance=ExtResource("5_j6j8e")]
 extra_zoom = 4.0

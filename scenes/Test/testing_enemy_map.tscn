@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdjtnyltnko2v"]
+
+[ext_resource type="Script" path="res://scenes/Test/testing_enemy_map.gd" id="1_pbs3y"]
+[ext_resource type="PackedScene" uid="uid://do0mlkhyc563f" path="res://scenes/map/MapStructure.tscn" id="2_isp30"]
+[ext_resource type="PackedScene" uid="uid://blm53jygasxpi" path="res://scenes/gameobjects/drag_camera.tscn" id="3_ofqbo"]
+
+[node name="Testing_Enemy_Map" type="Node"]
+script = ExtResource("1_pbs3y")
+
+[node name="MapStructure" parent="." instance=ExtResource("2_isp30")]
+RoomsCount = 5
+
+[node name="DragCamera" parent="." instance=ExtResource("3_ofqbo")]
